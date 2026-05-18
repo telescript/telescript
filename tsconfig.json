@@ -26,9 +26,6 @@
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "importHelpers": true,
-    
-    "composite": true,
-    "incremental": true
   },
 	"exclude": ["node_modules"]
 }
