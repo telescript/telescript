@@ -7,7 +7,7 @@
 		"build": "pnpm --recursive run build",
 		"format": "pnpm --parallel run format",
 		"format:check": "pnpm --parallel run format:check",
-		"check": "pnpm run format:check && pnpm run build"
+		"check": "pnpm run build && pnpm run format:check"
 	},
 	"keywords": [],
 	"author": "Synbulat Biishev <me@syjalo.dev>",
