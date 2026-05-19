@@ -1,23 +1,24 @@
 import { APIMethod } from "@telescript/api-types";
 import { Requester } from "@telescript/requester";
+import { DefaultPollingOptions } from "./constants";
 
 export interface PollingOptions {
-  requester: Requester;
+  timeout?: number;
 }
 
 export class Polling {
-  public requester: Requester;
+  public options: PollingOptions;
 
-  public constructor(options: PollingOptions) {
-    const { requester } = options;
-    this.requester = requester;
+  public constructor(public requester: Requester, options?: PollingOptions) {
+    this.options = { ...DefaultPollingOptions, ...options };
   }
 
   public async *[Symbol.asyncIterator]() {
     let offset: number | undefined = undefined;
 
     while (true) {
-      const updates = await this.requester.request(APIMethod.GetUpdates, { offset }) as APIMethod.GetUpdates.Result;
+      const updates = await this.requester.request(APIMethod.GetUpdates, { offset, timeout: this.options.timeout }) as APIMethod.GetUpdates.Result;
+      console.log(`Received ${updates.length} updates`);
 
       for (const update of updates) {
         yield update;

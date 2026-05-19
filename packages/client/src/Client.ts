@@ -32,7 +32,7 @@ export class Client extends EventEmitter {
 		super();
 		this.requester = new Requester({ token: options.token });
 		this.core = new Core({ requester: this.requester });
-		this.transport = new Polling({ requester: this.requester });
+		this.transport = new Polling(this.requester);
 	}
 
 	public async start() {
