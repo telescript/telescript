@@ -24,10 +24,19 @@ import { Client } from '@telescript/client';
 const client = new Client({ token: TOKEN });
 
 client.on('message', (message) => {
-  if (message.text === '/start') {
-    message.chat.sendText('Hello, world!');
-  }
+	if (message.text === '/start') {
+		message.chat.sendText('Hello, world!');
+	}
 });
 
 client.start();
+```
+
+## Development
+
+```sh
+pnpm install
+pnpm build
+pnpm format
+pnpm check
 ```
