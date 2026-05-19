@@ -1,3 +1,4 @@
+import { Chat } from './chat.js';
 import { User } from './user.js';
 
 export interface MessageId {
@@ -7,5 +8,6 @@ export interface MessageId {
 export interface Message extends MessageId {
 	from?: User;
 	date: number;
+	chat: Chat;
 	text?: string;
 }

@@ -9,3 +9,7 @@ export interface MessageUpdate extends UpdateBase {
 }
 
 export type Update = UpdateBase | MessageUpdate;
+
+export function isMessageUpdate(update: Update): update is MessageUpdate {
+	return 'message' in update;
+}

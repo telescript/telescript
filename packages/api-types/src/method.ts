@@ -1,12 +1,25 @@
+import { Message } from './message.js';
 import { Update } from './update.js';
 import { User } from './user.js';
 
 export enum Method {
-	GetMe = 'getMe',
 	GetUpdates = 'getUpdates',
+	GetMe = 'getMe',
+	SendMessage = 'sendMessage',
 }
 
 export namespace Method {
+	export namespace GetUpdates {
+		export interface Params {
+			offset?: number;
+			limit?: number;
+			timeout?: number;
+			allowed_updates?: string[];
+		}
+
+		export type Result = Update[];
+	}
+
 	export namespace GetMe {
 		export interface Result extends User {
 			can_join_groups?: true;
@@ -21,14 +34,12 @@ export namespace Method {
 		}
 	}
 
-	export namespace GetUpdates {
+	export namespace SendMessage {
 		export interface Params {
-			offset?: number;
-			limit?: number;
-			timeout?: number;
-			allowed_updates?: string[];
+			chat_id: number | string;
+			text: string;
 		}
 
-		export type Result = Update[];
+		export type Result = Message;
 	}
 }
