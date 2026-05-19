@@ -23,5 +23,8 @@
 	"dependencies": {
 		"@telescript/api-types": "workspace:*",
 		"@telescript/requester": "workspace:*"
+	},
+	"publishConfig": {
+		"access": "public"
 	}
 }
