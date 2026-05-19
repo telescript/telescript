@@ -18,7 +18,6 @@ export class Polling {
 
     while (true) {
       const updates = await this.requester.request(APIMethod.GetUpdates, { offset, timeout: this.options.timeout }) as APIMethod.GetUpdates.Result;
-      console.log(`Received ${updates.length} updates`);
 
       for (const update of updates) {
         yield update;
