@@ -1,4 +1,4 @@
-import { Message as APIMessage } from '@telescript/api-types';
+import { APIMessage } from '@telescript/api-types';
 import { Message } from '../structures/Message.js';
 import { Repository } from './Repository.js';
 

@@ -1,4 +1,4 @@
-import { Method } from "@telescript/api-types";
+import { APIMethod } from "@telescript/api-types";
 import { Requester } from "@telescript/requester";
 
 export interface PollingOptions {
@@ -17,7 +17,7 @@ export class Polling {
     let offset: number | undefined = undefined;
 
     while (true) {
-      const updates = await this.requester.request(Method.GetUpdates, { offset }) as Method.GetUpdates.Result;
+      const updates = await this.requester.request(APIMethod.GetUpdates, { offset }) as APIMethod.GetUpdates.Result;
 
       for (const update of updates) {
         yield update;

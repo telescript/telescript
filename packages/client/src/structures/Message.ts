@@ -1,4 +1,4 @@
-import { Message as APIMessage } from '@telescript/api-types';
+import { APIMessage } from '@telescript/api-types';
 import { Structure } from './Structure.js';
 import { User } from './User.js';
 import { Chat } from './Chat.js';

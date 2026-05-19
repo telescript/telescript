@@ -1,4 +1,4 @@
-export interface User {
+export interface APIUser {
 	id: number;
 	is_bot: boolean;
 	first_name: string;

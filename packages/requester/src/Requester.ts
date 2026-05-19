@@ -1,4 +1,4 @@
-import { Response } from '@telescript/api-types';
+import { APIResponse } from '@telescript/api-types';
 
 export interface RequesterOptions {
 	token: string;
@@ -22,7 +22,7 @@ export class Requester {
 			body: JSON.stringify(params ?? {}),
 		});
 
-		const data = (await response.json()) as Response<unknown>;
+		const data = (await response.json()) as APIResponse<unknown>;
 
 		if (!data.ok) {
 			throw new Error(`TelegramAPIError: ${data.description} (code: ${data.error_code})`);

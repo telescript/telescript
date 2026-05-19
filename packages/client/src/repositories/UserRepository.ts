@@ -1,4 +1,4 @@
-import { User as APIUser } from '@telescript/api-types';
+import { APIUser } from '@telescript/api-types';
 import { Repository } from './Repository.js';
 import { User } from '../structures/User.js';
 

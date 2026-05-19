@@ -1,18 +1,18 @@
-export interface OkResponse<Result> {
+export interface APIOkResponse<Result> {
 	ok: true;
 	result: Result;
 }
 
-export interface ErrorResponse {
+export interface APIErrorResponse {
 	ok: false;
 	description: string;
 	error_code: number;
-	parameters?: ResponseParameters;
+	parameters?: APIResponseParameters;
 }
 
-export interface ResponseParameters {
+export interface APIResponseParameters {
 	migrate_to_chat_id?: number;
 	retry_after?: number;
 }
 
-export type Response<Result> = OkResponse<Result> | ErrorResponse;
+export type APIResponse<Result> = APIOkResponse<Result> | APIErrorResponse;

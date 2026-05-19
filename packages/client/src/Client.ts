@@ -1,4 +1,4 @@
-import { isMessageUpdate, Update } from '@telescript/api-types';
+import { isMessageUpdate, APIUpdate } from '@telescript/api-types';
 import { Core } from '@telescript/core';
 import { Polling } from '@telescript/polling';
 import { Requester } from '@telescript/requester';
@@ -12,7 +12,7 @@ export interface ClientOptions {
 }
 
 export interface Transport {
-	[Symbol.asyncIterator](): AsyncIterableIterator<Update>;
+	[Symbol.asyncIterator](): AsyncIterableIterator<APIUpdate>;
 }
 
 export class Client extends EventEmitter {

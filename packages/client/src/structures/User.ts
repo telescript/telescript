@@ -1,4 +1,4 @@
-import { User as APIUser } from '@telescript/api-types';
+import { APIUser } from '@telescript/api-types';
 import { Structure } from './Structure.js';
 
 export class User extends Structure<APIUser> {

@@ -1,4 +1,4 @@
-export interface Chat {
+export interface APIChat {
 	id: number;
 	type: ChatType;
 	title?: string;

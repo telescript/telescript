@@ -1,4 +1,4 @@
-import { Chat as APIChat } from '@telescript/api-types';
+import { APIChat } from '@telescript/api-types';
 import { Structure } from './Structure.js';
 
 export class Chat extends Structure<APIChat> {

@@ -1,13 +1,13 @@
-import { Chat } from './chat.js';
-import { User } from './user.js';
+import { APIChat } from './chat.js';
+import { APIUser } from './user.js';
 
-export interface MessageId {
+export interface APIMessageId {
 	message_id: number;
 }
 
-export interface Message extends MessageId {
-	from?: User;
+export interface APIMessage extends APIMessageId {
+	from?: APIUser;
 	date: number;
-	chat: Chat;
+	chat: APIChat;
 	text?: string;
 }

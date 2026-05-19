@@ -1,4 +1,4 @@
-import { Chat as APIChat } from '@telescript/api-types';
+import { APIChat } from '@telescript/api-types';
 import { Chat } from '../structures/Chat.js';
 import { Repository } from './Repository.js';
 

@@ -1,14 +1,14 @@
-import { Message } from './message.js';
-import { Update } from './update.js';
-import { User } from './user.js';
+import { APIMessage } from './message.js';
+import { APIUpdate } from './update.js';
+import { APIUser } from './user.js';
 
-export enum Method {
+export enum APIMethod {
 	GetUpdates = 'getUpdates',
 	GetMe = 'getMe',
 	SendMessage = 'sendMessage',
 }
 
-export namespace Method {
+export namespace APIMethod {
 	export namespace GetUpdates {
 		export interface Params {
 			offset?: number;
@@ -17,11 +17,11 @@ export namespace Method {
 			allowed_updates?: string[];
 		}
 
-		export type Result = Update[];
+		export type Result = APIUpdate[];
 	}
 
 	export namespace GetMe {
-		export interface Result extends User {
+		export interface Result extends APIUser {
 			can_join_groups?: true;
 			can_read_all_group_messages?: true;
 			supports_guest_queries?: true;
@@ -40,6 +40,6 @@ export namespace Method {
 			text: string;
 		}
 
-		export type Result = Message;
+		export type Result = APIMessage;
 	}
 }
