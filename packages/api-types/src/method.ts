@@ -1,7 +1,9 @@
+import { Update } from './update.js';
 import { User } from './user.js';
 
 export enum Method {
 	GetMe = 'getMe',
+	GetUpdates = 'getUpdates',
 }
 
 export namespace Method {
@@ -17,5 +19,16 @@ export namespace Method {
 			allows_users_to_create_topics?: true;
 			can_manage_bots?: true;
 		}
+	}
+
+	export namespace GetUpdates {
+		export interface Params {
+			offset?: number;
+			limit?: number;
+			timeout?: number;
+			allowed_updates?: string[];
+		}
+
+		export type Result = Update[];
 	}
 }

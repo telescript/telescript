@@ -32,9 +32,15 @@ importers:
 
   packages/client:
     dependencies:
+      '@telescript/api-types':
+        specifier: workspace:*
+        version: link:../api-types
       '@telescript/core':
         specifier: workspace:*
         version: link:../core
+      '@telescript/polling':
+        specifier: workspace:*
+        version: link:../polling
       '@telescript/requester':
         specifier: workspace:*
         version: link:../requester
@@ -64,6 +70,19 @@ importers:
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
+
+  packages/polling:
+    dependencies:
+      '@telescript/api-types':
+        specifier: workspace:*
+        version: link:../api-types
+      '@telescript/requester':
+        specifier: workspace:*
+        version: link:../requester
+    devDependencies:
+      '@types/node':
+        specifier: ^25.8.0
+        version: 25.8.0
 
   packages/requester:
     dependencies:

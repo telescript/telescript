@@ -19,7 +19,9 @@
 	"author": "Synbulat Biishev <me@syjalo.dev>",
 	"license": "Apache-2.0",
 	"dependencies": {
+		"@telescript/api-types": "workspace:*",
 		"@telescript/core": "workspace:*",
+		"@telescript/polling": "workspace:*",
 		"@telescript/requester": "workspace:*"
 	},
 	"devDependencies": {

@@ -1,0 +1,27 @@
+{
+	"name": "@telescript/polling",
+	"version": "0.0.1",
+	"description": "",
+	"type": "module",
+	"main": "dist/index.js",
+	"types": "./dist/index.d.ts",
+	"directories": {
+		"lib": "src"
+	},
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"build": "tsc"
+	},
+	"keywords": [],
+	"author": "Synbulat Biishev <me@syjalo.dev>",
+	"license": "Apache-2.0",
+	"devDependencies": {
+		"@types/node": "^25.8.0"
+	},
+	"dependencies": {
+		"@telescript/api-types": "workspace:*",
+		"@telescript/requester": "workspace:*"
+	}
+}
