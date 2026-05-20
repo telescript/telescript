@@ -3,9 +3,10 @@ import { Core } from '@telescript/core';
 import { Polling } from '@telescript/polling';
 import { Requester } from '@telescript/requester';
 import EventEmitter from 'node:events';
-import { ChatRepository } from './repositories/ChatRepository.js';
-import { MessageRepository } from './repositories/MessageRepository.js';
-import { UserRepository } from './repositories/UserRepository.js';
+import { ChatRepository } from '../repositories/ChatRepository.js';
+import { MessageRepository } from '../repositories/MessageRepository.js';
+import { UserRepository } from '../repositories/UserRepository.js';
+import { processUpdate } from './updates/index.js';
 
 export interface ClientOptions {
 	token: string;
@@ -37,10 +38,7 @@ export class Client extends EventEmitter {
 
 	public async start() {
 		for await (const update of this.transport) {
-			if (isMessageUpdate(update)) {
-				const message = this.messages.resolve(update.message);
-				this.emit('message', message);
-			}
+			processUpdate(this, update);
 		}
 	}
 }

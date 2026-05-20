@@ -1,4 +1,4 @@
-import { Client } from '../Client.js';
+import { Client } from '../client/Client.js';
 
 const dataProperty = Symbol.for('@telescript/structure::data');
 
