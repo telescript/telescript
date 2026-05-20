@@ -1,4 +1,4 @@
-import { isMessageUpdate, APIUpdate } from '@telescript/api-types';
+import { APIUpdate } from '@telescript/api-types';
 import { Core } from '@telescript/core';
 import { Polling } from '@telescript/polling';
 import { Requester } from '@telescript/requester';
