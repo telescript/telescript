@@ -42,8 +42,8 @@ export class Client extends EventEmitter {
 
 export interface ClientCreateOptions {
 	token: string;
-	requester: Partial<RequesterOptions>;
-	polling: Partial<PollingOptions>;
+	requester?: Partial<RequesterOptions>;
+	polling?: Partial<PollingOptions>;
 }
 
 export function createClient(options: ClientCreateOptions) {
