@@ -1,6 +1,6 @@
 import { Core } from '@telescript/core';
-import { Polling } from '@telescript/polling';
-import { Requester } from '@telescript/requester';
+import { Polling, PollingOptions } from '@telescript/polling';
+import { Requester, RequesterOptions } from '@telescript/requester';
 import EventEmitter from 'node:events';
 import { ChatRepository } from '../repositories/ChatRepository.js';
 import { MessageRepository } from '../repositories/MessageRepository.js';
@@ -42,10 +42,12 @@ export class Client extends EventEmitter {
 
 export interface ClientCreateOptions {
 	token: string;
+	requester: Partial<RequesterOptions>;
+	polling: Partial<PollingOptions>;
 }
 
 export function createClient(options: ClientCreateOptions) {
-	const requester = new Requester({ token: options.token });
-	const updateTransport = new Polling(requester);
+	const requester = new Requester(options.token, options.requester);
+	const updateTransport = new Polling(requester, options.polling);
 	return new Client({ requester, updateTransport });
 }

@@ -1,19 +1,24 @@
 import { APIResponse } from '@telescript/api-types';
 import type { Requester as RequesterSpec } from '@telescript/spec';
+import { DefaultRequesterOptions } from './constants';
 
 export interface RequesterOptions {
-	token: string;
+	api: string;
+	maxRetries: number;
 }
 
 export class Requester implements RequesterSpec {
 	#token: string;
 
-	constructor(options: RequesterOptions) {
-		this.#token = options.token;
+	public options: RequesterOptions;
+
+	constructor(token: string, options?: Partial<RequesterOptions>) {
+		this.#token = token;
+		this.options = { ...DefaultRequesterOptions, ...options };
 	}
 
-	public async request(method: string, params?: Record<string, unknown>): Promise<unknown> {
-		const url = `https://api.telegram.org/bot${this.#token}/${method}`;
+	public async request(method: string, params?: Record<string, unknown>, retries = 0): Promise<unknown> {
+		const url = `${this.options.api}/bot${this.#token}/${method}`;
 
 		const response = await fetch(url, {
 			method: 'POST',
@@ -22,6 +27,14 @@ export class Requester implements RequesterSpec {
 			},
 			body: JSON.stringify(params ?? {}),
 		});
+
+		if (!response.ok) {
+			if (retries < this.options.maxRetries) {
+				return this.request(method, params, ++retries);
+			}
+
+			throw new Error(`HTTPError: ${response.status} ${response.statusText}`);
+		}
 
 		const data = (await response.json()) as APIResponse<unknown>;
 

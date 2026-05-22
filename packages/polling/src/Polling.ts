@@ -3,7 +3,7 @@ import { DefaultPollingOptions } from './constants';
 import type { Requester, UpdateTransport } from '@telescript/spec';
 
 export interface PollingOptions {
-	timeout?: number;
+	timeout: number;
 }
 
 export class Polling implements UpdateTransport {
@@ -11,7 +11,7 @@ export class Polling implements UpdateTransport {
 
 	public constructor(
 		public requester: Requester,
-		options?: PollingOptions,
+		options?: Partial<PollingOptions>,
 	) {
 		this.options = { ...DefaultPollingOptions, ...options };
 	}
