@@ -1,12 +1,12 @@
 import { APIMethod } from '@telescript/api-types';
-import { Requester } from '@telescript/requester';
 import { DefaultPollingOptions } from './constants';
+import type { Requester, UpdateTransport } from '@telescript/spec';
 
 export interface PollingOptions {
 	timeout?: number;
 }
 
-export class Polling {
+export class Polling implements UpdateTransport {
 	public options: PollingOptions;
 
 	public constructor(

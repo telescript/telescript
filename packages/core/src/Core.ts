@@ -1,11 +1,8 @@
+import type { Requester } from '@telescript/spec';
 import { API } from './API.js';
 
 export interface CoreOptions {
 	requester: Requester;
-}
-
-export interface Requester {
-	request(method: string, params?: Record<string, any>): Promise<unknown>;
 }
 
 export class Core {

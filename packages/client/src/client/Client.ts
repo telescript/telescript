@@ -1,4 +1,3 @@
-import { APIUpdate } from '@telescript/api-types';
 import { Core } from '@telescript/core';
 import { Polling } from '@telescript/polling';
 import { Requester } from '@telescript/requester';
@@ -7,13 +6,10 @@ import { ChatRepository } from '../repositories/ChatRepository.js';
 import { MessageRepository } from '../repositories/MessageRepository.js';
 import { UserRepository } from '../repositories/UserRepository.js';
 import { processUpdate } from './updates/index.js';
+import type { UpdateTransport } from '@telescript/spec';
 
 export interface ClientOptions {
 	token: string;
-}
-
-export interface Transport {
-	[Symbol.asyncIterator](): AsyncIterableIterator<APIUpdate>;
 }
 
 export class Client extends EventEmitter {
@@ -21,7 +17,7 @@ export class Client extends EventEmitter {
 
 	public core: Core;
 
-	public transport: Transport;
+	public transport: UpdateTransport;
 
 	public chats = new ChatRepository(this);
 

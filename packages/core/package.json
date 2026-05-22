@@ -1,6 +1,6 @@
 {
 	"name": "@telescript/core",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"description": "",
 	"type": "module",
 	"main": "./dist/index.js",
@@ -20,7 +20,8 @@
 	"author": "Synbulat Biishev <me@syjalo.dev>",
 	"license": "Apache-2.0",
 	"dependencies": {
-		"@telescript/api-types": "workspace:*"
+		"@telescript/api-types": "workspace:*",
+		"@telescript/spec": "workspace:*"
 	},
 	"devDependencies": {
 		"@types/node": "^25.8.0",

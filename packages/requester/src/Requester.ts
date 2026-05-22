@@ -1,10 +1,11 @@
 import { APIResponse } from '@telescript/api-types';
+import type { Requester as RequesterSpec } from '@telescript/spec';
 
 export interface RequesterOptions {
 	token: string;
 }
 
-export class Requester {
+export class Requester implements RequesterSpec {
 	#token: string;
 
 	constructor(options: RequesterOptions) {

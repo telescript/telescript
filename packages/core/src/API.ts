@@ -1,5 +1,5 @@
 import { APIMethod } from '@telescript/api-types';
-import type { Requester } from './Core.js';
+import type { Requester } from '@telescript/spec';
 
 export class API {
 	public constructor(public requester: Requester) {}

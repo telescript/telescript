@@ -1,6 +1,6 @@
 {
 	"name": "@telescript/client",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"description": "",
 	"type": "module",
 	"main": "./dist/index.js",
@@ -23,7 +23,8 @@
 		"@telescript/api-types": "workspace:*",
 		"@telescript/core": "workspace:*",
 		"@telescript/polling": "workspace:*",
-		"@telescript/requester": "workspace:*"
+		"@telescript/requester": "workspace:*",
+		"@telescript/spec": "workspace:*"
 	},
 	"devDependencies": {
 		"@types/node": "^25.8.0",

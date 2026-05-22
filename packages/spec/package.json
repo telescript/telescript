@@ -1,6 +1,6 @@
 {
-	"name": "@telescript/polling",
-	"version": "0.0.4",
+	"name": "@telescript/spec",
+	"version": "0.0.1",
 	"description": "",
 	"type": "module",
 	"main": "dist/index.js",
@@ -12,9 +12,7 @@
 		"dist"
 	],
 	"scripts": {
-		"build": "tsc",
-		"format": "prettier --write .",
-		"format:check": "prettier --check ."
+		"build": "tsc"
 	},
 	"keywords": [],
 	"author": "Synbulat Biishev <me@syjalo.dev>",
@@ -22,11 +20,10 @@
 	"devDependencies": {
 		"@types/node": "^25.8.0"
 	},
-	"dependencies": {
-		"@telescript/api-types": "workspace:*",
-		"@telescript/spec": "workspace:*"
-	},
 	"publishConfig": {
 		"access": "public"
+	},
+	"dependencies": {
+		"@telescript/api-types": "workspace:*"
 	}
 }
