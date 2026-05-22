@@ -17,7 +17,7 @@ export class Client extends EventEmitter {
 
 	public core: Core;
 
-	public transport: UpdateTransport;
+	public updateTransport: UpdateTransport;
 
 	public chats = new ChatRepository(this);
 
@@ -29,11 +29,11 @@ export class Client extends EventEmitter {
 		super();
 		this.requester = new Requester({ token: options.token });
 		this.core = new Core({ requester: this.requester });
-		this.transport = new Polling(this.requester);
+		this.updateTransport = new Polling(this.requester);
 	}
 
 	public async start() {
-		for await (const update of this.transport) {
+		for await (const update of this.updateTransport) {
 			processUpdate(this, update);
 		}
 	}
