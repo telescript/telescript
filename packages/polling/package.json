@@ -1,4 +1,5 @@
 {
+	"$schema": "https://json.schemastore.org/package.json",
 	"name": "@telescript/polling",
 	"version": "0.0.4",
 	"description": "",

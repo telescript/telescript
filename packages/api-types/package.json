@@ -1,4 +1,5 @@
 {
+	"$schema": "https://json.schemastore.org/package.json",
 	"name": "@telescript/api-types",
 	"version": "0.0.5",
 	"description": "",
