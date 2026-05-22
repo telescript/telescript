@@ -1,4 +1,4 @@
-import type { PollingOptions } from './Polling';
+import type { PollingOptions } from './Polling.js';
 
 export const DefaultPollingOptions = {
 	timeout: 30,

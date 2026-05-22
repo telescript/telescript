@@ -1,4 +1,4 @@
-import type { RequesterOptions } from './Requester';
+import type { RequesterOptions } from './Requester.js';
 
 export const DefaultRequesterOptions = {
 	api: 'https://api.telegram.org',

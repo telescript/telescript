@@ -1,6 +1,6 @@
 import { APIResponse } from '@telescript/api-types';
 import type { Requester as RequesterSpec } from '@telescript/spec';
-import { DefaultRequesterOptions } from './constants';
+import { DefaultRequesterOptions } from './constants.js';
 
 export interface RequesterOptions {
 	api: string;

@@ -1,5 +1,5 @@
 import { APIMethod } from '@telescript/api-types';
-import { DefaultPollingOptions } from './constants';
+import { DefaultPollingOptions } from './constants.js';
 import type { Requester, UpdateTransport } from '@telescript/spec';
 
 export interface PollingOptions {
