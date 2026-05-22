@@ -1,2 +1,2 @@
 export * from './client/Client.js';
-export * from './structures';
+export * from './structures/index.js';
