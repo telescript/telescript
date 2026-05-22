@@ -6,14 +6,15 @@ import { ChatRepository } from '../repositories/ChatRepository.js';
 import { MessageRepository } from '../repositories/MessageRepository.js';
 import { UserRepository } from '../repositories/UserRepository.js';
 import { processUpdate } from './updates/index.js';
-import type { UpdateTransport } from '@telescript/spec';
+import type { Requester as RequesterSpec, UpdateTransport } from '@telescript/spec';
 
 export interface ClientOptions {
-	token: string;
+	requester: RequesterSpec;
+	updateTransport: UpdateTransport;
 }
 
 export class Client extends EventEmitter {
-	public requester: Requester;
+	public requester: RequesterSpec;
 
 	public core: Core;
 
@@ -27,9 +28,9 @@ export class Client extends EventEmitter {
 
 	public constructor(options: ClientOptions) {
 		super();
-		this.requester = new Requester({ token: options.token });
+		this.requester = options.requester;
 		this.core = new Core({ requester: this.requester });
-		this.updateTransport = new Polling(this.requester);
+		this.updateTransport = options.updateTransport;
 	}
 
 	public async start() {
@@ -37,4 +38,14 @@ export class Client extends EventEmitter {
 			processUpdate(this, update);
 		}
 	}
+}
+
+export interface ClientCreateOptions {
+	token: string;
+}
+
+export function createClient(options: ClientCreateOptions) {
+	const requester = new Requester({ token: options.token });
+	const updateTransport = new Polling(requester);
+	return new Client({ requester, updateTransport });
 }

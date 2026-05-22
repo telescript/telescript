@@ -19,13 +19,13 @@ bun add @telescript/client
 ## Example usage
 
 ```ts
-import { Client } from '@telescript/client';
+import { createClient } from '@telescript/client';
 
-const client = new Client({ token: TOKEN });
+const client = createClient({ token: TOKEN });
 
-client.on('message', (message) => {
+client.on('message', async (message) => {
 	if (message.text === '/start') {
-		message.chat.sendText('Hello, world!');
+		await message.chat.sendText('Hello, world!');
 	}
 });
 
