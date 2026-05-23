@@ -83,11 +83,11 @@ export interface APIBusinessLocation {}
 
 export interface APIBusinessOpeningHours {}
 
-export enum APIReactionType {}
+export interface APIReactionType {}
 
 export interface APIChatPermissions {}
 
-export enum APIAcceptedGiftTypes {}
+export interface APIAcceptedGiftTypes {}
 
 export interface APIChatLocation {}
 
