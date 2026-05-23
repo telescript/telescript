@@ -1,5 +1,5 @@
-import { APIAudio } from './media.js';
-import { APIMessage } from './message.js';
+import { APIAudio, APISticker } from './media.js';
+import { APILocation, APIMessage } from './message.js';
 
 export enum ChatType {
 	Private = 'private',
@@ -65,24 +65,106 @@ export interface APIChatFullInfo extends APIChat {
 	paid_message_star_count?: number;
 }
 
-export interface APIChatPhoto {}
+export interface APIChatPhoto {
+	small_file_id: string;
+	small_file_unique_id: string;
+	big_file_id: string;
+	big_file_unique_id: string;
+}
 
-export interface APIBirthdate {}
+export interface APIBirthdate {
+	day: number;
+	month: number;
+	year?: number;
+}
 
-export interface APIBusinessIntro {}
+export interface APIBusinessIntro {
+	title?: string;
+	message?: string;
+	sticker?: APISticker;
+}
 
-export interface APIBusinessLocation {}
+export interface APIBusinessLocation {
+	address: string;
+	location?: APILocation;
+}
 
-export interface APIBusinessOpeningHours {}
+export interface APIBusinessOpeningHoursInterval {
+	opening_minute: number;
+	closing_minute: number;
+}
 
-export interface APIReactionType {}
+export interface APIBusinessOpeningHours {
+	time_zone_name: string;
+	opening_hours: APIBusinessOpeningHoursInterval[];
+}
 
-export interface APIChatPermissions {}
+export enum ReactionTypeType {
+	Emoji = 'emoji',
+	CustomEmoji = 'custom_emoji',
+	Paid = 'paid',
+}
 
-export interface APIAcceptedGiftTypes {}
+export interface APIReactionTypeEmoji {
+	type: ReactionTypeType.Emoji;
+	emoji: string;
+}
 
-export interface APIChatLocation {}
+export interface APIReactionTypeCustomEmoji {
+	type: ReactionTypeType.CustomEmoji;
+	custom_emoji_id: string;
+}
 
-export interface APIUserRating {}
+export interface APIReactionTypePaid {
+	type: ReactionTypeType.Paid;
+}
 
-export interface APIUniqueGiftColors {}
+export type APIReactionType = APIReactionTypeEmoji | APIReactionTypeCustomEmoji | APIReactionTypePaid;
+
+export interface APIChatPermissions {
+	can_send_messages?: true;
+	can_send_audios?: true;
+	can_send_documents?: true;
+	can_send_photos?: true;
+	can_send_videos?: true;
+	can_send_video_notes?: true;
+	can_send_voice_notes?: true;
+	can_send_polls?: true;
+	can_send_other_messages?: true;
+	can_add_web_page_previews?: true;
+	can_react_to_messages?: true;
+	can_edit_tag?: true;
+	can_change_info?: true;
+	can_invite_users?: true;
+	can_pin_messages?: true;
+	can_manage_topics?: true;
+}
+
+export interface APIAcceptedGiftTypes {
+	unlimited_gifts?: true;
+	limited_gifts?: true;
+	unique_gifts?: true;
+	premium_subscription?: true;
+	gifts_from_channels?: true;
+}
+
+export interface APIChatLocation {
+	location: APILocation;
+	address: string;
+}
+
+export interface APIUserRating {
+	level: number;
+	rating: number;
+	current_level_rating: number;
+	next_level_rating?: number;
+}
+
+export interface APIUniqueGiftColors {
+	model_custom_emoji_id: string;
+	symbol_custom_emoji_id: string;
+	light_theme_main_color: number;
+	light_theme_other_colors: number[];
+	dark_theme_main_color: number;
+	dark_theme_other_colors: number[];
+}
