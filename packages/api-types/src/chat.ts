@@ -19,15 +19,7 @@ export interface APIChat {
 	is_direct_messages?: true;
 }
 
-export interface APIChatFullInfo {
-	id: number;
-	type: ChatType;
-	title?: string;
-	username?: string;
-	first_name?: string;
-	last_name?: string;
-	is_forum?: true;
-	is_direct_messages?: true;
+export interface APIChatFullInfo extends APIChat {
 	accent_color_id: number;
 	max_reaction_count: number;
 	photo?: APIChatPhoto;
