@@ -1,5 +1,5 @@
 import { APIAudio, APISticker } from './media.js';
-import { APILocation, APIMessage } from './message.js';
+import { APILocation, APIMessage, APIUniqueGiftColors } from './message.js';
 
 export enum ChatType {
 	Private = 'private',
@@ -158,13 +158,4 @@ export interface APIUserRating {
 	rating: number;
 	current_level_rating: number;
 	next_level_rating?: number;
-}
-
-export interface APIUniqueGiftColors {
-	model_custom_emoji_id: string;
-	symbol_custom_emoji_id: string;
-	light_theme_main_color: number;
-	light_theme_other_colors: number[];
-	dark_theme_main_color: number;
-	dark_theme_other_colors: number[];
 }
