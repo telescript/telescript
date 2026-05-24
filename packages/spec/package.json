@@ -1,7 +1,7 @@
 {
 	"$schema": "https://json.schemastore.org/package.json",
 	"name": "@telescript/spec",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "",
 	"type": "module",
 	"main": "dist/index.js",
@@ -15,7 +15,20 @@
 	"scripts": {
 		"build": "tsc"
 	},
-	"keywords": [],
+	"keywords": [
+		"telegram",
+		"bot",
+		"api"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/telescript/telescript.git",
+		"directory": "packages/spec"
+	},
+	"bugs": {
+		"url": "https://github.com/discordjs/discord.js/issues"
+	},
+	"homepage": "https://github.com/telescript/telescript#readme",
 	"author": "Synbulat Biishev <me@syjalo.dev>",
 	"license": "Apache-2.0",
 	"devDependencies": {
