@@ -2,11 +2,10 @@ import { Core } from '@telescript/core';
 import { Polling, PollingOptions } from '@telescript/polling';
 import { Requester, RequesterOptions } from '@telescript/requester';
 import EventEmitter from 'node:events';
-import { ChatRepository } from '../repositories/ChatRepository.js';
-import { MessageRepository } from '../repositories/MessageRepository.js';
-import { UserRepository } from '../repositories/UserRepository.js';
+import { ChatRepository, MessageRepository, UserRepository } from '../repositories/index.js';
 import { processUpdate } from './updates/index.js';
 import type { Requester as RequesterSpec, UpdateTransport } from '@telescript/spec';
+import { ClientUser } from '../structures/index.js';
 
 export interface ClientOptions {
 	requester: RequesterSpec;
@@ -37,6 +36,11 @@ export class Client extends EventEmitter {
 		for await (const update of this.updateTransport) {
 			processUpdate(this, update);
 		}
+	}
+
+	public async getMe() {
+		const data = await this.core.api.getMe();
+		return new ClientUser(this, data);
 	}
 }
 
