@@ -228,7 +228,7 @@ export enum MessageEntityType {
 	Hashtag = 'hashtag',
 	Cashtag = 'cashtag',
 	BotCommand = 'bot_command',
-	Url = 'url',
+	URL = 'url',
 	Email = 'email',
 	PhoneNumber = 'phone_number',
 	Bold = 'bold',
