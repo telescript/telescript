@@ -1,6 +1,6 @@
 import { APIMethod } from '@telescript/api-types';
-import { User } from './User';
-import { Structure } from './Structure';
+import { User } from './User.js';
+import { Structure } from './Structure.js';
 
 export class ClientUser extends Structure<APIMethod.GetMe.Result> implements User {
 	public get id() {
