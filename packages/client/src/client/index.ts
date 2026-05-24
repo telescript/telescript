@@ -1,6 +1,6 @@
 import { Polling, PollingOptions } from '@telescript/polling';
 import { Requester, RequesterOptions } from '@telescript/requester';
-import { Client } from './Client';
+import { Client } from './Client.js';
 
 export interface ClientCreateOptions {
 	token: string;
@@ -13,3 +13,5 @@ export function createClient(options: ClientCreateOptions) {
 	const updateTransport = new Polling(requester, options.polling);
 	return new Client({ requester, updateTransport });
 }
+
+export * from './Client.js';

@@ -41,5 +41,3 @@ export class Client extends EventEmitter {
 		return new ClientUser(this, data);
 	}
 }
-
-export * from './Client.js';
