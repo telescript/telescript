@@ -6,6 +6,7 @@ export class Structure<Data> {
 	static DataProperty: typeof dataProperty = dataProperty;
 
 	public readonly [dataProperty]: Data;
+
 	public constructor(
 		public readonly client: Client,
 		data: Data,
