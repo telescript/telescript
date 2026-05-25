@@ -39,8 +39,16 @@ export class Message extends Structure<APIMessage> {
 		return this[Structure.DataProperty].sender_tag ?? null;
 	}
 
-	public get date() {
+	public get sentUnixTimestamp() {
 		return this[Structure.DataProperty].date;
+	}
+
+	public get sentTimestamp() {
+		return this.sentUnixTimestamp * 1000;
+	}
+
+	public get sentDate() {
+		return new Date(this.sentTimestamp);
 	}
 
 	public get guestQueryId() {
@@ -53,6 +61,20 @@ export class Message extends Structure<APIMessage> {
 
 	public get chat() {
 		return this.client.chats.resolve(this[Structure.DataProperty].chat);
+	}
+
+	public get editUnixTimestamp() {
+		return this[Structure.DataProperty].edit_date ?? null;
+	}
+
+	public get editTimestamp() {
+		const ts = this.editUnixTimestamp;
+		return ts ? ts * 1000 : null;
+	}
+
+	public get editDate() {
+		const ts = this.editTimestamp;
+		return ts ? new Date(ts) : null;
 	}
 
 	public get text() {
