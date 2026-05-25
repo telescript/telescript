@@ -5,6 +5,6 @@ export interface APIUser {
 	last_name?: string;
 	username?: string;
 	language_code?: string;
-	is_premium?: true;
-	added_to_attachment_menu?: true;
+	is_premium?: boolean;
+	added_to_attachment_menu?: boolean;
 }

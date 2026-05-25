@@ -34,8 +34,8 @@ export interface APIMessage extends APIMessageId {
 	business_connection_id?: string;
 	chat: APIChat;
 	forward_origin?: APIMessageOrigin;
-	is_topic_message?: true;
-	is_automatic_forward?: true;
+	is_topic_message?: boolean;
+	is_automatic_forward?: boolean;
 	reply_to_message?: RepliedToMessageFrom<APIMessage>;
 	external_reply?: APIExternalReplyInfo;
 	quote?: APITextQuote;
@@ -46,9 +46,9 @@ export interface APIMessage extends APIMessageId {
 	guest_bot_caller_user?: APIUser;
 	guest_bot_caller_chat?: APIChat;
 	edit_date?: number;
-	has_protected_content?: true;
-	is_from_offline?: true;
-	is_paid_post?: true;
+	has_protected_content?: boolean;
+	is_from_offline?: boolean;
+	is_paid_post?: boolean;
 	media_group_id?: string;
 	author_signature?: string;
 	paid_star_count?: number;
@@ -70,8 +70,8 @@ export interface APIMessage extends APIMessageId {
 	voice?: APIVoice;
 	caption?: string;
 	caption_entities?: APIMessageEntity[];
-	show_caption_above_media?: true;
-	has_media_spoiler?: true;
+	show_caption_above_media?: boolean;
+	has_media_spoiler?: boolean;
 	checklist?: APIChecklist;
 	contact?: APIContact;
 	dice?: APIDice;
@@ -85,10 +85,10 @@ export interface APIMessage extends APIMessageId {
 	chat_owner_changed?: APIChatOwnerChanged;
 	new_chat_title?: string;
 	new_chat_photo?: APIPhotoSize[];
-	delete_chat_photo?: true;
-	group_chat_created?: true;
-	supergroup_chat_created?: true;
-	channel_chat_created?: true;
+	delete_chat_photo?: boolean;
+	group_chat_created?: boolean;
+	supergroup_chat_created?: boolean;
+	channel_chat_created?: boolean;
 	message_auto_delete_timer_changed?: APIMessageAutoDeleteTimerChanged;
 	migrate_to_chat_id?: number;
 	migrate_from_chat_id?: number;
@@ -198,7 +198,7 @@ export interface APIExternalReplyInfo {
 	video?: APIVideo;
 	video_note?: APIVideoNote;
 	voice?: APIVoice;
-	has_media_spoiler?: true;
+	has_media_spoiler?: boolean;
 	checklist?: APIChecklist;
 	contact?: APIContact;
 	dice?: APIDice;
@@ -215,7 +215,7 @@ export interface APITextQuote {
 	text: string;
 	entities?: APIMessageEntity[];
 	position: number;
-	is_manual?: true;
+	is_manual?: boolean;
 }
 
 export interface APIStory {
@@ -259,11 +259,11 @@ export interface APIMessageEntity {
 }
 
 export interface APILinkPreviewOptions {
-	is_disabled?: true;
+	is_disabled?: boolean;
 	url?: string;
-	prefer_small_media?: true;
-	prefer_large_media?: true;
-	show_above_text?: true;
+	prefer_small_media?: boolean;
+	prefer_large_media?: boolean;
+	show_above_text?: boolean;
 }
 
 export enum SuggestedPostInfoState {
@@ -296,8 +296,8 @@ export interface APIChecklist {
 	title: string;
 	title_entities?: APIMessageEntity[];
 	tasks: APIChecklistTask[];
-	others_can_add_tasks?: true;
-	others_can_mark_tasks_as_done?: true;
+	others_can_add_tasks?: boolean;
+	others_can_mark_tasks_as_done?: boolean;
 }
 
 export interface APIContact {
@@ -446,8 +446,8 @@ export interface APIGift {
 	sticker: APISticker;
 	star_count: number;
 	upgrade_star_count?: number;
-	is_premium?: true;
-	has_colors?: true;
+	is_premium?: boolean;
+	has_colors?: boolean;
 	total_count?: number;
 	remaining_count?: number;
 	personal_total_count?: number;
@@ -462,11 +462,11 @@ export interface APIGiftInfo {
 	owned_gift_id?: string;
 	convert_star_count?: number;
 	prepaid_upgrade_star_count?: number;
-	is_upgrade_separate?: true;
-	can_be_upgraded?: true;
+	is_upgrade_separate?: boolean;
+	can_be_upgraded?: boolean;
 	text?: string;
 	entities?: APIMessageEntity[];
-	is_private?: true;
+	is_private?: boolean;
 	unique_gift_number?: number;
 }
 
@@ -528,9 +528,9 @@ export interface APIUniqueGift {
 	model: APIUniqueGiftModel;
 	symbol: APIUniqueGiftSymbol;
 	backdrop: APIUniqueGiftBackdrop;
-	is_premium?: true;
-	is_burned?: true;
-	is_from_blockchain?: true;
+	is_premium?: boolean;
+	is_burned?: boolean;
+	is_from_blockchain?: boolean;
 	colors?: APIUniqueGiftColors;
 	publisher_chat?: APIChat;
 }
@@ -546,9 +546,9 @@ export interface APIUniqueGiftInfo {
 }
 
 export interface APIWriteAccessAllowed {
-	from_request?: true;
+	from_request?: boolean;
 	web_app_name?: string;
-	from_attachment_menu?: true;
+	from_attachment_menu?: boolean;
 }
 
 export interface APIProximityAlertTriggered {
@@ -603,8 +603,8 @@ export interface APIBackgroundTypeWallpaper {
 	type: BackgroundTypeType.Wallpaper;
 	document: APIDocument;
 	dark_theme_dimming: number;
-	is_blurred?: true;
-	is_moving?: true;
+	is_blurred?: boolean;
+	is_moving?: boolean;
 }
 
 export interface APIBackgroundTypePattern {
@@ -612,8 +612,8 @@ export interface APIBackgroundTypePattern {
 	document: APIDocument;
 	fill: APIBackgroundFill;
 	intensity: number;
-	is_inverted?: true;
-	is_moving?: true;
+	is_inverted?: boolean;
+	is_moving?: boolean;
 }
 
 export interface APIBackgroundTypeChatTheme {
@@ -651,7 +651,7 @@ export interface APIForumTopicCreated {
 	name: string;
 	icon_color: number;
 	icon_custom_emoji_id?: string;
-	is_name_implicit?: true;
+	is_name_implicit?: boolean;
 }
 
 export interface APIForumTopicEdited {}
@@ -675,8 +675,8 @@ export interface APIGiveaway {
 	chats: APIChat[];
 	winners_selection_date: number;
 	winner_count: number;
-	only_new_members?: true;
-	has_public_winners?: true;
+	only_new_members?: boolean;
+	has_public_winners?: boolean;
 	prize_description?: string;
 	country_codes?: string[];
 	prize_star_count?: number;
@@ -693,8 +693,8 @@ export interface APIGiveawayWinners {
 	prize_star_count?: number;
 	premium_subscription_month_count?: number;
 	unclaimed_prize_count?: number;
-	only_new_members?: true;
-	was_refunded?: true;
+	only_new_members?: boolean;
+	was_refunded?: boolean;
 	prize_description?: string;
 }
 
@@ -702,7 +702,7 @@ export interface APIGiveawayCompleted {
 	winner_count: number;
 	unclaimed_prize_count?: number;
 	giveaway_message?: APIMessage;
-	is_star_giveaway?: true;
+	is_star_giveaway?: boolean;
 }
 
 export interface APIManagedBotCreated {
@@ -793,15 +793,15 @@ export interface APILoginURL {
 	url: string;
 	forward_text?: string;
 	bot_username?: string;
-	request_write_access?: true;
+	request_write_access?: boolean;
 }
 
 export interface APISwitchInlineQueryChosenChat {
 	query?: string;
-	allow_user_chats?: true;
-	allow_bot_chats?: true;
-	allow_group_chats?: true;
-	allow_channel_chats?: true;
+	allow_user_chats?: boolean;
+	allow_bot_chats?: boolean;
+	allow_group_chats?: boolean;
+	allow_channel_chats?: boolean;
 }
 
 export interface APICopyTextButton {
@@ -823,7 +823,7 @@ export interface APIInlineKeyboardButton {
 	switch_inline_query_chosen_chat?: APISwitchInlineQueryChosenChat;
 	copy_text?: APICopyTextButton;
 	callback_game?: APICallbackGame;
-	pay?: true;
+	pay?: boolean;
 }
 
 export interface APIInlineKeyboardMarkup {

@@ -22,15 +22,15 @@ export namespace APIMethod {
 
 	export namespace GetMe {
 		export interface Result extends APIUser {
-			can_join_groups?: true;
-			can_read_all_group_messages?: true;
-			supports_guest_queries?: true;
-			supports_inline_queries?: true;
-			can_connect_to_business?: true;
-			has_main_web_app?: true;
-			has_topics_enabled?: true;
-			allows_users_to_create_topics?: true;
-			can_manage_bots?: true;
+			can_join_groups?: boolean;
+			can_read_all_group_messages?: boolean;
+			supports_guest_queries?: boolean;
+			supports_inline_queries?: boolean;
+			can_connect_to_business?: boolean;
+			has_main_web_app?: boolean;
+			has_topics_enabled?: boolean;
+			allows_users_to_create_topics?: boolean;
+			can_manage_bots?: boolean;
 		}
 	}
 
