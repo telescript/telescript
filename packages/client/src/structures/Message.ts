@@ -69,12 +69,12 @@ export class Message extends Structure<APIMessage> {
 
 	public get editTimestamp() {
 		const ts = this.editUnixTimestamp;
-		return ts ? ts * 1000 : null;
+		return ts === null ? null : ts * 1000;
 	}
 
 	public get editDate() {
 		const ts = this.editTimestamp;
-		return ts ? new Date(ts) : null;
+		return ts === null ? null : new Date(ts);
 	}
 
 	public get text() {
