@@ -13,7 +13,9 @@
 		"dist"
 	],
 	"scripts": {
-		"build": "tsc"
+		"build": "tsc",
+		"format": "prettier --write .",
+		"format:check": "prettier --check ."
 	},
 	"keywords": [
 		"telegram",
