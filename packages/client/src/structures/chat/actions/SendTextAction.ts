@@ -11,7 +11,6 @@ export class SendTextAction {
 	declare public client: Client;
 
 	public async sendText(text: string) {
-		const data = await this.client.core.api.sendMessage(this.id, text);
-		return this.client.messages.resolve(data);
+		return this.client.chats.sendText(this.id, text);
 	}
 }
