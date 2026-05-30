@@ -1,5 +1,4 @@
 import { ChatType } from '@telescript/api-types';
-import { Mixin } from '../Mixin.js';
 import { UsernameableChatMixin } from './mixins/index.js';
 import { Structure } from '../Structure.js';
 import { Chat } from './Chat.js';
@@ -7,6 +6,10 @@ import { Chat } from './Chat.js';
 export interface PrivateChat extends UsernameableChatMixin<ChatType.Private> {}
 
 export class PrivateChat extends Chat<ChatType.Private> {
+	static {
+		this.mixin(UsernameableChatMixin);
+	}
+
 	public isPrivate(): this is PrivateChat {
 		return true;
 	}
@@ -19,5 +22,3 @@ export class PrivateChat extends Chat<ChatType.Private> {
 		return this[Structure.DataProperty].last_name ?? null;
 	}
 }
-
-Mixin(PrivateChat, UsernameableChatMixin);

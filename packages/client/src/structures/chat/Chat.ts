@@ -1,5 +1,5 @@
 import { APIChat, ChatType } from '@telescript/api-types';
-import { Mixin, Chat as ParentChat } from '@telescript/structures';
+import { Chat as ParentChat } from '@telescript/structures';
 import { Client } from '../../client/index.js';
 import { SendTextAction } from './actions/SendTextAction.js';
 
@@ -12,6 +12,10 @@ export class Chat<Type extends ChatType = ChatType, Data extends APIChat = APICh
 	Type,
 	Data
 > {
+	static {
+		this.mixin(SendTextAction);
+	}
+
 	public constructor(
 		public client: Client,
 		data: Data,
@@ -19,5 +23,3 @@ export class Chat<Type extends ChatType = ChatType, Data extends APIChat = APICh
 		super(data);
 	}
 }
-
-Mixin(Chat, SendTextAction);
