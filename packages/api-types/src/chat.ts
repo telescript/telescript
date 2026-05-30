@@ -8,7 +8,50 @@ export enum ChatType {
 	Channel = 'channel',
 }
 
-export interface APIChat {
+export namespace ChatType {
+	export type Titleable = ChatType.Group | ChatType.Supergroup | ChatType.Channel;
+
+	export type Usernameable = ChatType.Private | ChatType.Supergroup | ChatType.Channel;
+}
+
+export type APIChat = APIChat.Private | APIChat.Group | APIChat.Supergroup | APIChat.Channel;
+
+export namespace APIChat {
+	export interface Base<Type extends ChatType> {
+		id: number;
+		type: Type;
+	}
+
+	export interface TitleableBase {
+		title: string;
+	}
+
+	export interface UsernameableBase {
+		username?: string;
+	}
+
+	export interface Private extends Base<ChatType.Private>, UsernameableBase {
+		first_name: string;
+		last_name?: string;
+	}
+
+	export interface Group extends Base<ChatType.Group>, TitleableBase {}
+
+	export interface Supergroup extends Base<ChatType.Supergroup>, TitleableBase, UsernameableBase {
+		is_forum?: boolean;
+		is_direct_messages?: boolean;
+	}
+
+	export interface Channel extends Base<ChatType.Channel>, TitleableBase, UsernameableBase {}
+
+	export type FromType<Type extends ChatType> = Extract<APIChat, { type: Type }>;
+
+	export type Titleable = FromType<ChatType.Titleable>;
+
+	export type Usernameable = FromType<ChatType.Usernameable>;
+}
+
+export interface APIChatFullInfo {
 	id: number;
 	type: ChatType;
 	title?: string;
@@ -17,9 +60,6 @@ export interface APIChat {
 	last_name?: string;
 	is_forum?: boolean;
 	is_direct_messages?: boolean;
-}
-
-export interface APIChatFullInfo extends APIChat {
 	accent_color_id: number;
 	max_reaction_count: number;
 	photo?: APIChatPhoto;

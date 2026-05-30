@@ -3,7 +3,7 @@ import { Repository } from './Repository.js';
 import { User } from '../structures/User.js';
 
 export class UserRepository extends Repository<APIUser, User> {
-	public resolve(data: APIUser): User {
+	public resolve(data: APIUser) {
 		return new User(this.client, data);
 	}
 }

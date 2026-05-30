@@ -1,5 +1,5 @@
 import { APIDirectMessagesTopic } from '@telescript/api-types';
-import { Structure } from './Structure';
+import { Structure } from './Structure.js';
 
 export class DirectMessagesTopic extends Structure<APIDirectMessagesTopic> {
 	public get id() {

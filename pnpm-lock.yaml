@@ -47,6 +47,9 @@ importers:
       '@telescript/spec':
         specifier: workspace:*
         version: link:../spec
+      '@telescript/structures':
+        specifier: workspace:*
+        version: link:../structures
     devDependencies:
       '@types/node':
         specifier: ^25.8.0
@@ -89,6 +92,9 @@ importers:
       '@types/node':
         specifier: ^25.8.0
         version: 25.8.0
+      typescript:
+        specifier: ^6.0.3
+        version: 6.0.3
 
   packages/requester:
     dependencies:
@@ -118,6 +124,22 @@ importers:
       '@types/node':
         specifier: ^25.8.0
         version: 25.8.0
+      typescript:
+        specifier: ^6.0.3
+        version: 6.0.3
+
+  packages/structures:
+    dependencies:
+      '@telescript/api-types':
+        specifier: workspace:*
+        version: link:../api-types
+    devDependencies:
+      '@types/node':
+        specifier: ^25.8.0
+        version: 25.8.0
+      typescript:
+        specifier: ^6.0.3
+        version: 6.0.3
 
 packages:
 

@@ -1,7 +1,7 @@
 {
 	"$schema": "https://json.schemastore.org/package.json",
 	"name": "@telescript/client",
-	"version": "0.0.19",
+	"version": "0.0.20",
 	"description": "",
 	"type": "module",
 	"main": "./dist/index.js",
@@ -38,7 +38,8 @@
 		"@telescript/core": "workspace:*",
 		"@telescript/polling": "workspace:*",
 		"@telescript/requester": "workspace:*",
-		"@telescript/spec": "workspace:*"
+		"@telescript/spec": "workspace:*",
+		"@telescript/structures": "workspace:*"
 	},
 	"devDependencies": {
 		"@types/node": "^25.8.0",

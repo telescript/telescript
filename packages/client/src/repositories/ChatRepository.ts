@@ -1,10 +1,10 @@
 import { APIChat } from '@telescript/api-types';
-import { Chat } from '../structures/Chat.js';
 import { Repository } from './Repository.js';
+import { Chat, createChat } from '../structures/chat/index.js';
 
 export class ChatRepository extends Repository<APIChat, Chat> {
-	public resolve(data: APIChat): Chat {
-		return new Chat(this.client, data);
+	public resolve(data: APIChat) {
+		return createChat(this.client, data);
 	}
 
 	public async sendText(chatId: number | string, text: string) {

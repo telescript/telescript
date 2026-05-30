@@ -3,7 +3,7 @@ import { Message } from '../structures/Message.js';
 import { Repository } from './Repository.js';
 
 export class MessageRepository extends Repository<APIMessage, Message> {
-	public resolve(data: APIMessage): Message {
+	public resolve(data: APIMessage) {
 		return new Message(this.client, data);
 	}
 }
