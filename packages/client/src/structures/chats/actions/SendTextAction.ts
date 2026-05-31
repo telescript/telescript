@@ -1,11 +1,11 @@
 import { APIChat, ChatType } from '@telescript/api-types';
 import { Client } from '../../../client/index.js';
-import { Chat } from '@telescript/structures';
+import { BaseChat } from '@telescript/structures';
 
 export interface SendTextAction<
 	Type extends ChatType = ChatType,
 	Data extends APIChat.FromType<Type> = APIChat.FromType<Type>,
-> extends Chat<Type, Data> {}
+> extends BaseChat<Type, Data> {}
 
 export class SendTextAction {
 	declare public client: Client;

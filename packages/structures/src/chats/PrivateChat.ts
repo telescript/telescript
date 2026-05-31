@@ -1,11 +1,11 @@
 import { ChatType } from '@telescript/api-types';
 import { UsernameableChatMixin } from './mixins/index.js';
 import { Structure } from '../Structure.js';
-import { Chat } from './Chat.js';
+import { BaseChat } from './BaseChat.js';
 
 export interface PrivateChat extends UsernameableChatMixin<ChatType.Private> {}
 
-export class PrivateChat extends Chat<ChatType.Private> {
+export class PrivateChat extends BaseChat<ChatType.Private> {
 	static {
 		this.mixin(UsernameableChatMixin);
 	}

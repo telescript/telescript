@@ -1,10 +1,10 @@
 import { ChatType } from '@telescript/api-types';
-import { Chat } from './Chat.js';
+import { BaseChat } from './BaseChat.js';
 import { GroupChat as ParentGroupChat } from '@telescript/structures';
 
 export interface GroupChat extends ParentGroupChat {}
 
-export class GroupChat extends Chat<ChatType.Group> {
+export class GroupChat extends BaseChat<ChatType.Group> {
 	static {
 		this.mixin(ParentGroupChat);
 	}

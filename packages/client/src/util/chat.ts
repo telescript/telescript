@@ -1,8 +1,8 @@
 import { APIChat, ChatType } from '@telescript/api-types';
-import { ChannelChat, Chat, GroupChat, PrivateChat, SupergroupChat } from '../structures/index.js';
+import { BaseChat, ChannelChat, Chat, GroupChat, PrivateChat, SupergroupChat } from '../structures/index.js';
 import { Client } from '../client/Client.js';
 
-export function createChat(client: Client, data: APIChat) {
+export function createChat(client: Client, data: APIChat): Chat {
 	switch (data.type) {
 		case ChatType.Channel:
 			return new ChannelChat(client, data);
@@ -13,6 +13,6 @@ export function createChat(client: Client, data: APIChat) {
 		case ChatType.Supergroup:
 			return new SupergroupChat(client, data);
 		default:
-			return new Chat<ChatType, APIChat>(client, data);
+			return new BaseChat<ChatType, APIChat>(client, data);
 	}
 }

@@ -7,7 +7,7 @@ import { SupergroupChat } from './SupergroupChat.js';
 import { TitleableChatMixin } from './mixins/TitleableChatMixin.js';
 import { UsernameableChatMixin } from './mixins/UsernameableChatMixin.js';
 
-export class Chat<
+export class BaseChat<
 	Type extends ChatType = ChatType,
 	Data extends APIChat.FromType<Type> = APIChat.FromType<Type>,
 > extends Structure<Data> {
@@ -35,11 +35,11 @@ export class Chat<
 		return false;
 	}
 
-	public isTitleable(): this is TitleableChatMixin & this {
+	public isTitleable(): this is TitleableChatMixin {
 		return false;
 	}
 
-	public isUsernameable(): this is UsernameableChatMixin & this {
+	public isUsernameable(): this is UsernameableChatMixin {
 		return false;
 	}
 }
