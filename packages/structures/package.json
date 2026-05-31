@@ -1,6 +1,6 @@
 {
 	"name": "@telescript/structures",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"description": "",
 	"type": "module",
 	"main": "dist/index.js",
@@ -24,7 +24,7 @@
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/telescript/telescript.git",
-		"directory": "packages/spec"
+		"directory": "packages/structures"
 	},
 	"bugs": {
 		"url": "https://github.com/discordjs/discord.js/issues"
