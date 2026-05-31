@@ -1,13 +1,9 @@
 import { APIUser } from '@telescript/api-types';
-import { Structure } from './Structure.js';
+import { Structure } from '../Structure';
 
-export class User extends Structure<APIUser> {
+export class BaseUser<Data extends APIUser> extends Structure<Data> {
 	public get id() {
 		return this[Structure.DataProperty].id;
-	}
-
-	public get isBot() {
-		return this[Structure.DataProperty].is_bot;
 	}
 
 	public get firstName() {
@@ -16,10 +12,6 @@ export class User extends Structure<APIUser> {
 
 	public get lastName() {
 		return this[Structure.DataProperty].last_name ?? null;
-	}
-
-	public get username() {
-		return this[Structure.DataProperty].username ?? null;
 	}
 
 	public get languageCode() {

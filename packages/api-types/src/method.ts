@@ -22,6 +22,8 @@ export namespace APIMethod {
 
 	export namespace GetMe {
 		export interface Result extends APIUser {
+			is_bot: true;
+			username: string;
 			can_join_groups: boolean;
 			can_read_all_group_messages: boolean;
 			supports_guest_queries: boolean;
