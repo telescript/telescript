@@ -1,11 +1,21 @@
-import { APIChat } from '@telescript/api-types';
+import { APIChat, ChatType } from '@telescript/api-types';
 import { Repository } from './Repository.js';
-import { Chat } from '../structures/chats/index.js';
-import { createChat } from '../util/chat.js';
+import { BaseChat, ChannelChat, Chat, GroupChat, PrivateChat, SupergroupChat } from '../structures/chats/index.js';
 
 export class ChatRepository extends Repository<APIChat, Chat> {
-	public resolve(data: APIChat) {
-		return createChat(this.client, data);
+	public resolve(data: APIChat): Chat {
+		switch (data.type) {
+			case ChatType.Channel:
+				return new ChannelChat(this.client, data);
+			case ChatType.Group:
+				return new GroupChat(this.client, data);
+			case ChatType.Private:
+				return new PrivateChat(this.client, data);
+			case ChatType.Supergroup:
+				return new SupergroupChat(this.client, data);
+			default:
+				return new BaseChat<ChatType, APIChat>(this.client, data);
+		}
 	}
 
 	public async sendText(chatId: number | string, text: string) {
