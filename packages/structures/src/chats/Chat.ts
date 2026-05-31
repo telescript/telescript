@@ -9,14 +9,14 @@ import { UsernameableChatMixin } from './mixins/UsernameableChatMixin.js';
 
 export class Chat<
 	Type extends ChatType = ChatType,
-	Data extends APIChat = APIChat.FromType<Type>,
+	Data extends APIChat.FromType<Type> = APIChat.FromType<Type>,
 > extends Structure<Data> {
 	public get id() {
 		return this[Structure.DataProperty].id;
 	}
 
 	public get type() {
-		return this[Structure.DataProperty].type as Type;
+		return this[Structure.DataProperty].type;
 	}
 
 	public isChannel(): this is ChannelChat {

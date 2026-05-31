@@ -4,7 +4,7 @@ import { Chat } from '../Chat.js';
 
 export interface TitleableChatMixin<
 	Type extends ChatType.Titleable = ChatType.Titleable,
-	Data extends APIChat.Titleable = APIChat.FromType<Type>,
+	Data extends APIChat.FromType<Type> = APIChat.FromType<Type>,
 > extends Chat<Type, Data> {}
 
 export class TitleableChatMixin {

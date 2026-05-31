@@ -4,7 +4,7 @@ import { Chat } from '../Chat.js';
 
 export interface UsernameableChatMixin<
 	Type extends ChatType.Usernameable = ChatType.Usernameable,
-	Data extends APIChat.Usernameable = APIChat.FromType<Type>,
+	Data extends APIChat.FromType<Type> = APIChat.FromType<Type>,
 > extends Chat<Type, Data> {}
 
 export class UsernameableChatMixin {

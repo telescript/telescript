@@ -4,7 +4,7 @@ import { Chat } from '@telescript/structures';
 
 export interface SendTextAction<
 	Type extends ChatType = ChatType,
-	Data extends APIChat = APIChat.FromType<Type>,
+	Data extends APIChat.FromType<Type> = APIChat.FromType<Type>,
 > extends Chat<Type, Data> {}
 
 export class SendTextAction {

@@ -5,10 +5,10 @@ import { SendTextAction } from './actions/SendTextAction.js';
 
 export interface Chat<
 	Type extends ChatType = ChatType,
-	Data extends APIChat = APIChat.FromType<Type>,
+	Data extends APIChat.FromType<Type> = APIChat.FromType<Type>,
 > extends SendTextAction<Type, Data> {}
 
-export class Chat<Type extends ChatType = ChatType, Data extends APIChat = APIChat.FromType<Type>> extends ParentChat<
+export class Chat<Type extends ChatType = ChatType, Data extends APIChat.FromType<Type> = APIChat.FromType<Type>> extends ParentChat<
 	Type,
 	Data
 > {
