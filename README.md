@@ -10,16 +10,16 @@ TeleScript is a modular ecosystem that lets you easily interact with the [Telegr
 ## Installation
 
 ```sh
-npm install @telescript/client
-yarn add @telescript/client
-pnpm add @telescript/client
-bun add @telescript/client
+npm install @telescript/bot
+yarn add @telescript/bot
+pnpm add @telescript/bot
+bun add @telescript/bot
 ```
 
 ## Example usage
 
 ```ts
-import { createClient } from '@telescript/client';
+import { createClient } from '@telescript/bot';
 
 const client = createClient({ token: TOKEN });
 
