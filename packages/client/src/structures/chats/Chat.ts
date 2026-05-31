@@ -8,10 +8,10 @@ export interface Chat<
 	Data extends APIChat.FromType<Type> = APIChat.FromType<Type>,
 > extends SendTextAction<Type, Data> {}
 
-export class Chat<Type extends ChatType = ChatType, Data extends APIChat.FromType<Type> = APIChat.FromType<Type>> extends ParentChat<
-	Type,
-	Data
-> {
+export class Chat<
+	Type extends ChatType = ChatType,
+	Data extends APIChat.FromType<Type> = APIChat.FromType<Type>,
+> extends ParentChat<Type, Data> {
 	static {
 		this.mixin(SendTextAction);
 	}
