@@ -2,6 +2,34 @@ import { APIChat, APIReactionType } from './chat.js';
 import { APILocation, APIMaybeInaccessibleMessage, APIMessage, APIPoll } from './message.js';
 import { APIUser } from './user.js';
 
+export enum UpdateName {
+	Message = 'message',
+	EditedMessage = 'edited_message',
+	ChannelPost = 'channel_post',
+	edited_channel_post = 'edited_channel_post',
+	BusinessConnection = 'business_connection',
+	BusinessMessage = 'business_message',
+	EditedBusinessMessage = 'edited_business_message',
+	DeletedBusinessMessages = 'deleted_business_messages',
+	GuestMessage = 'guest_message',
+	MessageReaction = 'message_reaction',
+	MessageReactionCount = 'message_reaction_count',
+	InlineQuery = 'inline_query',
+	ChosenInlineResult = 'chosen_inline_result',
+	CallbackQuery = 'callback_query',
+	ShippingQuery = 'shipping_query',
+	PreCheckoutQuery = 'pre_checkout_query',
+	PurchasedPaidMedia = 'purchased_paid_media',
+	Poll = 'poll',
+	PollAnswer = 'poll_answer',
+	MyChatMember = 'my_chat_member',
+	ChatMember = 'chat_member',
+	ChatJoinRequest = 'chat_join_request',
+	ChatBoost = 'chat_boost',
+	RemovedChatBoost = 'removed_chat_boost',
+	ManagedBot = 'managed_bot',
+}
+
 interface UpdateBase {
 	update_id: number;
 }
@@ -54,7 +82,7 @@ export interface APIInlineQueryUpdate extends UpdateBase {
 	inline_query: APIInlineQuery;
 }
 
-export interface APIChosenInlineResult extends UpdateBase {
+export interface APIChosenInlineResultUpdate extends UpdateBase {
 	chosen_inline_result: APIChosenInlineResult;
 }
 
@@ -120,7 +148,7 @@ export type APIUpdate =
 	| APIMessageReactionUpdate
 	| APIMessageReactionCountUpdate
 	| APIInlineQueryUpdate
-	| APIChosenInlineResult
+	| APIChosenInlineResultUpdate
 	| APICallbackQueryUpdate
 	| APIShippingQueryUpdate
 	| APIPreCheckoutQueryUpdate
@@ -182,7 +210,7 @@ export function isInlineQueryUpdate(update: APIUpdate): update is APIInlineQuery
 	return 'inline_query' in update;
 }
 
-export function isChosenInlineResult(update: APIUpdate): update is APIChosenInlineResult {
+export function isChosenInlineResult(update: APIUpdate): update is APIChosenInlineResultUpdate {
 	return 'chosen_inline_result' in update;
 }
 
@@ -303,6 +331,14 @@ export interface APIInlineQuery {
 	offset: string;
 	chat_type: InlineQueryChatType;
 	location?: APILocation;
+}
+
+export interface APIChosenInlineResult {
+	result_id: string;
+	from: APIUser;
+	location?: APILocation;
+	inline_message_id?: string;
+	query: string;
 }
 
 export interface APICallbackQuery {
