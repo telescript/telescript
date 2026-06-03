@@ -1,2 +1,2 @@
-export * from './editedMessage.js';
+export * from './edited-message.js';
 export * from './message.js';
