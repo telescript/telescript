@@ -14,7 +14,7 @@ export class ChatRepository extends Repository<APIChat, Chat> {
 			case ChatType.Supergroup:
 				return new SupergroupChat(this.client, data);
 			default:
-				return new BaseChat<ChatType, APIChat>(this.client, data);
+				return new BaseChat<never>(this.client, data);
 		}
 	}
 

@@ -11,7 +11,7 @@ export * from './GroupChat.js';
 export * from './PrivateChat.js';
 export * from './SupergroupChat.js';
 
-export type Chat = BaseChat | ChannelChat | GroupChat | PrivateChat | SupergroupChat;
+export type Chat = BaseChat<never> | ChannelChat | GroupChat | PrivateChat | SupergroupChat;
 
 export function createChat(data: APIChat): Chat {
 	switch (data.type) {
@@ -24,6 +24,6 @@ export function createChat(data: APIChat): Chat {
 		case ChatType.Supergroup:
 			return new SupergroupChat(data);
 		default:
-			return new BaseChat<ChatType, APIChat>(data);
+			return new BaseChat<never>(data);
 	}
 }

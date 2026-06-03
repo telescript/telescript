@@ -10,4 +10,4 @@ export * from './GroupChat.js';
 export * from './PrivateChat.js';
 export * from './SupergroupChat.js';
 
-export type Chat = BaseChat | ChannelChat | GroupChat | PrivateChat | SupergroupChat;
+export type Chat = BaseChat<never> | ChannelChat | GroupChat | PrivateChat | SupergroupChat;
