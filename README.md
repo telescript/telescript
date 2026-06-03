@@ -19,11 +19,11 @@ bun add @telescript/bot
 ## Example usage
 
 ```ts
-import { createClient } from '@telescript/bot';
+import { ClientEvent, createClient } from '@telescript/bot';
 
 const client = createClient({ token: TOKEN });
 
-client.on('message', async (message) => {
+client.on(ClientEvent.Message, async (message) => {
 	if (message.text === '/start') {
 		await message.chat.sendText('Hello, world!');
 	}

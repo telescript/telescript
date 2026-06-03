@@ -1,16 +1,20 @@
 import { Core } from '@telescript/core';
 import EventEmitter from 'node:events';
 import { ChatRepository, MessageRepository, UserRepository } from '../repositories/index.js';
-import { processUpdate } from './updates/index.js';
+import { EventMap, processUpdate } from './updates/index.js';
 import type { Requester, UpdateTransport } from '@telescript/spec';
 import { ClientUser } from '../structures/index.js';
+
+export enum ClientEvent {
+	Message = 'message',
+}
 
 export interface ClientOptions {
 	requester: Requester;
 	updateTransport: UpdateTransport;
 }
 
-export class Client extends EventEmitter {
+export class Client extends EventEmitter<EventMap> {
 	public requester: Requester;
 
 	public core: Core;
