@@ -6,7 +6,7 @@ function hasHandler(name: string): name is keyof typeof Handlers {
 	return name in Handlers;
 }
 
-export type UpdateHandlers = {
+type UpdateHandlers = {
 	[Name in UpdateName]: (client: Client, update: Extract<APIUpdate, { [Key in Name]: unknown }>) => unknown;
 };
 
