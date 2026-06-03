@@ -8,6 +8,11 @@ import { ClientUser, Message } from '../structures/index.js';
 export enum ClientEvent {
 	Message = 'message',
 	EditedMessage = 'editedMessage',
+	ChannelPost = 'channelPost',
+	EditedChannelPost = 'editedChannelPost',
+	BusinessMessage = 'businessMessage',
+	EditedBusinessMessage = 'editedBusinessMessage',
+	GuestMessage = 'guestMessage',
 }
 
 export interface ClientOptions {
@@ -18,6 +23,11 @@ export interface ClientOptions {
 export type EventMap = {
 	[ClientEvent.Message]: [Message];
 	[ClientEvent.EditedMessage]: [Message];
+	[ClientEvent.ChannelPost]: [Message];
+	[ClientEvent.EditedChannelPost]: [Message];
+	[ClientEvent.BusinessMessage]: [Message];
+	[ClientEvent.EditedBusinessMessage]: [Message];
+	[ClientEvent.GuestMessage]: [Message];
 };
 
 export class Client extends EventEmitter<EventMap> {
