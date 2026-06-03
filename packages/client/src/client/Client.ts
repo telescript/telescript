@@ -7,6 +7,7 @@ import { ClientUser, Message } from '../structures/index.js';
 
 export enum ClientEvent {
 	Message = 'message',
+	EditedMessage = 'editedMessage',
 }
 
 export interface ClientOptions {
@@ -16,6 +17,7 @@ export interface ClientOptions {
 
 export type EventMap = {
 	[ClientEvent.Message]: [Message];
+	[ClientEvent.EditedMessage]: [Message];
 };
 
 export class Client extends EventEmitter<EventMap> {
