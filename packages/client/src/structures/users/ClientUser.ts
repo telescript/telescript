@@ -1,5 +1,5 @@
 import { APIMethod } from '@telescript/api-types';
-import { BaseUser } from './BaseUser';
+import { BaseUser } from './BaseUser.js';
 import { ClientUser as ParentClientUser } from '@telescript/structures';
 
 export interface ClientUser extends ParentClientUser {}

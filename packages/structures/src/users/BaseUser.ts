@@ -1,5 +1,5 @@
 import { APIUser } from '@telescript/api-types';
-import { Structure } from '../Structure';
+import { Structure } from '../Structure.js';
 
 export class BaseUser<Data extends APIUser> extends Structure<Data> {
 	public get id() {

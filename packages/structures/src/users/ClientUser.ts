@@ -1,6 +1,6 @@
 import { APIMethod } from '@telescript/api-types';
-import { BaseUser } from './BaseUser';
-import { Structure } from '../Structure';
+import { BaseUser } from './BaseUser.js';
+import { Structure } from '../Structure.js';
 
 export class ClientUser extends BaseUser<APIMethod.GetMe.Result> {
 	public get isBot() {
