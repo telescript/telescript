@@ -149,38 +149,39 @@ export enum MessageOriginType {
 	Channel = 'channel',
 }
 
-export interface APIMessageOriginUser {
-	type: MessageOriginType.User;
-	date: number;
-	sender_user: APIUser;
-}
-
-export interface APIMessageOriginHiddenUser {
-	type: MessageOriginType.HiddenUser;
-	date: number;
-	sender_user_name: string;
-}
-
-export interface APIMessageOriginChat {
-	type: MessageOriginType.Chat;
-	date: number;
-	sender_chat: APIChat;
-	author_signature?: string;
-}
-
-export interface APIMessageOriginChannel {
-	type: MessageOriginType.Channel;
-	date: number;
-	chat: APIChat;
-	message_id: number;
-	author_signature?: string;
-}
-
 export type APIMessageOrigin =
-	| APIMessageOriginUser
-	| APIMessageOriginHiddenUser
-	| APIMessageOriginChat
-	| APIMessageOriginChannel;
+	| APIMessageOrigin.User
+	| APIMessageOrigin.HiddenUser
+	| APIMessageOrigin.Chat
+	| APIMessageOrigin.Channel;
+
+export namespace APIMessageOrigin {
+	export interface Base<Type extends MessageOriginType> {
+		type: Type;
+		date: number;
+	}
+
+	export interface User extends Base<MessageOriginType.User> {
+		sender_user: APIUser;
+	}
+
+	export interface HiddenUser extends Base<MessageOriginType.HiddenUser> {
+		sender_user_name: string;
+	}
+
+	export interface Chat extends Base<MessageOriginType.Chat> {
+		sender_chat: APIChat;
+		author_signature?: string;
+	}
+
+	export interface Channel extends Base<MessageOriginType.Channel> {
+		chat: APIChat;
+		message_id: number;
+		author_signature?: string;
+	}
+
+	export type FromType<Type extends MessageOriginType> = Extract<APIMessageOrigin, { type: Type }>;
+}
 
 export interface APIExternalReplyInfo {
 	origin: APIMessageOrigin;
