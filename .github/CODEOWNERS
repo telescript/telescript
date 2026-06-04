@@ -1,0 +1,10 @@
+* @Syjalo
+
+/packages/api-types @telescript/api-types
+/packages/bot @telescript/bot
+/packages/client @telescript/client
+/packages/core @telescript/core
+/packages/polling @telescript/polling
+/packages/requester @telescript/requester
+/packages/spec @telescript/spec
+/packages/structures @telescript/structures
