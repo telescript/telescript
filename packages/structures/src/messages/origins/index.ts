@@ -3,7 +3,7 @@ import { ChannelMessageOrigin } from './ChannelMessageOrigin.js';
 import { ChatMessageOrigin } from './ChatMessageOrigin.js';
 import { HiddenUserMessageOrigin } from './HiddenUserMessageOrigin.js';
 import { UserMessageOrigin } from './UserMessageOrigin.js';
-import { BaseMessageOrigin } from './index.js';
+import { BaseMessageOrigin } from './BaseMessageOrigin.js';
 
 export * from './BaseMessageOrigin.js';
 export * from './ChannelMessageOrigin.js';

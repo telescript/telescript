@@ -1,6 +1,9 @@
 import { APIMessageOrigin, MessageOriginType } from '@telescript/api-types';
 import { Structure } from '../../Structure.js';
-import { ChannelMessageOrigin, ChatMessageOrigin, HiddenUserMessageOrigin, UserMessageOrigin } from './index.js';
+import { UserMessageOrigin } from './UserMessageOrigin.js';
+import { HiddenUserMessageOrigin } from './HiddenUserMessageOrigin.js';
+import { ChatMessageOrigin } from './ChatMessageOrigin.js';
+import { ChannelMessageOrigin } from './ChannelMessageOrigin.js';
 
 export class BaseMessageOrigin<
 	Type extends MessageOriginType = MessageOriginType,
