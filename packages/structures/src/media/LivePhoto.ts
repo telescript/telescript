@@ -2,14 +2,18 @@ import { APILivePhoto } from '@telescript/api-types';
 import { BaseMedia } from './BaseMedia.js';
 import { Structure } from '../Structure.js';
 import { PhotoSize } from './PhotoSize.js';
-import { MIMETypedMediaMixin, SpatialMediaMixin, TemporalMediaMixin } from './mixins/index.js';
+import { MIMETypedMediaMixin, SizedMediaMixin, SpatialMediaMixin, TemporalMediaMixin } from './mixins/index.js';
 
 export interface LivePhote
-	extends SpatialMediaMixin<APILivePhoto>, TemporalMediaMixin<APILivePhoto>, MIMETypedMediaMixin<APILivePhoto> {}
+	extends
+		SizedMediaMixin<APILivePhoto>,
+		SpatialMediaMixin<APILivePhoto>,
+		TemporalMediaMixin<APILivePhoto>,
+		MIMETypedMediaMixin<APILivePhoto> {}
 
 export class LivePhoto extends BaseMedia<APILivePhoto> {
 	static {
-		this.mixin(SpatialMediaMixin, TemporalMediaMixin, MIMETypedMediaMixin);
+		this.mixin(SizedMediaMixin, SpatialMediaMixin, TemporalMediaMixin, MIMETypedMediaMixin);
 	}
 
 	public get photo() {
