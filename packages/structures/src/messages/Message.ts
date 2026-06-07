@@ -1,6 +1,9 @@
 import { APIMessage } from '@telescript/api-types';
-import { Structure } from './Structure.js';
+import { Structure } from '../Structure.js';
 import { DirectMessagesTopic } from './DirectMessagesTopic.js';
+import { User } from '../users/index.js';
+import { createChat } from '../chats/index.js';
+import { createMessageOrigin } from './origins/index.js';
 
 export class Message extends Structure<APIMessage> {
 	public get id() {
@@ -8,22 +11,22 @@ export class Message extends Structure<APIMessage> {
 	}
 
 	public get threadId() {
-		return this[Structure.DataProperty].message_thread_id;
+		return this[Structure.DataProperty].message_thread_id ?? null;
 	}
 
 	public get directMessagesTopic() {
 		const data = this[Structure.DataProperty].direct_messages_topic;
-		return data ? new DirectMessagesTopic(this.client, data) : null;
+		return data ? new DirectMessagesTopic(data) : null;
 	}
 
 	public get from() {
 		const data = this[Structure.DataProperty].from;
-		return data ? this.client.users.resolve(data) : null;
+		return data ? new User(data) : null;
 	}
 
 	public get senderChat() {
 		const data = this[Structure.DataProperty].sender_chat;
-		return data ? this.client.chats.resolve(data) : null;
+		return data ? createChat(data) : null;
 	}
 
 	public get senderBoostCount() {
@@ -32,7 +35,7 @@ export class Message extends Structure<APIMessage> {
 
 	public get senderBusinessBot() {
 		const data = this[Structure.DataProperty].sender_business_bot;
-		return data ? this.client.users.resolve(data) : null;
+		return data ? new User(data) : null;
 	}
 
 	public get senderTag() {
@@ -60,24 +63,24 @@ export class Message extends Structure<APIMessage> {
 	}
 
 	public get chat() {
-		return this.client.chats.resolve(this[Structure.DataProperty].chat);
+		return createChat(this[Structure.DataProperty].chat);
 	}
 
-	public get editUnixTimestamp() {
-		return this[Structure.DataProperty].edit_date ?? null;
+	public get forwardOrigin() {
+		const data = this[Structure.DataProperty].forward_origin;
+		return data ? createMessageOrigin(data) : null;
 	}
 
-	public get editTimestamp() {
-		const ts = this.editUnixTimestamp;
-		return ts === null ? null : ts * 1000;
+	public get isTopicMessage() {
+		return this[Structure.DataProperty].is_topic_message ?? false;
 	}
 
-	public get editDate() {
-		const ts = this.editTimestamp;
-		return ts === null ? null : new Date(ts);
+	public get isAutomaticForward() {
+		return this[Structure.DataProperty].is_automatic_forward ?? null;
 	}
 
-	public get text() {
-		return this[Structure.DataProperty].text ?? null;
+	public get replyToMessage(): Message | null {
+		const data = this[Structure.DataProperty].reply_to_message;
+		return data ? new Message(data) : null;
 	}
 }
