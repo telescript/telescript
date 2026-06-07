@@ -1,4 +1,4 @@
-import { APIFile } from './file';
+import { APIFile } from './file.js';
 
 export interface MediaBase {
 	file_id: string;
