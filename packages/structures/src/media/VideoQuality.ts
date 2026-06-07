@@ -1,7 +1,7 @@
 import { APIVideoQuality } from '@telescript/api-types';
-import { BaseMedia } from './BaseMedia';
-import { SizedMediaMixin, SpatialMediaMixin } from './mixins';
-import { Structure } from '../Structure';
+import { BaseMedia } from './BaseMedia.js';
+import { SizedMediaMixin, SpatialMediaMixin } from './mixins/index.js';
+import { Structure } from '../Structure.js';
 
 export interface VideoQuality extends SizedMediaMixin<APIVideoQuality>, SpatialMediaMixin<APIVideoQuality> {}
 

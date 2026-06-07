@@ -1,7 +1,7 @@
 import { APIVideoNote } from '@telescript/api-types';
-import { BaseMedia } from './BaseMedia';
-import { SizedMediaMixin, TemporalMediaMixin, ThumbnailedMediaMixin } from './mixins';
-import { Structure } from '../Structure';
+import { BaseMedia } from './BaseMedia.js';
+import { SizedMediaMixin, TemporalMediaMixin, ThumbnailedMediaMixin } from './mixins/index.js';
+import { Structure } from '../Structure.js';
 
 export interface VideoNote
 	extends SizedMediaMixin<APIVideoNote>, TemporalMediaMixin<APIVideoNote>, ThumbnailedMediaMixin<APIVideoNote> {}

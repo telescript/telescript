@@ -1,5 +1,5 @@
 import { APIVideo } from '@telescript/api-types';
-import { BaseMedia } from './BaseMedia';
+import { BaseMedia } from './BaseMedia.js';
 import {
 	DescribedMediaMixin,
 	SizedMediaMixin,
@@ -7,9 +7,9 @@ import {
 	TemporalMediaMixin,
 	ThumbnailedMediaMixin,
 } from './mixins';
-import { Structure } from '../Structure';
-import { PhotoSize } from './PhotoSize';
-import { VideoQuality } from './VideoQuality';
+import { Structure } from '../Structure.js';
+import { PhotoSize } from './PhotoSize.js';
+import { VideoQuality } from './VideoQuality.js';
 
 export interface Video
 	extends
