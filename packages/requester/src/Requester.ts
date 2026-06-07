@@ -2,6 +2,7 @@ import { APIErrorResponse, APIResponse } from '@telescript/api-types';
 import type { Requester as RequesterSpec } from '@telescript/spec';
 import { DefaultRequesterOptions } from './constants.js';
 import { setTimeout } from 'node:timers/promises';
+import { HTTPError, TelegramAPIError } from './errors/index.js';
 
 export interface RequesterOptions {
 	api: string;
@@ -33,7 +34,7 @@ export class Requester implements RequesterSpec {
 		const data = (await res.json()) as APIResponse<unknown>;
 
 		if (!data.ok) {
-			throw new Error(`TelegramAPIError: ${data.description} (code: ${data.error_code})`, { cause: data });
+			throw new TelegramAPIError(data);
 		}
 
 		return data.result;
@@ -56,8 +57,7 @@ export class Requester implements RequesterSpec {
 			return await this.fetch(url, init, retries);
 		}
 
-		if (status === 401 || retries >= this.options.maxRetries)
-			throw new Error(`HTTPError: ${res.status} ${res.statusText}`, { cause: res });
+		if (status === 401 || retries >= this.options.maxRetries) throw new HTTPError(res);
 
 		return await this.fetch(url, init, ++retries);
 	}
