@@ -3,6 +3,7 @@ export * from './Animation.js';
 export * from './Audio.js';
 export * from './Document.js';
 export * from './LivePhoto.js';
+export * from './PaidMediaInfo.js';
 export * from './PhotoSize.js';
 export * from './Video.js';
 export * from './VideoNote.js';
