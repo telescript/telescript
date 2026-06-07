@@ -1,4 +1,5 @@
 export * from './chat.js';
+export * from './file.js';
 export * from './media.js';
 export * from './message.js';
 export * from './method.js';
