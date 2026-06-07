@@ -10,3 +10,4 @@ export * from './VideoNote.js';
 export * from './VideoQuality.js';
 export * from './Voice.js';
 export * from './paid/index.js';
+export * from './sticker/index.js';
