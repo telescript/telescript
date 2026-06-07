@@ -8,3 +8,4 @@ export * from './Video.js';
 export * from './VideoNote.js';
 export * from './VideoQuality.js';
 export * from './Voice.js';
+export * from './paid/index.js';
