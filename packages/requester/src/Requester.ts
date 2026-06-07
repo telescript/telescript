@@ -54,10 +54,11 @@ export class Requester implements RequesterSpec {
 
 			await setTimeout(retryAfter);
 			return await this.fetch(url, init, retries);
-		} else {
-			if (status === 401 || retries > this.options.maxRetries)
-				throw new Error(`HTTPError: ${res.status} ${res.statusText}`, { cause: res });
-			return await this.fetch(url, init, ++retries);
 		}
+
+		if (status === 401 || retries >= this.options.maxRetries)
+			throw new Error(`HTTPError: ${res.status} ${res.statusText}`, { cause: res });
+
+		return await this.fetch(url, init, ++retries);
 	}
 }
