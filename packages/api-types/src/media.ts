@@ -94,6 +94,8 @@ export namespace APIPaidMedia {
 	export interface Video extends Base<PaidMediaType.Video> {
 		video: APIVideo;
 	}
+
+	export type FromType<Type extends PaidMediaType> = Extract<APIPaidMedia, { type: Type }>;
 }
 
 export interface APIFile extends MediaBase {
