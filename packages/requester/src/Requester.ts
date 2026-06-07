@@ -42,11 +42,10 @@ export class Requester implements RequesterSpec {
 
 	private async fetch(url: string, init: RequestInit, retries = 0): Promise<Response> {
 		const res = await fetch(url, init);
+		if (res.ok) return res;
 
 		const status = res.status;
-		if (status >= 200 && status < 300) {
-			return res;
-		} else if (status === 429) {
+		if (status === 429) {
 			const data = (await res.json()) as APIErrorResponse;
 
 			let retryAfter = data.parameters?.retry_after;
