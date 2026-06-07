@@ -6,7 +6,7 @@ import { ChatMessageOrigin } from './ChatMessageOrigin.js';
 import { ChannelMessageOrigin } from './ChannelMessageOrigin.js';
 
 export class BaseMessageOrigin<
-	Type extends MessageOriginType = MessageOriginType,
+	Type extends MessageOriginType,
 	Data extends APIMessageOrigin.FromType<Type> = APIMessageOrigin.FromType<Type>,
 > extends Structure<Data> {
 	public get type() {
