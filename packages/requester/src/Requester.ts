@@ -6,8 +6,8 @@ import { HTTPError, TelegramAPIError } from './errors/index.js';
 
 export interface RequesterOptions {
 	api: string;
-	maxRetries: number;
-	retryAfter: number;
+	maxHttpErrorRetries: number;
+	retryOnRateLimitedAfter: number;
 }
 
 export class Requester implements RequesterSpec {
@@ -40,7 +40,7 @@ export class Requester implements RequesterSpec {
 		return data.result;
 	}
 
-	private async fetch(url: string, init: RequestInit, retries = 0): Promise<Response> {
+	private async fetch(url: string, init: RequestInit, httpErrorRetries = 0): Promise<Response> {
 		const res = await fetch(url, init);
 		if (res.ok) return res;
 
@@ -50,13 +50,13 @@ export class Requester implements RequesterSpec {
 
 			let retryAfter = data.parameters?.retry_after;
 			if (retryAfter) retryAfter *= 1000;
-			retryAfter ??= this.options.retryAfter;
+			retryAfter ??= this.options.retryOnRateLimitedAfter;
 
 			await setTimeout(retryAfter);
-			return await this.fetch(url, init, retries);
+			return await this.fetch(url, init, httpErrorRetries);
 		} else if (status >= 500 && status < 600) {
-			if (retries >= this.options.maxRetries) throw new HTTPError(res);
-			return await this.fetch(url, init, ++retries);
+			if (httpErrorRetries >= this.options.maxHttpErrorRetries) throw new HTTPError(res);
+			return await this.fetch(url, init, ++httpErrorRetries);
 		}
 
 		return res;
