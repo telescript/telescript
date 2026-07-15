@@ -1,10 +1,13 @@
-import { APIResponse } from '@telescript/api-types';
+import { APIErrorResponse, APIResponse } from '@telescript/api-types';
 import type { Requester as RequesterSpec } from '@telescript/spec';
 import { DefaultRequesterOptions } from './constants.js';
+import { setTimeout } from 'node:timers/promises';
+import { HTTPError, TelegramAPIError } from './errors/index.js';
 
 export interface RequesterOptions {
 	api: string;
-	maxRetries: number;
+	maxHttpErrorRetries: number;
+	retryOnRateLimitedAfter: number;
 }
 
 export class Requester implements RequesterSpec {
@@ -17,10 +20,10 @@ export class Requester implements RequesterSpec {
 		this.options = { ...DefaultRequesterOptions, ...options };
 	}
 
-	public async request(method: string, params?: Record<string, unknown>, retries = 0): Promise<unknown> {
+	public async request(method: string, params?: Record<string, unknown>): Promise<unknown> {
 		const url = `${this.options.api}/bot${this.#token}/${method}`;
 
-		const response = await fetch(url, {
+		const res = await this.fetch(url, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -28,20 +31,34 @@ export class Requester implements RequesterSpec {
 			body: JSON.stringify(params ?? {}),
 		});
 
-		if (!response.ok) {
-			if (retries < this.options.maxRetries) {
-				return this.request(method, params, ++retries);
-			}
-
-			throw new Error(`HTTPError: ${response.status} ${response.statusText}`);
-		}
-
-		const data = (await response.json()) as APIResponse<unknown>;
+		const data = (await res.json()) as APIResponse<unknown>;
 
 		if (!data.ok) {
-			throw new Error(`TelegramAPIError: ${data.description} (code: ${data.error_code})`);
+			throw new TelegramAPIError(data);
 		}
 
 		return data.result;
+	}
+
+	private async fetch(url: string, init: RequestInit, httpErrorRetries = 0): Promise<Response> {
+		const res = await fetch(url, init);
+		if (res.ok) return res;
+
+		const status = res.status;
+		if (status === 429) {
+			const data = (await res.json()) as APIErrorResponse;
+
+			let retryAfter = data.parameters?.retry_after;
+			if (retryAfter) retryAfter *= 1000;
+			retryAfter ??= this.options.retryOnRateLimitedAfter;
+
+			await setTimeout(retryAfter);
+			return await this.fetch(url, init, httpErrorRetries);
+		} else if (status >= 500 && status < 600) {
+			if (httpErrorRetries >= this.options.maxHttpErrorRetries) throw new HTTPError(res);
+			return await this.fetch(url, init, ++httpErrorRetries);
+		}
+
+		return res;
 	}
 }

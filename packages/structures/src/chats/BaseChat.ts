@@ -8,7 +8,7 @@ import { TitleableChatMixin } from './mixins/TitleableChatMixin.js';
 import { UsernameableChatMixin } from './mixins/UsernameableChatMixin.js';
 
 export class BaseChat<
-	Type extends ChatType = ChatType,
+	Type extends ChatType,
 	Data extends APIChat.FromType<Type> = APIChat.FromType<Type>,
 > extends Structure<Data> {
 	public get id() {

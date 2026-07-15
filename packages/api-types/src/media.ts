@@ -1,3 +1,5 @@
+import { APIFile } from './file.js';
+
 export interface MediaBase {
 	file_id: string;
 	file_unique_id: string;
@@ -94,10 +96,8 @@ export namespace APIPaidMedia {
 	export interface Video extends Base<PaidMediaType.Video> {
 		video: APIVideo;
 	}
-}
 
-export interface APIFile extends MediaBase {
-	file_path?: string;
+	export type FromType<Type extends PaidMediaType> = Extract<APIPaidMedia, { type: Type }>;
 }
 
 export enum StickerType {
@@ -130,9 +130,4 @@ export interface APIMaskPosition {
 	x_shift: number;
 	y_shift: number;
 	scale: number;
-}
-
-export interface APIPassportFile extends MediaBase {
-	file_size: number;
-	file_date: number;
 }

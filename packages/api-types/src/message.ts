@@ -4,7 +4,7 @@ import {
 	APIAudio,
 	APIDocument,
 	APILivePhoto,
-	APIPaidMedia,
+	APIPaidMediaInfo,
 	APIPhotoSize,
 	APISticker,
 	APIVideo,
@@ -61,7 +61,7 @@ export interface APIMessage extends APIMessageId {
 	audio?: APIAudio;
 	document?: APIDocument;
 	live_photo?: APILivePhoto;
-	paid_media?: APIPaidMedia;
+	paid_media?: APIPaidMediaInfo;
 	photo?: APIPhotoSize[];
 	sticker?: APISticker;
 	story?: APIStory;
@@ -192,7 +192,7 @@ export interface APIExternalReplyInfo {
 	audio?: APIAudio;
 	document?: APIDocument;
 	live_photo?: APILivePhoto;
-	paid_media?: APIPaidMedia;
+	paid_media?: APIPaidMediaInfo;
 	photo?: APIPhotoSize[];
 	sticker?: APISticker;
 	story?: APIStory;
