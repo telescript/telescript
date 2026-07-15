@@ -247,16 +247,87 @@ export enum MessageEntityType {
 	DateTime = 'date_time',
 }
 
-export interface APIMessageEntity {
-	type: MessageEntityType;
-	offset: number;
-	length: number;
-	url?: string;
-	user?: APIUser;
-	language?: string;
-	custom_emoji_id?: string;
-	unix_time?: number;
-	date_time_format?: string;
+export type APIMessageEntity =
+	| APIMessageEntity.Mention
+	| APIMessageEntity.Hashtag
+	| APIMessageEntity.Cashtag
+	| APIMessageEntity.BotCommand
+	| APIMessageEntity.URL
+	| APIMessageEntity.Email
+	| APIMessageEntity.PhoneNumber
+	| APIMessageEntity.Bold
+	| APIMessageEntity.Italic
+	| APIMessageEntity.Underline
+	| APIMessageEntity.Strikethrough
+	| APIMessageEntity.Spoiler
+	| APIMessageEntity.Blockquote
+	| APIMessageEntity.ExpandableBlockquote
+	| APIMessageEntity.Code
+	| APIMessageEntity.Pre
+	| APIMessageEntity.TextLink
+	| APIMessageEntity.TextMention
+	| APIMessageEntity.CustomEmoji
+	| APIMessageEntity.DateTime;
+
+export namespace APIMessageEntity {
+	export interface Base<Type extends MessageEntityType> {
+		type: Type;
+		offset: number;
+		length: number;
+	}
+
+	export interface Mention extends Base<MessageEntityType.Mention> {}
+
+	export interface Hashtag extends Base<MessageEntityType.Hashtag> {}
+
+	export interface Cashtag extends Base<MessageEntityType.Cashtag> {}
+
+	export interface BotCommand extends Base<MessageEntityType.BotCommand> {}
+
+	export interface URL extends Base<MessageEntityType.URL> {}
+
+	export interface Email extends Base<MessageEntityType.Email> {}
+
+	export interface PhoneNumber extends Base<MessageEntityType.PhoneNumber> {}
+
+	export interface Bold extends Base<MessageEntityType.Bold> {}
+
+	export interface Italic extends Base<MessageEntityType.Italic> {}
+
+	export interface Underline extends Base<MessageEntityType.Underline> {}
+
+	export interface Strikethrough extends Base<MessageEntityType.Strikethrough> {}
+
+	export interface Spoiler extends Base<MessageEntityType.Spoiler> {}
+
+	export interface Blockquote extends Base<MessageEntityType.Blockquote> {}
+
+	export interface ExpandableBlockquote extends Base<MessageEntityType.ExpandableBlockquote> {}
+
+	export interface Code extends Base<MessageEntityType.Code> {}
+
+	export interface Pre extends Base<MessageEntityType.Pre> {
+		language?: string;
+	}
+
+	export interface TextLink extends Base<MessageEntityType.TextLink> {
+		url: string;
+	}
+
+	export interface TextMention extends Base<MessageEntityType.TextMention> {
+		user: APIUser;
+	}
+
+	export interface CustomEmoji extends Base<MessageEntityType.CustomEmoji> {
+		custom_emoji_id: string;
+	}
+
+	export interface DateTime extends Base<MessageEntityType.DateTime> {
+		unix_time: number;
+		date_time_format?: string;
+	}
+
+	export type FromType<Type extends MessageEntityType> = Extract<APIMessageEntity, { type: Type }>;
 }
 
 export interface APILinkPreviewOptions {
