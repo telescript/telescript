@@ -12,6 +12,12 @@ import { PhotoSize } from '../media/PhotoSize.js';
 import { Sticker, Video, VideoNote, Voice } from '../media/index.js';
 import { Story } from './Story.js';
 import { Checklist } from './Checklist.js';
+import { Contact } from './Contact.js';
+import { Dice } from './Dice.js';
+import { Game } from './Game.js';
+import { Giveaway } from './Giveaway.js';
+import { GiveawayWinners } from './GiveawayWinners.js';
+import { Location } from './Location.js';
 
 export class ExternalReplyInfo extends Structure<APIExternalReplyInfo> {
 	public get origin() {
@@ -96,5 +102,37 @@ export class ExternalReplyInfo extends Structure<APIExternalReplyInfo> {
 		return data ? new Checklist(data) : null;
 	}
 
-	// TODO
+	public get contact() {
+		const data = this[Structure.DataProperty].contact;
+		return data ? new Contact(data) : null;
+	}
+
+	public get dice() {
+		const data = this[Structure.DataProperty].dice;
+		return data ? new Dice(data) : null;
+	}
+
+	public get game() {
+		const data = this[Structure.DataProperty].game;
+		return data ? new Game(data) : null;
+	}
+
+	public get giveaway() {
+		const data = this[Structure.DataProperty].giveaway;
+		return data ? new Giveaway(data) : null;
+	}
+
+	public get giveaway_winners() {
+		const data = this[Structure.DataProperty].giveaway_winners;
+		return data ? new GiveawayWinners(data) : null;
+	}
+
+	public get invoice() {
+		// TODO
+	}
+
+	public get location() {
+		const data = this[Structure.DataProperty].location;
+		return data ? new Location(data) : null;
+	}
 }
