@@ -1,5 +1,5 @@
 import { MaskPosition as ParentMaskPosition } from '@telescript/structures';
-import { Client } from '../../../client';
+import { Client } from '../../../client/index.js';
 import { APIMaskPosition } from '@telescript/api-types';
 
 export class MaskPosition extends ParentMaskPosition {

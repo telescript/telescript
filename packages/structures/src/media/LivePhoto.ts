@@ -4,7 +4,7 @@ import { Structure } from '../Structure.js';
 import { PhotoSize } from './PhotoSize.js';
 import { MIMETypedMediaMixin, SizedMediaMixin, SpatialMediaMixin, TemporalMediaMixin } from './mixins/index.js';
 
-export interface LivePhote
+export interface LivePhoto
 	extends
 		SizedMediaMixin<APILivePhoto>,
 		SpatialMediaMixin<APILivePhoto>,

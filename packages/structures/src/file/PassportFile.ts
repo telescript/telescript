@@ -1,6 +1,6 @@
 import { APIPassportFile } from '@telescript/api-types';
 import { BaseFile } from './BaseFile.js';
-import { Structure } from '../Structure';
+import { Structure } from '../Structure.js';
 
 export class PassportFile extends BaseFile<APIPassportFile> {
 	public get size() {
