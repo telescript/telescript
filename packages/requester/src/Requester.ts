@@ -10,6 +10,10 @@ export interface RequesterOptions {
 	retryOnRateLimitedAfter: number;
 }
 
+export interface RequestOptions {
+	asFormData?: boolean;
+}
+
 export class Requester implements RequesterSpec {
 	#token: string;
 
@@ -20,15 +24,27 @@ export class Requester implements RequesterSpec {
 		this.options = { ...DefaultRequesterOptions, ...options };
 	}
 
-	public async request(method: string, params?: Record<string, unknown>): Promise<unknown> {
+	public async request(method: string, params?: Record<string, unknown>, options?: RequestOptions): Promise<unknown> {
 		const url = `${this.options.api}/bot${this.#token}/${method}`;
 
+		let body;
+		if (params) {
+			if (options?.asFormData) {
+				const formData = new FormData();
+				for (const [key, value] of Object.entries(params)) {
+					formData.append(key, value);
+				}
+			} else {
+				body = JSON.stringify(params);
+			}
+		}
+
 		const res = await this.fetch(url, {
-			method: 'POST',
+			method: params ? 'POST' : 'GET',
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify(params ?? {}),
+			body,
 		});
 
 		const data = (await res.json()) as APIResponse<unknown>;
