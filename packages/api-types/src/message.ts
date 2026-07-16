@@ -1,4 +1,4 @@
-import { APIChat } from './chat.js';
+import { APIChat, APIChatAdministratorRights } from './chat.js';
 import {
 	APIAnimation,
 	APIAudio,
@@ -212,6 +212,19 @@ export interface APIExternalReplyInfo {
 	venue?: APIVenue;
 }
 
+export interface APIReplyParameters {
+	message_id?: number;
+	chat_id?: number | string;
+	ephemeral_message_id?: number;
+	allow_sending_without_reply?: boolean;
+	quote?: string;
+	quote_parse_mode?: string;
+	quote_entities?: APIMessageEntity[];
+	quote_position?: number;
+	checklist_task_id?: number;
+	poll_option_id?: string;
+}
+
 export interface APITextQuote {
 	text: string;
 	entities?: APIMessageEntity[];
@@ -351,6 +364,11 @@ export interface APISuggestedPostPrice {
 
 export interface APISuggestedPostInfo {
 	state: SuggestedPostInfoState;
+	price?: APISuggestedPostPrice;
+	send_date?: number;
+}
+
+export interface APISuggestedPostParameters {
 	price?: APISuggestedPostPrice;
 	send_date?: number;
 }
@@ -777,6 +795,14 @@ export interface APIGiveawayCompleted {
 	is_star_giveaway?: boolean;
 }
 
+export interface APILinkPreviewOptions {
+	is_disabled?: boolean;
+	url?: string;
+	prefer_small_media?: boolean;
+	prefer_large_media?: boolean;
+	show_above_text?: boolean;
+}
+
 export interface APIManagedBotCreated {
 	bot: APIUser;
 }
@@ -900,6 +926,79 @@ export interface APIInlineKeyboardButton {
 
 export interface APIInlineKeyboardMarkup {
 	inline_keyboard: APIInlineKeyboardButton[][];
+}
+
+export interface APIReplyKeyboardMarkup {
+	keyboard: APIKeyboardButton[][];
+	is_persistent?: boolean;
+	resize_keyboard?: boolean;
+	one_time_keyboard?: boolean;
+	input_field_placeholder?: string;
+	selective?: boolean;
+}
+
+export enum KeyboardButtonStyle {
+	Danger = 'danger',
+	Success = 'success',
+	Primary = 'primary',
+}
+
+export interface APIKeyboardButton {
+	text: string;
+	icon_custom_emoji_id?: string;
+	style?: KeyboardButtonStyle;
+	request_users?: APIKeyboardButtonRequestUsers;
+	request_chat?: APIKeyboardButtonRequestChat;
+	request_managed_bot?: APIKeyboardButtonRequestManagedBot;
+	request_contact?: boolean;
+	request_location?: boolean;
+	request_poll?: APIKeyboardButtonPollType;
+	web_app?: APIWebAppInfo;
+}
+
+export interface APIKeyboardButtonRequestUsers {
+	request_id: number;
+	user_is_bot?: boolean;
+	user_is_premium?: boolean;
+	max_quantity?: boolean;
+	request_name?: boolean;
+	request_username?: boolean;
+	request_photo?: boolean;
+}
+
+export interface APIKeyboardButtonRequestChat {
+	request_id: number;
+	chat_is_channel: boolean;
+	chat_is_forum?: boolean;
+	chat_has_username?: boolean;
+	chat_is_created?: boolean;
+	user_administrator_rights?: APIChatAdministratorRights;
+	bot_administrator_rights?: APIChatAdministratorRights;
+	bot_is_member?: boolean;
+	request_title?: boolean;
+	request_username?: boolean;
+	request_photo?: boolean;
+}
+
+export interface APIKeyboardButtonRequestManagedBot {
+	request_id: number;
+	suggested_name?: string;
+	suggested_username?: string;
+}
+
+export interface APIKeyboardButtonPollType {
+	type?: PollType;
+}
+
+export interface APIReplyKeyboardRemove {
+	remove_keyboard: boolean;
+	selective?: boolean;
+}
+
+export interface APIForceReply {
+	force_reply: boolean;
+	input_field_placeholder?: string;
+	selective?: boolean;
 }
 
 export interface APIInaccessibleMessage extends APIMessageId {

@@ -12,3 +12,5 @@ export interface APIPassportFile extends FileBase {
 	file_size: number;
 	file_date: number;
 }
+
+export type InputFile = Blob;
