@@ -15,6 +15,8 @@ import { APIUser } from './user.js';
 export enum APIMethod {
 	GetUpdates = 'getUpdates',
 	GetMe = 'getMe',
+	LogOut = 'logOut',
+	Close = 'close',
 	SendMessage = 'sendMessage',
 }
 
@@ -44,6 +46,14 @@ export namespace APIMethod {
 			allows_users_to_create_topics: boolean;
 			can_manage_bots: boolean;
 		}
+	}
+
+	export namespace LogOut {
+		export type Result = true;
+	}
+
+	export namespace Close {
+		export type Result = true;
 	}
 
 	export namespace SendMessage {

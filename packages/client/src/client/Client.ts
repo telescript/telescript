@@ -63,4 +63,12 @@ export class Client extends EventEmitter<EventMap> {
 		const data = await this.core.api.getMe();
 		return new ClientUser(this, data);
 	}
+
+	public async logOut() {
+		return await this.core.api.logOut();
+	}
+
+	public async close() {
+		return await this.core.api.close();
+	}
 }
