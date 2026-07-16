@@ -1,4 +1,14 @@
-import { APIMessage, APIMessageEntity } from './message.js';
+import {
+	APIForceReply,
+	APIInlineKeyboardMarkup,
+	APILinkPreviewOptions,
+	APIMessage,
+	APIMessageEntity,
+	APIReplyKeyboardMarkup,
+	APIReplyKeyboardRemove,
+	APIReplyParameters,
+	APISuggestedPostParameters,
+} from './message.js';
 import { APIUpdate } from './update.js';
 import { APIUser } from './user.js';
 
@@ -47,6 +57,14 @@ export namespace APIMethod {
 			text: string;
 			parse_mode?: string;
 			entities?: APIMessageEntity[];
+			link_preview_options?: APILinkPreviewOptions;
+			disable_notification?: boolean;
+			protect_content?: boolean;
+			allow_paid_broadcast?: boolean;
+			message_effect_id?: string;
+			suggested_post_parameters?: APISuggestedPostParameters;
+			reply_parameters?: APIReplyParameters;
+			reply_markup?: APIInlineKeyboardMarkup | APIReplyKeyboardMarkup | APIReplyKeyboardRemove | APIForceReply;
 		}
 
 		export type Result = APIMessage;
