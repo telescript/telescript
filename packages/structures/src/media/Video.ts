@@ -6,7 +6,7 @@ import {
 	SpatialMediaMixin,
 	TemporalMediaMixin,
 	ThumbnailedMediaMixin,
-} from './mixins';
+} from './mixins/index.js';
 import { Structure } from '../Structure.js';
 import { PhotoSize } from './PhotoSize.js';
 import { VideoQuality } from './VideoQuality.js';
