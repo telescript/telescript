@@ -4,13 +4,7 @@ export * from './media.js';
 export * from './message.js';
 export * from './method.js';
 export * from './passport.js';
-export {
-	APIInvoice,
-	APIOrderInfo,
-	APIRefundedPayment,
-	APIShippingAddress,
-	APISuccessfulPayment,
-} from './payments.js';
+export { APIInvoice, APIOrderInfo, APIRefundedPayment, APIShippingAddress, APISuccessfulPayment } from './payments.js';
 export * from './response.js';
 export * from './update.js';
 export * from './user.js';

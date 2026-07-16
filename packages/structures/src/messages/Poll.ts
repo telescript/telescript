@@ -63,7 +63,9 @@ export class Poll extends Structure<APIPoll> {
 
 	public get explanationEntities() {
 		const data = this[Structure.DataProperty].explanation_entities;
-		return data ? data.map((entity) => createMessageEntity(entity, this[Structure.DataProperty].explanation ?? '')) : null;
+		return data
+			? data.map((entity) => createMessageEntity(entity, this[Structure.DataProperty].explanation ?? ''))
+			: null;
 	}
 
 	public get explanationMedia() {
@@ -85,7 +87,9 @@ export class Poll extends Structure<APIPoll> {
 
 	public get descriptionEntities() {
 		const data = this[Structure.DataProperty].description_entities;
-		return data ? data.map((entity) => createMessageEntity(entity, this[Structure.DataProperty].description ?? '')) : null;
+		return data
+			? data.map((entity) => createMessageEntity(entity, this[Structure.DataProperty].description ?? ''))
+			: null;
 	}
 
 	public get media() {
