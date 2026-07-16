@@ -1,4 +1,4 @@
-import { APIMessage } from './message.js';
+import { APIMessage, APIMessageEntity } from './message.js';
 import { APIUpdate } from './update.js';
 import { APIUser } from './user.js';
 
@@ -38,8 +38,15 @@ export namespace APIMethod {
 
 	export namespace SendMessage {
 		export interface Params {
+			business_connection_id?: string;
 			chat_id: number | string;
+			message_thread_id?: number;
+			direct_messages_topic_id?: number;
+			receiver_user_id?: number;
+			callback_query_id?: string;
 			text: string;
+			parse_mode?: string;
+			entities?: APIMessageEntity[];
 		}
 
 		export type Result = APIMessage;

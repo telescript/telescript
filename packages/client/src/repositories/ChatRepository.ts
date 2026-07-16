@@ -19,7 +19,7 @@ export class ChatRepository extends Repository<APIChat, Chat> {
 	}
 
 	public async sendText(chatId: number | string, text: string) {
-		const message = await this.client.core.api.sendMessage(chatId, text);
+		const message = await this.client.core.api.sendMessage({ chat_id: chatId, text });
 		return this.client.messages.resolve(message);
 	}
 }
