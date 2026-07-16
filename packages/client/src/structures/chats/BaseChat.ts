@@ -17,11 +17,6 @@ import {
 	SendVoiceOptions,
 } from '../../repositories/ChatRepository.js';
 
-export interface BaseChat<
-	Type extends ChatType = ChatType,
-	Data extends APIChat.FromType<Type> = APIChat.FromType<Type>,
-> extends ParentBaseChat<Type, Data> {}
-
 export class BaseChat<
 	Type extends ChatType = ChatType,
 	Data extends APIChat.FromType<Type> = APIChat.FromType<Type>,
