@@ -18,6 +18,7 @@ import { Game } from './Game.js';
 import { Giveaway } from './Giveaway.js';
 import { GiveawayWinners } from './GiveawayWinners.js';
 import { Location } from './Location.js';
+import { Invoice } from './Invoice.js';
 
 export class ExternalReplyInfo extends Structure<APIExternalReplyInfo> {
 	public get origin() {
@@ -74,7 +75,7 @@ export class ExternalReplyInfo extends Structure<APIExternalReplyInfo> {
 	}
 
 	public get story() {
-		const data = this[Sticker.DataProperty].story;
+		const data = this[Structure.DataProperty].story;
 		return data ? new Story(data) : null;
 	}
 
@@ -128,7 +129,8 @@ export class ExternalReplyInfo extends Structure<APIExternalReplyInfo> {
 	}
 
 	public get invoice() {
-		// TODO
+		const data = this[Structure.DataProperty].invoice;
+		return data ? new Invoice(data) : null;
 	}
 
 	public get location() {
