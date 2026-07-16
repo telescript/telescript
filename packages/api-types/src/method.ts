@@ -21,6 +21,8 @@ export enum APIMethod {
 	SendMessage = 'sendMessage',
 	ForwardMessage = 'forwardMessage',
 	ForwardMessages = 'forwardMessages',
+	CopyMessage = 'copyMessage',
+	CopyMessages = 'copyMessages',
 }
 
 export namespace APIMethod {
@@ -109,6 +111,45 @@ export namespace APIMethod {
 			message_ids: number[];
 			disable_notification?: boolean;
 			protect_content?: boolean;
+		}
+
+		export type Result = APIMessageId[];
+	}
+
+	export namespace CopyMessage {
+		export interface Params {
+			chat_id: number | string;
+			message_thread_id?: number;
+			direct_messages_topic_id?: number;
+			from_chat_id: number | string;
+			message_id: number;
+			video_start_timestamp?: number;
+			caption?: string;
+			parse_mode?: string;
+			caption_entities?: APIMessageEntity[];
+			show_caption_above_media?: boolean;
+			disable_notification?: boolean;
+			protect_content?: boolean;
+			allow_paid_broadcast?: boolean;
+			message_effect_id?: string;
+			suggested_post_parameters?: APISuggestedPostParameters;
+			reply_parameters?: APIReplyParameters;
+			reply_markup?: APIInlineKeyboardMarkup | APIReplyKeyboardMarkup | APIReplyKeyboardRemove | APIForceReply;
+		}
+
+		export type Result = APIMessageId;
+	}
+
+	export namespace CopyMessages {
+		export interface Params {
+			chat_id: number | string;
+			message_thread_id?: number;
+			direct_messages_topic_id?: number;
+			from_chat_id: number | string;
+			message_ids: number[];
+			disable_notification?: boolean;
+			protect_content?: boolean;
+			remove_caption?: boolean;
 		}
 
 		export type Result = APIMessageId[];

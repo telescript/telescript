@@ -2,26 +2,6 @@ import { APIChat, APIMethod, ChatType } from '@telescript/api-types';
 import { Repository } from './Repository.js';
 import { BaseChat, ChannelChat, Chat, GroupChat, PrivateChat, SupergroupChat } from '../structures/index.js';
 
-export interface SendTextOptions {
-	chatId: number | string;
-	messageThreadId?: number;
-	text: string;
-}
-
-export interface ForwardMessageOptions {
-	chatId: number | string;
-	messageThreadId?: number;
-	fromChatId: number | string;
-	messageId: number;
-}
-
-export interface ForwardMessagesOptions {
-	chatId: number | string;
-	messageThreadId?: number;
-	fromChatId: number | string;
-	messageIds: number[];
-}
-
 export class ChatRepository extends Repository<APIChat, Chat> {
 	public resolve(data: APIChat): Chat {
 		switch (data.type) {
@@ -80,4 +60,70 @@ export class ChatRepository extends Repository<APIChat, Chat> {
 			messageId: messageId.message_id;
 		});
 	}
+
+	public async copyMessage(options: CopyMessageOptions) {
+		const { chatId, messageThreadId, fromChatId, messageId, ...rest } = options;
+		const params = {
+			chat_id: chatId,
+			message_thread_id: messageThreadId,
+			from_chat_id: fromChatId,
+			message_id: messageId,
+			...rest,
+		} satisfies APIMethod.CopyMessage.Params;
+
+		const data = await this.client.core.api.copyMessage(params);
+		// TODO: replace with MessageId class
+		return { messageId: data.message_id };
+	}
+
+	public async copyMessages(options: CopyMessagesOptions) {
+		const { chatId, messageThreadId, fromChatId, messageIds, ...rest } = options;
+		const params = {
+			chat_id: chatId,
+			message_thread_id: messageThreadId,
+			from_chat_id: fromChatId,
+			message_ids: messageIds,
+			...rest,
+		} satisfies APIMethod.CopyMessages.Params;
+
+		const data = await this.client.core.api.copyMessages(params);
+		// TODO: replace with MessageId class
+		return data.map((messageId) => {
+			messageId: messageId.message_id;
+		});
+	}
+}
+
+export interface SendTextOptions {
+	chatId: number | string;
+	messageThreadId?: number;
+	text: string;
+}
+
+export interface ForwardMessageOptions {
+	chatId: number | string;
+	messageThreadId?: number;
+	fromChatId: number | string;
+	messageId: number;
+}
+
+export interface ForwardMessagesOptions {
+	chatId: number | string;
+	messageThreadId?: number;
+	fromChatId: number | string;
+	messageIds: number[];
+}
+
+export interface CopyMessageOptions {
+	chatId: number | string;
+	messageThreadId?: number;
+	fromChatId: number | string;
+	messageId: number;
+}
+
+export interface CopyMessagesOptions {
+	chatId: number | string;
+	messageThreadId?: number;
+	fromChatId: number | string;
+	messageIds: number[];
 }
