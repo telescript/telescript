@@ -23,4 +23,12 @@ export class API {
 	public async sendMessage(params: APIMethod.SendMessage.Params) {
 		return (await this.requester.request(APIMethod.SendMessage, params)) as APIMethod.SendMessage.Result;
 	}
+
+	public async forwardMessage(params: APIMethod.ForwardMessage.Params) {
+		return (await this.requester.request(APIMethod.ForwardMessage, params)) as APIMethod.ForwardMessage.Result;
+	}
+
+	public async forwardMessages(params: APIMethod.ForwardMessages.Params) {
+		return (await this.requester.request(APIMethod.ForwardMessages, params)) as APIMethod.ForwardMessages.Result;
+	}
 }

@@ -1,6 +1,26 @@
-import { APIChat, ChatType } from '@telescript/api-types';
+import { APIChat, APIMethod, ChatType } from '@telescript/api-types';
 import { Repository } from './Repository.js';
 import { BaseChat, ChannelChat, Chat, GroupChat, PrivateChat, SupergroupChat } from '../structures/index.js';
+
+export interface SendTextOptions {
+	chatId: number | string;
+	messageThreadId?: number;
+	text: string;
+}
+
+export interface ForwardMessageOptions {
+	chatId: number | string;
+	messageThreadId?: number;
+	fromChatId: number | string;
+	messageId: number;
+}
+
+export interface ForwardMessagesOptions {
+	chatId: number | string;
+	messageThreadId?: number;
+	fromChatId: number | string;
+	messageIds: number[];
+}
 
 export class ChatRepository extends Repository<APIChat, Chat> {
 	public resolve(data: APIChat): Chat {
@@ -18,8 +38,46 @@ export class ChatRepository extends Repository<APIChat, Chat> {
 		}
 	}
 
-	public async sendText(chatId: number | string, text: string) {
-		const message = await this.client.core.api.sendMessage({ chat_id: chatId, text });
+	public async sendText(options: SendTextOptions) {
+		const { chatId, messageThreadId, ...rest } = options;
+		const params = {
+			chat_id: chatId,
+			message_thread_id: messageThreadId,
+			...rest,
+		} satisfies APIMethod.SendMessage.Params;
+
+		const message = await this.client.core.api.sendMessage(params);
 		return this.client.messages.resolve(message);
+	}
+
+	public async forwardMessage(options: ForwardMessageOptions) {
+		const { chatId, messageThreadId, fromChatId, messageId, ...rest } = options;
+		const params = {
+			chat_id: chatId,
+			message_thread_id: messageThreadId,
+			from_chat_id: fromChatId,
+			message_id: messageId,
+			...rest,
+		} satisfies APIMethod.ForwardMessage.Params;
+
+		const message = await this.client.core.api.forwardMessage(params);
+		return this.client.messages.resolve(message);
+	}
+
+	public async forwardMessages(options: ForwardMessagesOptions) {
+		const { chatId, messageThreadId, fromChatId, messageIds, ...rest } = options;
+		const params = {
+			chat_id: chatId,
+			message_thread_id: messageThreadId,
+			from_chat_id: fromChatId,
+			message_ids: messageIds,
+			...rest,
+		} satisfies APIMethod.ForwardMessages.Params;
+
+		const data = await this.client.core.api.forwardMessages(params);
+		// TODO: replace with MessageId class
+		return data.map((messageId) => {
+			messageId: messageId.message_id;
+		});
 	}
 }

@@ -4,6 +4,7 @@ import {
 	APILinkPreviewOptions,
 	APIMessage,
 	APIMessageEntity,
+	APIMessageId,
 	APIReplyKeyboardMarkup,
 	APIReplyKeyboardRemove,
 	APIReplyParameters,
@@ -18,6 +19,8 @@ export enum APIMethod {
 	LogOut = 'logOut',
 	Close = 'close',
 	SendMessage = 'sendMessage',
+	ForwardMessage = 'forwardMessage',
+	ForwardMessages = 'forwardMessages',
 }
 
 export namespace APIMethod {
@@ -78,5 +81,36 @@ export namespace APIMethod {
 		}
 
 		export type Result = APIMessage;
+	}
+
+	export namespace ForwardMessage {
+		export interface Params {
+			chat_id: number | string;
+			message_thread_id?: number;
+			direct_messages_topic_id?: number;
+			from_chat_id: number | string;
+			video_start_timestamp?: number;
+			disable_notification?: boolean;
+			protect_content?: boolean;
+			message_effect_id?: string;
+			suggested_post_parameters?: APISuggestedPostParameters;
+			message_id: number;
+		}
+
+		export type Result = APIMessage;
+	}
+
+	export namespace ForwardMessages {
+		export interface Params {
+			chat_id: number | string;
+			message_thread_id?: number;
+			direct_messages_topic_id?: number;
+			from_chat_id: number | string;
+			message_ids: number[];
+			disable_notification?: boolean;
+			protect_content?: boolean;
+		}
+
+		export type Result = APIMessageId[];
 	}
 }

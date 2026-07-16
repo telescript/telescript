@@ -1,19 +1,20 @@
 import { APIChat, ChatType } from '@telescript/api-types';
 import { BaseChat as ParentBaseChat } from '@telescript/structures';
 import { Client } from '../../client/index.js';
-import { SendTextAction } from './actions/SendTextAction.js';
+import { ChatForwardMessageAction, ChatForwardMessagesAction, ChatSendTextAction } from './actions/index.js';
 
 export interface BaseChat<
 	Type extends ChatType = ChatType,
 	Data extends APIChat.FromType<Type> = APIChat.FromType<Type>,
-> extends SendTextAction<Type, Data> {}
+>
+	extends ChatForwardMessageAction<Type, Data>, ChatForwardMessagesAction<Type, Data>, ChatSendTextAction<Type, Data> {}
 
 export class BaseChat<
 	Type extends ChatType = ChatType,
 	Data extends APIChat.FromType<Type> = APIChat.FromType<Type>,
 > extends ParentBaseChat<Type, Data> {
 	static {
-		this.mixin(SendTextAction);
+		this.mixin(ChatForwardMessageAction, ChatForwardMessagesAction, ChatSendTextAction);
 	}
 
 	public constructor(
