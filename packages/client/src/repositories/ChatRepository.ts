@@ -1,4 +1,4 @@
-import { APIChat, APIMethod, ChatType } from '@telescript/api-types';
+import { APIChat, APIMethod, ChatType, InputFile } from '@telescript/api-types';
 import { Repository } from './Repository.js';
 import { BaseChat, ChannelChat, Chat, GroupChat, PrivateChat, SupergroupChat } from '../structures/index.js';
 
@@ -92,6 +92,18 @@ export class ChatRepository extends Repository<APIChat, Chat> {
 			messageId: messageId.message_id;
 		});
 	}
+
+	public async sendPhoto(options: SendPhotoOptions) {
+		const { chatId, messageThreadId, ...rest } = options;
+		const params = {
+			chat_id: chatId,
+			message_thread_id: messageThreadId,
+			...rest,
+		} satisfies APIMethod.SendPhoto.Params;
+
+		const message = await this.client.core.api.sendPhoto(params);
+		return this.client.messages.resolve(message);
+	}
 }
 
 export interface SendTextOptions {
@@ -126,4 +138,10 @@ export interface CopyMessagesOptions {
 	messageThreadId?: number;
 	fromChatId: number | string;
 	messageIds: number[];
+}
+
+export interface SendPhotoOptions {
+	chatId: number | string;
+	messageThreadId?: number;
+	photo: InputFile | string;
 }

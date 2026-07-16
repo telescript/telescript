@@ -5,6 +5,7 @@ import {
 	ChatCopyMessageAction,
 	ChatForwardMessageAction,
 	ChatForwardMessagesAction,
+	ChatSendPhotoAction,
 	ChatSendTextAction,
 } from './actions/index.js';
 
@@ -17,6 +18,7 @@ export interface BaseChat<
 		ChatForwardMessagesAction<Type, Data>,
 		ChatForwardMessageAction<Type, Data>,
 		ChatForwardMessagesAction<Type, Data>,
+		ChatSendPhotoAction<Type, Data>,
 		ChatSendTextAction<Type, Data> {}
 
 export class BaseChat<
@@ -29,6 +31,7 @@ export class BaseChat<
 			ChatForwardMessagesAction,
 			ChatForwardMessageAction,
 			ChatForwardMessagesAction,
+			ChatSendPhotoAction,
 			ChatSendTextAction,
 		);
 	}

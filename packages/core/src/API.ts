@@ -39,4 +39,10 @@ export class API {
 	public async copyMessages(params: APIMethod.CopyMessages.Params) {
 		return (await this.requester.request(APIMethod.CopyMessages, params)) as APIMethod.CopyMessages.Result;
 	}
+
+	public async sendPhoto(params: APIMethod.SendPhoto.Params) {
+		return (await this.requester.request(APIMethod.SendPhoto, params, {
+			asFormData: params.photo instanceof Blob,
+		})) as APIMethod.SendPhoto.Result;
+	}
 }

@@ -1,3 +1,4 @@
+import { InputFile } from './file.js';
 import {
 	APIForceReply,
 	APIInlineKeyboardMarkup,
@@ -23,6 +24,7 @@ export enum APIMethod {
 	ForwardMessages = 'forwardMessages',
 	CopyMessage = 'copyMessage',
 	CopyMessages = 'copyMessages',
+	SendPhoto = 'sendPhoto',
 }
 
 export namespace APIMethod {
@@ -153,5 +155,31 @@ export namespace APIMethod {
 		}
 
 		export type Result = APIMessageId[];
+	}
+
+	export namespace SendPhoto {
+		export interface Params {
+			business_connection_id?: string;
+			chat_id: number | string;
+			message_thread_id?: number;
+			direct_messages_topic_id?: number;
+			receiver_user_id?: number;
+			callback_query_id?: string;
+			photo: InputFile | string;
+			caption?: string;
+			parse_mode?: string;
+			caption_entities?: APIMessageEntity[];
+			show_caption_above_media?: boolean;
+			has_spoiler?: boolean;
+			disable_notification?: boolean;
+			protect_content?: boolean;
+			allow_paid_broadcast?: boolean;
+			message_effect_id?: string;
+			suggested_post_parameters?: APISuggestedPostParameters;
+			reply_parameters?: APIReplyParameters;
+			reply_markup?: APIInlineKeyboardMarkup | APIReplyKeyboardMarkup | APIReplyKeyboardRemove | APIForceReply;
+		}
+
+		export type Result = APIMessage;
 	}
 }
