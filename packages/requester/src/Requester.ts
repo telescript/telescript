@@ -28,22 +28,25 @@ export class Requester implements RequesterSpec {
 		const url = `${this.options.api}/bot${this.#token}/${method}`;
 
 		let body;
+		let headers = {};
 		if (params) {
 			if (options?.asFormData) {
 				const formData = new FormData();
 				for (const [key, value] of Object.entries(params)) {
 					formData.append(key, value);
 				}
+				body = formData;
 			} else {
 				body = JSON.stringify(params);
+				headers = {
+					'Content-Type': 'application/json',
+				};
 			}
 		}
 
 		const res = await this.fetch(url, {
 			method: params ? 'POST' : 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-			},
+			headers,
 			body,
 		});
 
