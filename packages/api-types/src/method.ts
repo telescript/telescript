@@ -6,10 +6,12 @@ import {
 	APIMessage,
 	APIMessageEntity,
 	APIMessageId,
+	APIPoll,
 	APIReplyKeyboardMarkup,
 	APIReplyKeyboardRemove,
 	APIReplyParameters,
 	APISuggestedPostParameters,
+	PollType,
 } from './message.js';
 import { APIUpdate } from './update.js';
 import { APIUser } from './user.js';
@@ -32,6 +34,20 @@ export enum APIMethod {
 	SendVideoNote = 'sendVideoNote',
 	SendVoice = 'sendVoice',
 	SendSticker = 'sendSticker',
+	SendLivePhoto = 'sendLivePhoto',
+	SendMediaGroup = 'sendMediaGroup',
+	SendLocation = 'sendLocation',
+	SendVenue = 'sendVenue',
+	SendContact = 'sendContact',
+	SendPoll = 'sendPoll',
+	SendDice = 'sendDice',
+	EditMessageText = 'editMessageText',
+	EditMessageCaption = 'editMessageCaption',
+	EditMessageMedia = 'editMessageMedia',
+	EditMessageReplyMarkup = 'editMessageReplyMarkup',
+	StopPoll = 'stopPoll',
+	DeleteMessage = 'deleteMessage',
+	DeleteMessages = 'deleteMessages',
 }
 
 export namespace APIMethod {
@@ -374,5 +390,263 @@ export namespace APIMethod {
 		}
 
 		export type Result = APIMessage;
+	}
+
+	export namespace SendLivePhoto {
+		export interface Params {
+			business_connection_id?: string;
+			chat_id: number | string;
+			message_thread_id?: number;
+			direct_messages_topic_id?: number;
+			receiver_user_id?: number;
+			callback_query_id?: string;
+			live_photo: InputFile | string;
+			caption?: string;
+			parse_mode?: string;
+			caption_entities?: APIMessageEntity[];
+			show_caption_above_media?: boolean;
+			has_spoiler?: boolean;
+			disable_notification?: boolean;
+			protect_content?: boolean;
+			allow_paid_broadcast?: boolean;
+			message_effect_id?: string;
+			suggested_post_parameters?: APISuggestedPostParameters;
+			reply_parameters?: APIReplyParameters;
+			reply_markup?: APIInlineKeyboardMarkup | APIReplyKeyboardMarkup | APIReplyKeyboardRemove | APIForceReply;
+		}
+
+		export type Result = APIMessage;
+	}
+
+	export namespace SendMediaGroup {
+		export interface Params {
+			business_connection_id?: string;
+			chat_id: number | string;
+			message_thread_id?: number;
+			direct_messages_topic_id?: number;
+			media: unknown[];
+			disable_notification?: boolean;
+			protect_content?: boolean;
+			allow_paid_broadcast?: boolean;
+			message_effect_id?: string;
+			suggested_post_parameters?: APISuggestedPostParameters;
+			reply_parameters?: APIReplyParameters;
+		}
+
+		export type Result = APIMessage[];
+	}
+
+	export namespace SendLocation {
+		export interface Params {
+			business_connection_id?: string;
+			chat_id: number | string;
+			message_thread_id?: number;
+			direct_messages_topic_id?: number;
+			receiver_user_id?: number;
+			callback_query_id?: string;
+			latitude: number;
+			longitude: number;
+			horizontal_accuracy?: number;
+			live_period?: number;
+			heading?: number;
+			proximity_alert_radius?: number;
+			disable_notification?: boolean;
+			protect_content?: boolean;
+			allow_paid_broadcast?: boolean;
+			message_effect_id?: string;
+			suggested_post_parameters?: APISuggestedPostParameters;
+			reply_parameters?: APIReplyParameters;
+			reply_markup?: APIInlineKeyboardMarkup | APIReplyKeyboardMarkup | APIReplyKeyboardRemove | APIForceReply;
+		}
+
+		export type Result = APIMessage;
+	}
+
+	export namespace SendVenue {
+		export interface Params {
+			business_connection_id?: string;
+			chat_id: number | string;
+			message_thread_id?: number;
+			direct_messages_topic_id?: number;
+			receiver_user_id?: number;
+			callback_query_id?: string;
+			latitude: number;
+			longitude: number;
+			title: string;
+			address: string;
+			foursquare_id?: string;
+			foursquare_type?: string;
+			google_place_id?: string;
+			google_place_type?: string;
+			disable_notification?: boolean;
+			protect_content?: boolean;
+			allow_paid_broadcast?: boolean;
+			message_effect_id?: string;
+			suggested_post_parameters?: APISuggestedPostParameters;
+			reply_parameters?: APIReplyParameters;
+			reply_markup?: APIInlineKeyboardMarkup | APIReplyKeyboardMarkup | APIReplyKeyboardRemove | APIForceReply;
+		}
+
+		export type Result = APIMessage;
+	}
+
+	export namespace SendContact {
+		export interface Params {
+			business_connection_id?: string;
+			chat_id: number | string;
+			message_thread_id?: number;
+			direct_messages_topic_id?: number;
+			receiver_user_id?: number;
+			callback_query_id?: string;
+			phone_number: string;
+			first_name: string;
+			last_name?: string;
+			vcard?: string;
+			disable_notification?: boolean;
+			protect_content?: boolean;
+			allow_paid_broadcast?: boolean;
+			message_effect_id?: string;
+			suggested_post_parameters?: APISuggestedPostParameters;
+			reply_parameters?: APIReplyParameters;
+			reply_markup?: APIInlineKeyboardMarkup | APIReplyKeyboardMarkup | APIReplyKeyboardRemove | APIForceReply;
+		}
+
+		export type Result = APIMessage;
+	}
+
+	export namespace SendPoll {
+		export interface Params {
+			business_connection_id?: string;
+			chat_id: number | string;
+			message_thread_id?: number;
+			question: string;
+			question_parse_mode?: string;
+			question_entities?: APIMessageEntity[];
+			options: string[];
+			is_anonymous?: boolean;
+			type?: PollType;
+			allows_multiple_answers?: boolean;
+			correct_option_id?: number;
+			explanation?: string;
+			explanation_parse_mode?: string;
+			explanation_entities?: APIMessageEntity[];
+			open_period?: number;
+			close_date?: number;
+			is_closed?: boolean;
+			disable_notification?: boolean;
+			protect_content?: boolean;
+			allow_paid_broadcast?: boolean;
+			message_effect_id?: string;
+			suggested_post_parameters?: APISuggestedPostParameters;
+			reply_parameters?: APIReplyParameters;
+			reply_markup?: APIInlineKeyboardMarkup | APIReplyKeyboardMarkup | APIReplyKeyboardRemove | APIForceReply;
+		}
+
+		export type Result = APIMessage;
+	}
+
+	export namespace SendDice {
+		export interface Params {
+			business_connection_id?: string;
+			chat_id: number | string;
+			message_thread_id?: number;
+			emoji?: string;
+			disable_notification?: boolean;
+			protect_content?: boolean;
+			allow_paid_broadcast?: boolean;
+			message_effect_id?: string;
+			suggested_post_parameters?: APISuggestedPostParameters;
+			reply_parameters?: APIReplyParameters;
+			reply_markup?: APIInlineKeyboardMarkup | APIReplyKeyboardMarkup | APIReplyKeyboardRemove | APIForceReply;
+		}
+
+		export type Result = APIMessage;
+	}
+
+	export namespace EditMessageText {
+		export interface Params {
+			business_connection_id?: string;
+			chat_id?: number | string;
+			message_id?: number;
+			inline_message_id?: string;
+			text?: string;
+			parse_mode?: string;
+			entities?: APIMessageEntity[];
+			link_preview_options?: APILinkPreviewOptions;
+			rich_message?: unknown;
+			reply_markup?: APIInlineKeyboardMarkup;
+		}
+
+		export type Result = APIMessage | true;
+	}
+
+	export namespace EditMessageCaption {
+		export interface Params {
+			business_connection_id?: string;
+			chat_id?: number | string;
+			message_id?: number;
+			inline_message_id?: string;
+			caption?: string;
+			parse_mode?: string;
+			caption_entities?: APIMessageEntity[];
+			show_caption_above_media?: boolean;
+			reply_markup?: APIInlineKeyboardMarkup;
+		}
+
+		export type Result = APIMessage | true;
+	}
+
+	export namespace EditMessageMedia {
+		export interface Params {
+			business_connection_id?: string;
+			chat_id?: number | string;
+			message_id?: number;
+			inline_message_id?: string;
+			media: unknown;
+			reply_markup?: APIInlineKeyboardMarkup;
+		}
+
+		export type Result = APIMessage | true;
+	}
+
+	export namespace EditMessageReplyMarkup {
+		export interface Params {
+			business_connection_id?: string;
+			chat_id?: number | string;
+			message_id?: number;
+			inline_message_id?: string;
+			reply_markup?: APIInlineKeyboardMarkup;
+		}
+
+		export type Result = APIMessage | true;
+	}
+
+	export namespace StopPoll {
+		export interface Params {
+			business_connection_id?: string;
+			chat_id: number | string;
+			message_id: number;
+			reply_markup?: APIInlineKeyboardMarkup;
+		}
+
+		export type Result = APIPoll;
+	}
+
+	export namespace DeleteMessage {
+		export interface Params {
+			chat_id: number | string;
+			message_id: number;
+		}
+
+		export type Result = true;
+	}
+
+	export namespace DeleteMessages {
+		export interface Params {
+			chat_id: number | string;
+			message_ids: number[];
+		}
+
+		export type Result = true;
 	}
 }

@@ -8,10 +8,17 @@ import {
 	ForwardMessagesOptions,
 	SendAnimationOptions,
 	SendAudioOptions,
+	SendContactOptions,
 	SendDocumentOptions,
+	SendDiceOptions,
+	SendLivePhotoOptions,
+	SendLocationOptions,
+	SendMediaGroupOptions,
 	SendPhotoOptions,
+	SendPollOptions,
 	SendStickerOptions,
 	SendTextOptions,
+	SendVenueOptions,
 	SendVideoNoteOptions,
 	SendVideoOptions,
 	SendVoiceOptions,
@@ -79,6 +86,34 @@ export class BaseChat<
 	public async sendSticker(options: ChatSendStickerOptions) {
 		return this.client.messages.sendSticker({ chatId: this[Structure.DataProperty].id, ...options });
 	}
+
+	public async sendLivePhoto(options: ChatSendLivePhotoOptions) {
+		return this.client.messages.sendLivePhoto({ chatId: this[Structure.DataProperty].id, ...options });
+	}
+
+	public async sendMediaGroup(options: ChatSendMediaGroupOptions) {
+		return this.client.messages.sendMediaGroup({ chatId: this[Structure.DataProperty].id, ...options });
+	}
+
+	public async sendLocation(options: ChatSendLocationOptions) {
+		return this.client.messages.sendLocation({ chatId: this[Structure.DataProperty].id, ...options });
+	}
+
+	public async sendVenue(options: ChatSendVenueOptions) {
+		return this.client.messages.sendVenue({ chatId: this[Structure.DataProperty].id, ...options });
+	}
+
+	public async sendContact(options: ChatSendContactOptions) {
+		return this.client.messages.sendContact({ chatId: this[Structure.DataProperty].id, ...options });
+	}
+
+	public async sendPoll(options: ChatSendPollOptions) {
+		return this.client.messages.sendPoll({ chatId: this[Structure.DataProperty].id, ...options });
+	}
+
+	public async sendDice(options: ChatSendDiceOptions) {
+		return this.client.messages.sendDice({ chatId: this[Structure.DataProperty].id, ...options });
+	}
 }
 
 export type ChatSendTextOptions = Omit<SendTextOptions, 'chatId'>;
@@ -94,3 +129,10 @@ export type ChatSendVideoOptions = Omit<SendVideoOptions, 'chatId'>;
 export type ChatSendVideoNoteOptions = Omit<SendVideoNoteOptions, 'chatId'>;
 export type ChatSendVoiceOptions = Omit<SendVoiceOptions, 'chatId'>;
 export type ChatSendStickerOptions = Omit<SendStickerOptions, 'chatId'>;
+export type ChatSendLivePhotoOptions = Omit<SendLivePhotoOptions, 'chatId'>;
+export type ChatSendMediaGroupOptions = Omit<SendMediaGroupOptions, 'chatId'>;
+export type ChatSendLocationOptions = Omit<SendLocationOptions, 'chatId'>;
+export type ChatSendVenueOptions = Omit<SendVenueOptions, 'chatId'>;
+export type ChatSendContactOptions = Omit<SendContactOptions, 'chatId'>;
+export type ChatSendPollOptions = Omit<SendPollOptions, 'chatId'>;
+export type ChatSendDiceOptions = Omit<SendDiceOptions, 'chatId'>;

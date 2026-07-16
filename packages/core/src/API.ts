@@ -87,4 +87,65 @@ export class API {
 			asFormData: params.sticker instanceof Blob,
 		})) as APIMethod.SendSticker.Result;
 	}
+
+	public async sendLivePhoto(params: APIMethod.SendLivePhoto.Params) {
+		return (await this.requester.request(APIMethod.SendLivePhoto, params, {
+			asFormData: params.live_photo instanceof Blob,
+		})) as APIMethod.SendLivePhoto.Result;
+	}
+
+	public async sendMediaGroup(params: APIMethod.SendMediaGroup.Params) {
+		return (await this.requester.request(APIMethod.SendMediaGroup, params)) as APIMethod.SendMediaGroup.Result;
+	}
+
+	public async sendLocation(params: APIMethod.SendLocation.Params) {
+		return (await this.requester.request(APIMethod.SendLocation, params)) as APIMethod.SendLocation.Result;
+	}
+
+	public async sendVenue(params: APIMethod.SendVenue.Params) {
+		return (await this.requester.request(APIMethod.SendVenue, params)) as APIMethod.SendVenue.Result;
+	}
+
+	public async sendContact(params: APIMethod.SendContact.Params) {
+		return (await this.requester.request(APIMethod.SendContact, params)) as APIMethod.SendContact.Result;
+	}
+
+	public async sendPoll(params: APIMethod.SendPoll.Params) {
+		return (await this.requester.request(APIMethod.SendPoll, params)) as APIMethod.SendPoll.Result;
+	}
+
+	public async sendDice(params: APIMethod.SendDice.Params) {
+		return (await this.requester.request(APIMethod.SendDice, params)) as APIMethod.SendDice.Result;
+	}
+
+	public async editMessageText(params: APIMethod.EditMessageText.Params) {
+		return (await this.requester.request(APIMethod.EditMessageText, params)) as APIMethod.EditMessageText.Result;
+	}
+
+	public async editMessageCaption(params: APIMethod.EditMessageCaption.Params) {
+		return (await this.requester.request(APIMethod.EditMessageCaption, params)) as APIMethod.EditMessageCaption.Result;
+	}
+
+	public async editMessageMedia(params: APIMethod.EditMessageMedia.Params) {
+		return (await this.requester.request(APIMethod.EditMessageMedia, params)) as APIMethod.EditMessageMedia.Result;
+	}
+
+	public async editMessageReplyMarkup(params: APIMethod.EditMessageReplyMarkup.Params) {
+		return (await this.requester.request(
+			APIMethod.EditMessageReplyMarkup,
+			params,
+		)) as APIMethod.EditMessageReplyMarkup.Result;
+	}
+
+	public async stopPoll(params: APIMethod.StopPoll.Params) {
+		return (await this.requester.request(APIMethod.StopPoll, params)) as APIMethod.StopPoll.Result;
+	}
+
+	public async deleteMessage(params: APIMethod.DeleteMessage.Params) {
+		return (await this.requester.request(APIMethod.DeleteMessage, params)) as APIMethod.DeleteMessage.Result;
+	}
+
+	public async deleteMessages(params: APIMethod.DeleteMessages.Params) {
+		return (await this.requester.request(APIMethod.DeleteMessages, params)) as APIMethod.DeleteMessages.Result;
+	}
 }
