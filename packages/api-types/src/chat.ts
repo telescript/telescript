@@ -1,5 +1,6 @@
 import { APIAudio, APISticker } from './media.js';
-import { APILocation, APIMessage, APIUniqueGiftColors } from './message.js';
+import { APILocation, APIMessage, APIUniqueGiftColors, APICommunity } from './message.js';
+import { APIUser } from './user.js';
 
 export enum ChatType {
 	Private = 'private',
@@ -103,6 +104,8 @@ export interface APIChatFullInfo {
 	first_profile_audio?: APIAudio;
 	unique_gift_colors?: APIUniqueGiftColors;
 	paid_message_star_count?: number;
+	guard_bot?: APIUser;
+	community?: APICommunity;
 }
 
 export interface APIChatPhoto {

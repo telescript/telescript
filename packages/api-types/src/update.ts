@@ -28,6 +28,7 @@ export enum UpdateName {
 	ChatBoost = 'chat_boost',
 	RemovedChatBoost = 'removed_chat_boost',
 	ManagedBot = 'managed_bot',
+	Subscription = 'subscription',
 }
 
 interface UpdateBase {
@@ -134,6 +135,16 @@ export interface APIManagedBotUpdate extends UpdateBase {
 	managed_bot: APIManagedBotUpdated;
 }
 
+export interface APIBotSubscriptionUpdated {
+	user: APIUser;
+	invoice_payload: string;
+	state: string;
+}
+
+export interface APIBotSubscriptionUpdatedUpdate extends UpdateBase {
+	subscription: APIBotSubscriptionUpdated;
+}
+
 export type APIUpdate =
 	| UpdateBase
 	| APIMessageUpdate
@@ -160,7 +171,8 @@ export type APIUpdate =
 	| APIChatJoinRequestUpdate
 	| APIChatBoostUpdate
 	| APIRemovedChatBoostUpdate
-	| APIManagedBotUpdate;
+	| APIManagedBotUpdate
+	| APIBotSubscriptionUpdatedUpdate;
 
 export function isMessageUpdate(update: APIUpdate): update is APIMessageUpdate {
 	return 'message' in update;
@@ -260,6 +272,10 @@ export function isRemovedChatBoostUpdate(update: APIUpdate): update is APIRemove
 
 export function isManagedBotUpdate(update: APIUpdate): update is APIManagedBotUpdate {
 	return 'managed_bot' in update;
+}
+
+export function isBotSubscriptionUpdatedUpdate(update: APIUpdate): update is APIBotSubscriptionUpdatedUpdate {
+	return 'subscription' in update;
 }
 
 export interface APIBusinessBotRights {

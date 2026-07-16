@@ -15,6 +15,22 @@ import { APIPassportData } from './passport.js';
 import { APIInvoice, APIRefundedPayment, APISuccessfulPayment } from './payments.js';
 import { APIUser } from './user.js';
 
+export interface APICommunity {
+	id: number;
+	name: string;
+}
+
+export interface APICommunityChatAdded {
+	community: APICommunity;
+}
+
+export interface APICommunityChatRemoved {}
+
+export interface APIRichMessage {
+	blocks: any[];
+	is_rtl?: boolean;
+}
+
 export interface APIMessageId {
 	message_id: number;
 }
@@ -29,6 +45,8 @@ export interface APIMessage extends APIMessageId {
 	sender_boost_count?: number;
 	sender_business_bot?: APIUser;
 	sender_tag?: string;
+	receiver_user?: APIUser;
+	ephemeral_message_id?: number;
 	date: number;
 	guest_query_id?: string;
 	business_connection_id?: string;
@@ -57,6 +75,7 @@ export interface APIMessage extends APIMessageId {
 	link_preview_options?: APILinkPreviewOptions;
 	suggested_post_info?: APISuggestedPostInfo;
 	effect_id?: string;
+	rich_message?: APIRichMessage;
 	animation?: APIAnimation;
 	audio?: APIAudio;
 	document?: APIDocument;
@@ -99,8 +118,8 @@ export interface APIMessage extends APIMessageId {
 	users_shared?: APIUsersShared;
 	chat_shared?: APIChatShared;
 	gift?: APIGiftInfo;
-	unique_gift: APIUniqueGiftInfo;
-	gift_upgrade_sent: APIGiftInfo;
+	unique_gift?: APIUniqueGiftInfo;
+	gift_upgrade_sent?: APIGiftInfo;
 	connected_website?: string;
 	write_access_allowed?: APIWriteAccessAllowed;
 	passport_data?: APIPassportData;
@@ -109,7 +128,9 @@ export interface APIMessage extends APIMessageId {
 	chat_background_set?: APIChatBackground;
 	checklist_tasks_done?: APIChecklistTasksDone;
 	checklist_tasks_added?: APIChecklistTasksAdded;
-	direct_message_price_changed: APIDirectMessagePriceChanged;
+	community_chat_added?: APICommunityChatAdded;
+	community_chat_removed?: APICommunityChatRemoved;
+	direct_message_price_changed?: APIDirectMessagePriceChanged;
 	forum_topic_created?: APIForumTopicCreated;
 	forum_topic_edited?: APIForumTopicEdited;
 	forum_topic_closed?: APIForumTopicClosed;

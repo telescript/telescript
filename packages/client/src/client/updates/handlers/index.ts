@@ -23,3 +23,4 @@ export * from './pre-checkout-query.js';
 export * from './purchased-paid-media.js';
 export * from './removed-chat-boost.js';
 export * from './shipping-query.js';
+export * from './subscription.js';

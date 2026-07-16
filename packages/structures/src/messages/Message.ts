@@ -26,6 +26,9 @@ import { Invoice } from './Invoice.js';
 import { SuccessfulPayment } from './SuccessfulPayment.js';
 import { RefundedPayment } from './RefundedPayment.js';
 import { Giveaway } from './Giveaway.js';
+import { RichMessage } from './RichMessage.js';
+import { CommunityChatAdded } from './CommunityChatAdded.js';
+import { CommunityChatRemoved } from './CommunityChatRemoved.js';
 
 export class Message extends Structure<APIMessage> {
 	public get id() {
@@ -62,6 +65,15 @@ export class Message extends Structure<APIMessage> {
 
 	public get senderTag() {
 		return this[Structure.DataProperty].sender_tag ?? null;
+	}
+
+	public get receiverUser() {
+		const data = this[Structure.DataProperty].receiver_user;
+		return data ? new User(data) : null;
+	}
+
+	public get ephemeralMessageId() {
+		return this[Structure.DataProperty].ephemeral_message_id ?? null;
 	}
 
 	public get sentUnixTimestamp() {
@@ -201,6 +213,11 @@ export class Message extends Structure<APIMessage> {
 
 	public get effectId() {
 		return this[Structure.DataProperty].effect_id ?? null;
+	}
+
+	public get richMessage() {
+		const data = this[Structure.DataProperty].rich_message;
+		return data ? new RichMessage(data) : null;
 	}
 
 	public get animation() {
@@ -435,6 +452,16 @@ export class Message extends Structure<APIMessage> {
 
 	public get checklistTasksAdded() {
 		return this[Structure.DataProperty].checklist_tasks_added ?? null;
+	}
+
+	public get communityChatAdded() {
+		const data = this[Structure.DataProperty].community_chat_added;
+		return data ? new CommunityChatAdded(data) : null;
+	}
+
+	public get communityChatRemoved() {
+		const data = this[Structure.DataProperty].community_chat_removed;
+		return data ? new CommunityChatRemoved(data) : null;
 	}
 
 	public get directMessagePriceChanged() {
