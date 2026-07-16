@@ -25,6 +25,7 @@ import { LinkPreviewOptions } from './LinkPreviewOptions.js';
 import { Invoice } from './Invoice.js';
 import { SuccessfulPayment } from './SuccessfulPayment.js';
 import { RefundedPayment } from './RefundedPayment.js';
+import { Giveaway } from './Giveaway.js';
 
 export class Message extends Structure<APIMessage> {
 	public get id() {
@@ -142,8 +143,18 @@ export class Message extends Structure<APIMessage> {
 		return data ? createChat(data) : null;
 	}
 
-	public get editDate() {
+	public get editUnixTimestamp() {
 		return this[Structure.DataProperty].edit_date ?? null;
+	}
+
+	public get editTimestamp() {
+		const ts = this[Structure.DataProperty].edit_date;
+		return ts ? ts * 1000 : null;
+	}
+
+	public get editDate() {
+		const ts = this[Structure.DataProperty].edit_date;
+		return ts ? new Date(ts * 1000) : null;
 	}
 
 	public get hasProtectedContent() {
@@ -253,7 +264,7 @@ export class Message extends Structure<APIMessage> {
 
 	public get captionEntities() {
 		const data = this[Structure.DataProperty].caption_entities;
-		return data ? data.map((entity) => createMessageEntity(entity, this.caption ?? '')) : null;
+		return data ? data.map((entity) => createMessageEntity(entity, this.caption!)) : null;
 	}
 
 	public get showCaptionAboveMedia() {
@@ -460,7 +471,7 @@ export class Message extends Structure<APIMessage> {
 
 	public get giveaway() {
 		const data = this[Structure.DataProperty].giveaway;
-		return data ? new Game(data as never) : null;
+		return data ? new Giveaway(data) : null;
 	}
 
 	public get giveawayWinners() {
