@@ -15,7 +15,7 @@ import {
 	SendVideoNoteOptions,
 	SendVideoOptions,
 	SendVoiceOptions,
-} from '../../repositories/ChatRepository.js';
+} from '../../repositories/index.js';
 
 export class BaseChat<
 	Type extends ChatType = ChatType,
@@ -29,55 +29,55 @@ export class BaseChat<
 	}
 
 	public async sendText(options: ChatSendTextOptions) {
-		return this.client.chats.sendText({ chatId: this[Structure.DataProperty].id, ...options });
+		return this.client.messages.sendText({ chatId: this[Structure.DataProperty].id, ...options });
 	}
 
 	public async forwardMessage(options: ChatForwardMessageOptions) {
-		return this.client.chats.forwardMessage({ fromChatId: this[Structure.DataProperty].id, ...options });
+		return this.client.messages.forwardOne({ fromChatId: this[Structure.DataProperty].id, ...options });
 	}
 
 	public async forwardMessages(options: ChatForwardMessagesOptions) {
-		return this.client.chats.forwardMessages({ fromChatId: this[Structure.DataProperty].id, ...options });
+		return this.client.messages.forwardMany({ fromChatId: this[Structure.DataProperty].id, ...options });
 	}
 
 	public async copyMessage(options: ChatCopyMessageOptions) {
-		return this.client.chats.copyMessage({ fromChatId: this[Structure.DataProperty].id, ...options });
+		return this.client.messages.copyOne({ fromChatId: this[Structure.DataProperty].id, ...options });
 	}
 
 	public async copyMessages(options: ChatCopyMessagesOptions) {
-		return this.client.chats.copyMessages({ fromChatId: this[Structure.DataProperty].id, ...options });
+		return this.client.messages.copyMany({ fromChatId: this[Structure.DataProperty].id, ...options });
 	}
 
 	public async sendPhoto(options: ChatSendPhotoOptions) {
-		return this.client.chats.sendPhoto({ chatId: this[Structure.DataProperty].id, ...options });
+		return this.client.messages.sendPhoto({ chatId: this[Structure.DataProperty].id, ...options });
 	}
 
 	public async sendAnimation(options: ChatSendAnimationOptions) {
-		return this.client.chats.sendAnimation({ chatId: this[Structure.DataProperty].id, ...options });
+		return this.client.messages.sendAnimation({ chatId: this[Structure.DataProperty].id, ...options });
 	}
 
 	public async sendAudio(options: ChatSendAudioOptions) {
-		return this.client.chats.sendAudio({ chatId: this[Structure.DataProperty].id, ...options });
+		return this.client.messages.sendAudio({ chatId: this[Structure.DataProperty].id, ...options });
 	}
 
 	public async sendDocument(options: ChatSendDocumentOptions) {
-		return this.client.chats.sendDocument({ chatId: this[Structure.DataProperty].id, ...options });
+		return this.client.messages.sendDocument({ chatId: this[Structure.DataProperty].id, ...options });
 	}
 
 	public async sendVideo(options: ChatSendVideoOptions) {
-		return this.client.chats.sendVideo({ chatId: this[Structure.DataProperty].id, ...options });
+		return this.client.messages.sendVideo({ chatId: this[Structure.DataProperty].id, ...options });
 	}
 
 	public async sendVideoNote(options: ChatSendVideoNoteOptions) {
-		return this.client.chats.sendVideoNote({ chatId: this[Structure.DataProperty].id, ...options });
+		return this.client.messages.sendVideoNote({ chatId: this[Structure.DataProperty].id, ...options });
 	}
 
 	public async sendVoice(options: ChatSendVoiceOptions) {
-		return this.client.chats.sendVoice({ chatId: this[Structure.DataProperty].id, ...options });
+		return this.client.messages.sendVoice({ chatId: this[Structure.DataProperty].id, ...options });
 	}
 
 	public async sendSticker(options: ChatSendStickerOptions) {
-		return this.client.chats.sendSticker({ chatId: this[Structure.DataProperty].id, ...options });
+		return this.client.messages.sendSticker({ chatId: this[Structure.DataProperty].id, ...options });
 	}
 }
 
