@@ -5,8 +5,15 @@ import {
 	ChatCopyMessageAction,
 	ChatForwardMessageAction,
 	ChatForwardMessagesAction,
+	ChatSendAnimationAction,
+	ChatSendAudioAction,
+	ChatSendDocumentAction,
 	ChatSendPhotoAction,
+	ChatSendStickerAction,
 	ChatSendTextAction,
+	ChatSendVideoAction,
+	ChatSendVideoNoteAction,
+	ChatSendVoiceAction,
 } from './actions/index.js';
 
 export interface BaseChat<
@@ -18,8 +25,15 @@ export interface BaseChat<
 		ChatForwardMessagesAction<Type, Data>,
 		ChatForwardMessageAction<Type, Data>,
 		ChatForwardMessagesAction<Type, Data>,
+		ChatSendAnimationAction<Type, Data>,
+		ChatSendAudioAction<Type, Data>,
+		ChatSendDocumentAction<Type, Data>,
 		ChatSendPhotoAction<Type, Data>,
-		ChatSendTextAction<Type, Data> {}
+		ChatSendStickerAction<Type, Data>,
+		ChatSendTextAction<Type, Data>,
+		ChatSendVideoAction<Type, Data>,
+		ChatSendVideoNoteAction<Type, Data>,
+		ChatSendVoiceAction<Type, Data> {}
 
 export class BaseChat<
 	Type extends ChatType = ChatType,
@@ -31,8 +45,15 @@ export class BaseChat<
 			ChatForwardMessagesAction,
 			ChatForwardMessageAction,
 			ChatForwardMessagesAction,
+			ChatSendAnimationAction,
+			ChatSendAudioAction,
+			ChatSendDocumentAction,
 			ChatSendPhotoAction,
+			ChatSendStickerAction,
 			ChatSendTextAction,
+			ChatSendVideoAction,
+			ChatSendVideoNoteAction,
+			ChatSendVoiceAction,
 		);
 	}
 

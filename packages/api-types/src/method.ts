@@ -25,6 +25,13 @@ export enum APIMethod {
 	CopyMessage = 'copyMessage',
 	CopyMessages = 'copyMessages',
 	SendPhoto = 'sendPhoto',
+	SendAnimation = 'sendAnimation',
+	SendAudio = 'sendAudio',
+	SendDocument = 'sendDocument',
+	SendVideo = 'sendVideo',
+	SendVideoNote = 'sendVideoNote',
+	SendVoice = 'sendVoice',
+	SendSticker = 'sendSticker',
 }
 
 export namespace APIMethod {
@@ -171,6 +178,192 @@ export namespace APIMethod {
 			caption_entities?: APIMessageEntity[];
 			show_caption_above_media?: boolean;
 			has_spoiler?: boolean;
+			disable_notification?: boolean;
+			protect_content?: boolean;
+			allow_paid_broadcast?: boolean;
+			message_effect_id?: string;
+			suggested_post_parameters?: APISuggestedPostParameters;
+			reply_parameters?: APIReplyParameters;
+			reply_markup?: APIInlineKeyboardMarkup | APIReplyKeyboardMarkup | APIReplyKeyboardRemove | APIForceReply;
+		}
+
+		export type Result = APIMessage;
+	}
+
+	export namespace SendAnimation {
+		export interface Params {
+			business_connection_id?: string;
+			chat_id: number | string;
+			message_thread_id?: number;
+			direct_messages_topic_id?: number;
+			receiver_user_id?: number;
+			callback_query_id?: string;
+			animation: InputFile | string;
+			duration?: number;
+			width?: number;
+			height?: number;
+			thumbnail?: InputFile | string;
+			caption?: string;
+			parse_mode?: string;
+			caption_entities?: APIMessageEntity[];
+			show_caption_above_media?: boolean;
+			has_spoiler?: boolean;
+			disable_notification?: boolean;
+			protect_content?: boolean;
+			allow_paid_broadcast?: boolean;
+			message_effect_id?: string;
+			suggested_post_parameters?: APISuggestedPostParameters;
+			reply_parameters?: APIReplyParameters;
+			reply_markup?: APIInlineKeyboardMarkup | APIReplyKeyboardMarkup | APIReplyKeyboardRemove | APIForceReply;
+		}
+
+		export type Result = APIMessage;
+	}
+
+	export namespace SendAudio {
+		export interface Params {
+			business_connection_id?: string;
+			chat_id: number | string;
+			message_thread_id?: number;
+			direct_messages_topic_id?: number;
+			receiver_user_id?: number;
+			callback_query_id?: string;
+			audio: InputFile | string;
+			caption?: string;
+			parse_mode?: string;
+			caption_entities?: APIMessageEntity[];
+			duration?: number;
+			performer?: string;
+			title?: string;
+			thumbnail?: InputFile | string;
+			disable_notification?: boolean;
+			protect_content?: boolean;
+			allow_paid_broadcast?: boolean;
+			message_effect_id?: string;
+			suggested_post_parameters?: APISuggestedPostParameters;
+			reply_parameters?: APIReplyParameters;
+			reply_markup?: APIInlineKeyboardMarkup | APIReplyKeyboardMarkup | APIReplyKeyboardRemove | APIForceReply;
+		}
+
+		export type Result = APIMessage;
+	}
+
+	export namespace SendDocument {
+		export interface Params {
+			business_connection_id?: string;
+			chat_id: number | string;
+			message_thread_id?: number;
+			direct_messages_topic_id?: number;
+			receiver_user_id?: number;
+			callback_query_id?: string;
+			document: InputFile | string;
+			thumbnail?: InputFile | string;
+			caption?: string;
+			parse_mode?: string;
+			caption_entities?: APIMessageEntity[];
+			disable_content_type_detection?: boolean;
+			disable_notification?: boolean;
+			protect_content?: boolean;
+			allow_paid_broadcast?: boolean;
+			message_effect_id?: string;
+			suggested_post_parameters?: APISuggestedPostParameters;
+			reply_parameters?: APIReplyParameters;
+			reply_markup?: APIInlineKeyboardMarkup | APIReplyKeyboardMarkup | APIReplyKeyboardRemove | APIForceReply;
+		}
+
+		export type Result = APIMessage;
+	}
+
+	export namespace SendVideo {
+		export interface Params {
+			business_connection_id?: string;
+			chat_id: number | string;
+			message_thread_id?: number;
+			direct_messages_topic_id?: number;
+			receiver_user_id?: number;
+			callback_query_id?: string;
+			video: InputFile | string;
+			duration?: number;
+			width?: number;
+			height?: number;
+			thumbnail?: InputFile | string;
+			caption?: string;
+			parse_mode?: string;
+			caption_entities?: APIMessageEntity[];
+			show_caption_above_media?: boolean;
+			has_spoiler?: boolean;
+			supports_streaming?: boolean;
+			disable_notification?: boolean;
+			protect_content?: boolean;
+			allow_paid_broadcast?: boolean;
+			message_effect_id?: string;
+			suggested_post_parameters?: APISuggestedPostParameters;
+			reply_parameters?: APIReplyParameters;
+			reply_markup?: APIInlineKeyboardMarkup | APIReplyKeyboardMarkup | APIReplyKeyboardRemove | APIForceReply;
+		}
+
+		export type Result = APIMessage;
+	}
+
+	export namespace SendVideoNote {
+		export interface Params {
+			business_connection_id?: string;
+			chat_id: number | string;
+			message_thread_id?: number;
+			direct_messages_topic_id?: number;
+			receiver_user_id?: number;
+			callback_query_id?: string;
+			video_note: InputFile | string;
+			duration?: number;
+			length?: number;
+			thumbnail?: InputFile | string;
+			disable_notification?: boolean;
+			protect_content?: boolean;
+			allow_paid_broadcast?: boolean;
+			message_effect_id?: string;
+			suggested_post_parameters?: APISuggestedPostParameters;
+			reply_parameters?: APIReplyParameters;
+			reply_markup?: APIInlineKeyboardMarkup | APIReplyKeyboardMarkup | APIReplyKeyboardRemove | APIForceReply;
+		}
+
+		export type Result = APIMessage;
+	}
+
+	export namespace SendVoice {
+		export interface Params {
+			business_connection_id?: string;
+			chat_id: number | string;
+			message_thread_id?: number;
+			direct_messages_topic_id?: number;
+			receiver_user_id?: number;
+			callback_query_id?: string;
+			voice: InputFile | string;
+			caption?: string;
+			parse_mode?: string;
+			caption_entities?: APIMessageEntity[];
+			duration?: number;
+			disable_notification?: boolean;
+			protect_content?: boolean;
+			allow_paid_broadcast?: boolean;
+			message_effect_id?: string;
+			suggested_post_parameters?: APISuggestedPostParameters;
+			reply_parameters?: APIReplyParameters;
+			reply_markup?: APIInlineKeyboardMarkup | APIReplyKeyboardMarkup | APIReplyKeyboardRemove | APIForceReply;
+		}
+
+		export type Result = APIMessage;
+	}
+
+	export namespace SendSticker {
+		export interface Params {
+			business_connection_id?: string;
+			chat_id: number | string;
+			message_thread_id?: number;
+			direct_messages_topic_id?: number;
+			receiver_user_id?: number;
+			callback_query_id?: string;
+			sticker: InputFile | string;
+			emoji?: string;
 			disable_notification?: boolean;
 			protect_content?: boolean;
 			allow_paid_broadcast?: boolean;

@@ -45,4 +45,46 @@ export class API {
 			asFormData: params.photo instanceof Blob,
 		})) as APIMethod.SendPhoto.Result;
 	}
+
+	public async sendAnimation(params: APIMethod.SendAnimation.Params) {
+		return (await this.requester.request(APIMethod.SendAnimation, params, {
+			asFormData: params.animation instanceof Blob,
+		})) as APIMethod.SendAnimation.Result;
+	}
+
+	public async sendAudio(params: APIMethod.SendAudio.Params) {
+		return (await this.requester.request(APIMethod.SendAudio, params, {
+			asFormData: params.audio instanceof Blob,
+		})) as APIMethod.SendAudio.Result;
+	}
+
+	public async sendDocument(params: APIMethod.SendDocument.Params) {
+		return (await this.requester.request(APIMethod.SendDocument, params, {
+			asFormData: params.document instanceof Blob,
+		})) as APIMethod.SendDocument.Result;
+	}
+
+	public async sendVideo(params: APIMethod.SendVideo.Params) {
+		return (await this.requester.request(APIMethod.SendVideo, params, {
+			asFormData: params.video instanceof Blob,
+		})) as APIMethod.SendVideo.Result;
+	}
+
+	public async sendVideoNote(params: APIMethod.SendVideoNote.Params) {
+		return (await this.requester.request(APIMethod.SendVideoNote, params, {
+			asFormData: params.video_note instanceof Blob,
+		})) as APIMethod.SendVideoNote.Result;
+	}
+
+	public async sendVoice(params: APIMethod.SendVoice.Params) {
+		return (await this.requester.request(APIMethod.SendVoice, params, {
+			asFormData: params.voice instanceof Blob,
+		})) as APIMethod.SendVoice.Result;
+	}
+
+	public async sendSticker(params: APIMethod.SendSticker.Params) {
+		return (await this.requester.request(APIMethod.SendSticker, params, {
+			asFormData: params.sticker instanceof Blob,
+		})) as APIMethod.SendSticker.Result;
+	}
 }
