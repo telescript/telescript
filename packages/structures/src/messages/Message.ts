@@ -26,6 +26,7 @@ import { Invoice } from './Invoice.js';
 import { SuccessfulPayment } from './SuccessfulPayment.js';
 import { RefundedPayment } from './RefundedPayment.js';
 import { Giveaway } from './Giveaway.js';
+import { GiveawayWinners } from './GiveawayWinners.js';
 import { RichMessage } from './RichMessage.js';
 import { CommunityChatAdded } from './CommunityChatAdded.js';
 import { CommunityChatRemoved } from './CommunityChatRemoved.js';
@@ -502,7 +503,8 @@ export class Message extends Structure<APIMessage> {
 	}
 
 	public get giveawayWinners() {
-		return this[Structure.DataProperty].giveaway_winners ?? null;
+		const data = this[Structure.DataProperty].giveaway_winners;
+		return data ? new GiveawayWinners(data) : null;
 	}
 
 	public get giveawayCompleted() {
