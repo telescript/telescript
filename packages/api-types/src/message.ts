@@ -1,6 +1,6 @@
-import { APIChat } from './chat.js';
+import { APIChat, APIReactionType } from './chat.js';
 import { APIGame } from './games.js';
-import { APILocation } from './location.js';
+import { APILocation, APILocationAddress } from './location.js';
 import { APIInlineKeyboardMarkup } from './markup.js';
 import {
 	APIAnimation,
@@ -1251,3 +1251,78 @@ export interface APIInaccessibleMessage extends APIMessageId {
 }
 
 export type APIMaybeInaccessibleMessage = APIMessage | APIInaccessibleMessage;
+
+export interface APIReplyParameters {
+	message_id?: number;
+	chat_id?: number | string;
+	ephemeral_message_id?: number;
+	allow_sending_without_reply?: boolean;
+	quote?: string;
+	quote_parse_mode?: string;
+	quote_entities?: APIMessageEntity[];
+	quote_position?: number;
+	checklist_task_id?: number;
+	poll_option_id?: string;
+}
+
+export interface APIStoryAreaPosition {
+	x_percentage: number;
+	y_percentage: number;
+	width_percentage: number;
+	height_percentage: number;
+	rotation_angle: number;
+	corner_radius_percentage: number;
+}
+
+export enum StoryAreaType {
+	Location = 'location',
+	SuggestedReaction = 'suggested_reaction',
+	Link = 'link',
+	Weather = 'weather',
+	UniqueGift = 'unique_gift',
+}
+
+export type APIStoryAreaType =
+	| APIStoryAreaType.Location
+	| APIStoryAreaType.SuggestedReaction
+	| APIStoryAreaType.Link
+	| APIStoryAreaType.Weather
+	| APIStoryAreaType.UniqueGift;
+
+export namespace APIStoryAreaType {
+	export interface Location {
+		type: StoryAreaType.Location;
+		latitude: number;
+		longitude: number;
+		address?: APILocationAddress;
+	}
+
+	export interface SuggestedReaction {
+		type: StoryAreaType.SuggestedReaction;
+		reaction_type: APIReactionType;
+		is_dark?: boolean;
+		is_flipped?: boolean;
+	}
+
+	export interface Link {
+		type: StoryAreaType.Link;
+		url: string;
+	}
+
+	export interface Weather {
+		type: StoryAreaType.Weather;
+		temperature: number;
+		emoji: string;
+		background_color: number;
+	}
+
+	export interface UniqueGift {
+		type: StoryAreaType.UniqueGift;
+		name: string;
+	}
+}
+
+export interface APIStoryArea {
+	position: APIStoryAreaPosition;
+	type: APIStoryAreaType;
+}

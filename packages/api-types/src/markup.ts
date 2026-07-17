@@ -1,5 +1,14 @@
 import { APICallbackGame } from './games.js';
 
+export interface APIPreparedInlineMessage {
+	id: string;
+	expiration_date: number;
+}
+
+export interface APIPreparedKeyboardButton {
+	id: string;
+}
+
 export interface APIChatAdministratorRights {
 	is_anonymous: boolean;
 	can_manage_chat: boolean;

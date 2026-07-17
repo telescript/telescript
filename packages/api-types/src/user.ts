@@ -7,6 +7,7 @@ export interface APIUser {
 	language_code?: string;
 	is_premium?: boolean;
 	added_to_attachment_menu?: boolean;
+	supports_join_request_queries?: boolean;
 }
 
 export interface APIBotAccessSettings {
