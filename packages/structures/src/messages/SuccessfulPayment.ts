@@ -15,8 +15,18 @@ export class SuccessfulPayment extends Structure<APISuccessfulPayment> {
 		return this[Structure.DataProperty].invoice_payload;
 	}
 
-	public get subscriptionExpirationDate() {
+	public get subscriptionExpirationUnixTimestamp() {
 		return this[Structure.DataProperty].subscription_expiration_date ?? null;
+	}
+
+	public get subscriptionExpirationTimestamp() {
+		const ts = this[Structure.DataProperty].subscription_expiration_date;
+		return ts ? ts * 1000 : null;
+	}
+
+	public get subscriptionExpirationDate() {
+		const ts = this[Structure.DataProperty].subscription_expiration_date;
+		return ts ? new Date(ts * 1000) : null;
 	}
 
 	public get isRecurring() {
