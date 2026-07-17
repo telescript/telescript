@@ -29,6 +29,16 @@ export interface DescribedMediaBase extends MIMETypedMediaBase {
 
 export interface APIPhotoSize extends MediaBase, SpatialMediaBase {}
 
+export interface APIUserProfilePhotos {
+	total_count: number;
+	photos: APIPhotoSize[][];
+}
+
+export interface APIUserProfileAudios {
+	total_count: number;
+	audios: APIAudio[];
+}
+
 export interface APIAnimation
 	extends MediaBase, SpatialMediaBase, TemporalMediaBase, ThumbnailedMediaBase, DescribedMediaBase {}
 

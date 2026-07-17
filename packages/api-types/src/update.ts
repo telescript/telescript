@@ -1,5 +1,6 @@
 import { APIChat, APIReactionType } from './chat.js';
-import { APILocation, APIMaybeInaccessibleMessage, APIMessage, APIPoll } from './message.js';
+import { APILocation } from './location.js';
+import { APIMaybeInaccessibleMessage, APIMessage, APIPoll } from './message.js';
 import { APIOrderInfo, APIShippingAddress } from './payments.js';
 import { APIUser } from './user.js';
 
@@ -367,6 +368,7 @@ export interface APICallbackQuery {
 	data?: string;
 	game_short_name?: string;
 }
+
 export interface APIShippingQuery {
 	id: string;
 	from: APIUser;

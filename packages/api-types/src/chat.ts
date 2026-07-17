@@ -1,13 +1,6 @@
+import { APILocation } from './location.js';
 import { APIAudio, APISticker } from './media.js';
-import {
-	APILocation,
-	APIMessage,
-	APIUniqueGiftColors,
-	APICommunity,
-	APIGift,
-	APIUniqueGift,
-	APIMessageEntity,
-} from './message.js';
+import { APICommunity, APIGift, APIMessage, APIMessageEntity, APIUniqueGift, APIUniqueGiftColors } from './message.js';
 import { APIUser } from './user.js';
 
 export enum ChatType {
