@@ -1,5 +1,7 @@
+import { APILocation } from './location.js';
 import { APIAudio, APISticker } from './media.js';
-import { APILocation, APIMessage, APIUniqueGiftColors } from './message.js';
+import { APICommunity, APIGift, APIMessage, APIMessageEntity, APIUniqueGift, APIUniqueGiftColors } from './message.js';
+import { APIUser } from './user.js';
 
 export enum ChatType {
 	Private = 'private',
@@ -103,6 +105,8 @@ export interface APIChatFullInfo {
 	first_profile_audio?: APIAudio;
 	unique_gift_colors?: APIUniqueGiftColors;
 	paid_message_star_count?: number;
+	guard_bot?: APIUser;
+	community?: APICommunity;
 }
 
 export interface APIChatPhoto {
@@ -198,4 +202,49 @@ export interface APIUserRating {
 	rating: number;
 	current_level_rating: number;
 	next_level_rating?: number;
+}
+
+export enum OwnedGiftType {
+	Regular = 'regular',
+	Unique = 'unique',
+}
+
+export type APIOwnedGift = APIOwnedGift.Regular | APIOwnedGift.Unique;
+
+export namespace APIOwnedGift {
+	export interface Base<Type extends OwnedGiftType> {
+		type: Type;
+		owned_gift_id?: string;
+		sender_user?: APIUser;
+		send_date: number;
+		is_saved?: boolean;
+	}
+
+	export interface Regular extends Base<OwnedGiftType.Regular> {
+		gift: APIGift;
+		text?: string;
+		entities?: APIMessageEntity[];
+		is_private?: boolean;
+		can_be_upgraded?: boolean;
+		was_refunded?: boolean;
+		convert_star_count?: number;
+		prepaid_upgrade_star_count?: number;
+		is_upgrade_separate?: boolean;
+		unique_gift_number?: number;
+	}
+
+	export interface Unique extends Base<OwnedGiftType.Unique> {
+		gift: APIUniqueGift;
+		can_be_transferred?: boolean;
+		transfer_star_count?: number;
+		next_transfer_date?: number;
+	}
+
+	export type FromType<Type extends OwnedGiftType> = Extract<APIOwnedGift, { type: Type }>;
+}
+
+export interface APIOwnedGifts {
+	total_count: number;
+	gifts: APIOwnedGift[];
+	next_offset?: string;
 }

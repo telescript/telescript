@@ -29,6 +29,16 @@ export interface DescribedMediaBase extends MIMETypedMediaBase {
 
 export interface APIPhotoSize extends MediaBase, SpatialMediaBase {}
 
+export interface APIUserProfilePhotos {
+	total_count: number;
+	photos: APIPhotoSize[][];
+}
+
+export interface APIUserProfileAudios {
+	total_count: number;
+	audios: APIAudio[];
+}
+
 export interface APIAnimation
 	extends MediaBase, SpatialMediaBase, TemporalMediaBase, ThumbnailedMediaBase, DescribedMediaBase {}
 
@@ -130,4 +140,12 @@ export interface APIMaskPosition {
 	x_shift: number;
 	y_shift: number;
 	scale: number;
+}
+
+export interface APIStickerSet {
+	name: string;
+	title: string;
+	sticker_type: StickerType;
+	stickers: APISticker[];
+	thumbnail?: APIPhotoSize;
 }

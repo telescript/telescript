@@ -3,7 +3,7 @@ import EventEmitter from 'node:events';
 import { ChatRepository, MessageRepository, UserRepository } from '../repositories/index.js';
 import { processUpdate } from './updates/index.js';
 import type { Requester, UpdateTransport } from '@telescript/spec';
-import { ClientUser, Message } from '../structures/index.js';
+import { BotSubscriptionUpdated, ClientUser, Message } from '../structures/index.js';
 
 export enum ClientEvent {
 	Message = 'message',
@@ -13,6 +13,7 @@ export enum ClientEvent {
 	BusinessMessage = 'businessMessage',
 	EditedBusinessMessage = 'editedBusinessMessage',
 	GuestMessage = 'guestMessage',
+	Subscription = 'subscription',
 }
 
 export interface ClientOptions {
@@ -28,6 +29,7 @@ export type EventMap = {
 	[ClientEvent.BusinessMessage]: [Message];
 	[ClientEvent.EditedBusinessMessage]: [Message];
 	[ClientEvent.GuestMessage]: [Message];
+	[ClientEvent.Subscription]: [BotSubscriptionUpdated];
 };
 
 export class Client extends EventEmitter<EventMap> {

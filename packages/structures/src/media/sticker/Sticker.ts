@@ -3,7 +3,7 @@ import { BaseMedia } from '../BaseMedia.js';
 import { SpatialMediaMixin } from '../mixins/SpatialMediaMixin.js';
 import { ThumbnailedMediaMixin } from '../mixins/ThumbnailedMediaMixin.js';
 import { Structure } from '../../Structure.js';
-import { File } from '../../file/index.js';
+import { File } from '../../files/index.js';
 import { MaskPosition } from './MaskPosition.js';
 
 export interface Sticker extends SpatialMediaMixin<APISticker>, ThumbnailedMediaMixin<APISticker> {}

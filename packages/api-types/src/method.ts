@@ -33,6 +33,7 @@ export namespace APIMethod {
 			has_topics_enabled: boolean;
 			allows_users_to_create_topics: boolean;
 			can_manage_bots: boolean;
+			supports_join_request_queries: boolean;
 		}
 	}
 

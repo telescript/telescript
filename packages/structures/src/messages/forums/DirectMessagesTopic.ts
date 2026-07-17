@@ -1,5 +1,6 @@
 import { APIDirectMessagesTopic } from '@telescript/api-types';
-import { Structure } from './Structure.js';
+import { Structure } from '../../Structure.js';
+import { User } from '../../users/index.js';
 
 export class DirectMessagesTopic extends Structure<APIDirectMessagesTopic> {
 	public get id() {
@@ -8,6 +9,6 @@ export class DirectMessagesTopic extends Structure<APIDirectMessagesTopic> {
 
 	public get user() {
 		const data = this[Structure.DataProperty].user;
-		return data ? this.client.users.resolve(data) : null;
+		return data ? new User(data) : null;
 	}
 }
