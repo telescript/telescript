@@ -18,12 +18,12 @@ export class ChecklistTask extends ParentChecklistTask {
 		return data ? data.map((data) => createMessageEntity(this.client, data, this[Structure.DataProperty].text)) : null;
 	}
 
-	public get completed_by_user() {
+	public get completedByUser() {
 		const data = this[Structure.DataProperty].completed_by_user;
 		return data ? this.client.users.resolve(data) : null;
 	}
 
-	public get completed_by_chat() {
+	public get completedByChat() {
 		const data = this[Structure.DataProperty].completed_by_chat;
 		return data ? this.client.chats.resolve(data) : null;
 	}

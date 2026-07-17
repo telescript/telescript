@@ -456,7 +456,7 @@ export interface APIPoll {
 	id: string;
 	question: string;
 	question_entities?: APIMessageEntity[];
-	options: APIPollOption;
+	options: APIPollOption[];
 	total_voter_count: number;
 	is_closed: boolean;
 	is_anonymous: boolean;

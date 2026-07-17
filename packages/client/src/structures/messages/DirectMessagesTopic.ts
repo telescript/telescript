@@ -1,5 +1,5 @@
-import { DirectMessagesTopic as ParentDirectMessagesTopic } from '@telescript/structures';
-import { Client } from '../../client';
+import { DirectMessagesTopic as ParentDirectMessagesTopic, Structure } from '@telescript/structures';
+import { Client } from '../../client/index.js';
 import { APIDirectMessagesTopic } from '@telescript/api-types';
 
 export class DirectMessagesTopic extends ParentDirectMessagesTopic {
@@ -8,5 +8,10 @@ export class DirectMessagesTopic extends ParentDirectMessagesTopic {
 		data: APIDirectMessagesTopic,
 	) {
 		super(data);
+	}
+
+	public get user() {
+		const data = this[Structure.DataProperty].user;
+		return data ? this.client.users.resolve(data) : null;
 	}
 }

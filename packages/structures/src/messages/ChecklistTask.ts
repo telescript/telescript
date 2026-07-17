@@ -18,12 +18,12 @@ export class ChecklistTask extends Structure<APIChecklistTask> {
 		return data ? data.map((data) => createMessageEntity(data, this[Structure.DataProperty].text)) : null;
 	}
 
-	public get completed_by_user() {
+	public get completedByUser() {
 		const data = this[Structure.DataProperty].completed_by_user;
 		return data ? new User(data) : null;
 	}
 
-	public get completed_by_chat() {
+	public get completedByChat() {
 		const data = this[Structure.DataProperty].completed_by_chat;
 		return data ? createChat(data) : null;
 	}

@@ -30,6 +30,8 @@ import { GiveawayWinners } from './GiveawayWinners.js';
 import { RichMessage } from './RichMessage.js';
 import { CommunityChatAdded } from './CommunityChatAdded.js';
 import { CommunityChatRemoved } from './CommunityChatRemoved.js';
+import { GiftInfo } from './GiftInfo.js';
+import { UniqueGiftInfo } from './UniqueGiftInfo.js';
 
 export class Message extends Structure<APIMessage> {
 	public get id() {
@@ -412,15 +414,18 @@ export class Message extends Structure<APIMessage> {
 	}
 
 	public get gift() {
-		return this[Structure.DataProperty].gift ?? null;
+		const data = this[Structure.DataProperty].gift;
+		return data ? new GiftInfo(data) : null;
 	}
 
 	public get uniqueGift() {
-		return this[Structure.DataProperty].unique_gift ?? null;
+		const data = this[Structure.DataProperty].unique_gift;
+		return data ? new UniqueGiftInfo(data) : null;
 	}
 
 	public get giftUpgradeSent() {
-		return this[Structure.DataProperty].gift_upgrade_sent ?? null;
+		const data = this[Structure.DataProperty].gift_upgrade_sent;
+		return data ? new GiftInfo(data) : null;
 	}
 
 	public get connectedWebsite() {

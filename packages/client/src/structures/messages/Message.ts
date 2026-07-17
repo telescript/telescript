@@ -22,6 +22,8 @@ import { Venue } from './Venue.js';
 import { CommunityChatAdded } from './CommunityChatAdded.js';
 import { CommunityChatRemoved } from './CommunityChatRemoved.js';
 import { createMessageEntity } from './entity/index.js';
+import { GiftInfo } from './GiftInfo.js';
+import { UniqueGiftInfo } from './UniqueGiftInfo.js';
 import {
 	Animation,
 	Audio,
@@ -265,5 +267,20 @@ export class Message extends ParentMessage {
 	public get linkPreviewOptions() {
 		const data = this[Structure.DataProperty].link_preview_options;
 		return data ? new LinkPreviewOptions(this.client, data) : null;
+	}
+
+	public get gift() {
+		const data = this[Structure.DataProperty].gift;
+		return data ? new GiftInfo(this.client, data) : null;
+	}
+
+	public get uniqueGift() {
+		const data = this[Structure.DataProperty].unique_gift;
+		return data ? new UniqueGiftInfo(this.client, data) : null;
+	}
+
+	public get giftUpgradeSent() {
+		const data = this[Structure.DataProperty].gift_upgrade_sent;
+		return data ? new GiftInfo(this.client, data) : null;
 	}
 }
