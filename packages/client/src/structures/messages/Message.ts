@@ -84,6 +84,21 @@ export class Message extends ParentMessage {
 		return data ? this.client.messages.resolve(data) : null;
 	}
 
+	public get externalReply() {
+		const data = this[Structure.DataProperty].external_reply;
+		return data ? new ExternalReplyInfo(this.client, data) : null;
+	}
+
+	public get replyToStory() {
+		const data = this[Structure.DataProperty].reply_to_story;
+		return data ? new Story(this.client, data) : null;
+	}
+
+	public get viaBot() {
+		const data = this[Structure.DataProperty].via_bot;
+		return data ? this.client.users.resolve(data) : null;
+	}
+
 	public get guestBotCallerUser() {
 		const data = this[Structure.DataProperty].guest_bot_caller_user;
 		return data ? this.client.users.resolve(data) : null;
@@ -97,26 +112,6 @@ export class Message extends ParentMessage {
 	public get pinnedMessage(): Message | null {
 		const data = this[Structure.DataProperty].pinned_message;
 		return data ? this.client.messages.resolve(data as APIMessage) : null;
-	}
-
-	public get leftChatMember() {
-		const data = this[Structure.DataProperty].left_chat_member;
-		return data ? this.client.users.resolve(data) : null;
-	}
-
-	public get newChatMembers() {
-		const data = this[Structure.DataProperty].new_chat_members;
-		return data ? data.map((member) => this.client.users.resolve(member)) : null;
-	}
-
-	public get externalReply() {
-		const data = this[Structure.DataProperty].external_reply;
-		return data ? new ExternalReplyInfo(this.client, data) : null;
-	}
-
-	public get replyToStory() {
-		const data = this[Structure.DataProperty].reply_to_story;
-		return data ? new Story(this.client, data) : null;
 	}
 
 	public get animation() {
@@ -207,6 +202,16 @@ export class Message extends ParentMessage {
 	public get location() {
 		const data = this[Structure.DataProperty].location;
 		return data ? new Location(this.client, data) : null;
+	}
+
+	public get newChatMembers() {
+		const data = this[Structure.DataProperty].new_chat_members;
+		return data ? data.map((member) => this.client.users.resolve(member)) : null;
+	}
+
+	public get leftChatMember() {
+		const data = this[Structure.DataProperty].left_chat_member;
+		return data ? this.client.users.resolve(data) : null;
 	}
 
 	public get newChatPhoto() {
