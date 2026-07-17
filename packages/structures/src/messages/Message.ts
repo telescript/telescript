@@ -33,6 +33,44 @@ import { CommunityChatRemoved } from './CommunityChatRemoved.js';
 import { GiftInfo } from './GiftInfo.js';
 import { UniqueGiftInfo } from './UniqueGiftInfo.js';
 
+import { TextQuote } from './TextQuote.js';
+import { SuggestedPostInfo } from './SuggestedPostInfo.js';
+import { ChatOwnerLeft } from './ChatOwnerLeft.js';
+import { ChatOwnerChanged } from './ChatOwnerChanged.js';
+import { MessageAutoDeleteTimerChanged } from './MessageAutoDeleteTimerChanged.js';
+import { UsersShared } from './UsersShared.js';
+import { ChatShared } from './ChatShared.js';
+import { WriteAccessAllowed } from './WriteAccessAllowed.js';
+import { PassportData } from './PassportData.js';
+import { ProximityAlertTriggered } from './ProximityAlertTriggered.js';
+import { ChatBoostAdded } from './ChatBoostAdded.js';
+import { ChatBackground } from './ChatBackground.js';
+import { ChecklistTasksDone } from './ChecklistTasksDone.js';
+import { ChecklistTasksAdded } from './ChecklistTasksAdded.js';
+import { DirectMessagePriceChanged } from './DirectMessagePriceChanged.js';
+import { ForumTopicCreated } from './ForumTopicCreated.js';
+import { ForumTopicEdited } from './ForumTopicEdited.js';
+import { ForumTopicClosed } from './ForumTopicClosed.js';
+import { ForumTopicReopened } from './ForumTopicReopened.js';
+import { GeneralForumTopicHidden } from './GeneralForumTopicHidden.js';
+import { GeneralForumTopicUnhidden } from './GeneralForumTopicUnhidden.js';
+import { GiveawayCreated } from './GiveawayCreated.js';
+import { GiveawayCompleted } from './GiveawayCompleted.js';
+import { ManagedBotCreated } from './ManagedBotCreated.js';
+import { PaidMessagePriceChanged } from './PaidMessagePriceChanged.js';
+import { PollOptionAdded } from './PollOptionAdded.js';
+import { PollOptionDeleted } from './PollOptionDeleted.js';
+import { SuggestedPostApproved } from './SuggestedPostApproved.js';
+import { SuggestedPostApprovalFailed } from './SuggestedPostApprovalFailed.js';
+import { SuggestedPostDeclined } from './SuggestedPostDeclined.js';
+import { SuggestedPostPaid } from './SuggestedPostPaid.js';
+import { SuggestedPostRefunded } from './SuggestedPostRefunded.js';
+import { VideoChatScheduled } from './VideoChatScheduled.js';
+import { VideoChatStarted } from './VideoChatStarted.js';
+import { VideoChatEnded } from './VideoChatEnded.js';
+import { VideoChatParticipantsInvited } from './VideoChatParticipantsInvited.js';
+import { WebAppData } from './WebAppData.js';
+
 export class Message extends Structure<APIMessage> {
 	public get id() {
 		return this[Structure.DataProperty].message_id;
@@ -127,7 +165,8 @@ export class Message extends Structure<APIMessage> {
 	}
 
 	public get quote() {
-		return this[Structure.DataProperty].quote ?? null;
+		const data = this[Structure.DataProperty].quote;
+		return data ? new TextQuote(data) : null;
 	}
 
 	public get replyToStory() {
@@ -211,7 +250,8 @@ export class Message extends Structure<APIMessage> {
 	}
 
 	public get suggestedPostInfo() {
-		return this[Structure.DataProperty].suggested_post_info ?? null;
+		const data = this[Structure.DataProperty].suggested_post_info;
+		return data ? new SuggestedPostInfo(data) : null;
 	}
 
 	public get effectId() {
@@ -341,11 +381,13 @@ export class Message extends Structure<APIMessage> {
 	}
 
 	public get chatOwnerLeft() {
-		return this[Structure.DataProperty].chat_owner_left ?? null;
+		const data = this[Structure.DataProperty].chat_owner_left;
+		return data ? new ChatOwnerLeft(data) : null;
 	}
 
 	public get chatOwnerChanged() {
-		return this[Structure.DataProperty].chat_owner_changed ?? null;
+		const data = this[Structure.DataProperty].chat_owner_changed;
+		return data ? new ChatOwnerChanged(data) : null;
 	}
 
 	public get newChatTitle() {
@@ -374,7 +416,8 @@ export class Message extends Structure<APIMessage> {
 	}
 
 	public get messageAutoDeleteTimerChanged() {
-		return this[Structure.DataProperty].message_auto_delete_timer_changed ?? null;
+		const data = this[Structure.DataProperty].message_auto_delete_timer_changed;
+		return data ? new MessageAutoDeleteTimerChanged(data) : null;
 	}
 
 	public get migrateToChatId() {
@@ -406,11 +449,13 @@ export class Message extends Structure<APIMessage> {
 	}
 
 	public get usersShared() {
-		return this[Structure.DataProperty].users_shared ?? null;
+		const data = this[Structure.DataProperty].users_shared;
+		return data ? new UsersShared(data) : null;
 	}
 
 	public get chatShared() {
-		return this[Structure.DataProperty].chat_shared ?? null;
+		const data = this[Structure.DataProperty].chat_shared;
+		return data ? new ChatShared(data) : null;
 	}
 
 	public get gift() {
@@ -433,31 +478,38 @@ export class Message extends Structure<APIMessage> {
 	}
 
 	public get writeAccessAllowed() {
-		return this[Structure.DataProperty].write_access_allowed ?? null;
+		const data = this[Structure.DataProperty].write_access_allowed;
+		return data ? new WriteAccessAllowed(data) : null;
 	}
 
 	public get passportData() {
-		return this[Structure.DataProperty].passport_data ?? null;
+		const data = this[Structure.DataProperty].passport_data;
+		return data ? new PassportData(data) : null;
 	}
 
 	public get proximityAlertTriggered() {
-		return this[Structure.DataProperty].proximity_alert_triggered ?? null;
+		const data = this[Structure.DataProperty].proximity_alert_triggered;
+		return data ? new ProximityAlertTriggered(data) : null;
 	}
 
 	public get boostAdded() {
-		return this[Structure.DataProperty].boost_added ?? null;
+		const data = this[Structure.DataProperty].boost_added;
+		return data ? new ChatBoostAdded(data) : null;
 	}
 
 	public get chatBackgroundSet() {
-		return this[Structure.DataProperty].chat_background_set ?? null;
+		const data = this[Structure.DataProperty].chat_background_set;
+		return data ? new ChatBackground(data) : null;
 	}
 
 	public get checklistTasksDone() {
-		return this[Structure.DataProperty].checklist_tasks_done ?? null;
+		const data = this[Structure.DataProperty].checklist_tasks_done;
+		return data ? new ChecklistTasksDone(data) : null;
 	}
 
 	public get checklistTasksAdded() {
-		return this[Structure.DataProperty].checklist_tasks_added ?? null;
+		const data = this[Structure.DataProperty].checklist_tasks_added;
+		return data ? new ChecklistTasksAdded(data) : null;
 	}
 
 	public get communityChatAdded() {
@@ -471,35 +523,43 @@ export class Message extends Structure<APIMessage> {
 	}
 
 	public get directMessagePriceChanged() {
-		return this[Structure.DataProperty].direct_message_price_changed ?? null;
+		const data = this[Structure.DataProperty].direct_message_price_changed;
+		return data ? new DirectMessagePriceChanged(data) : null;
 	}
 
 	public get forumTopicCreated() {
-		return this[Structure.DataProperty].forum_topic_created ?? null;
+		const data = this[Structure.DataProperty].forum_topic_created;
+		return data ? new ForumTopicCreated(data) : null;
 	}
 
 	public get forumTopicEdited() {
-		return this[Structure.DataProperty].forum_topic_edited ?? null;
+		const data = this[Structure.DataProperty].forum_topic_edited;
+		return data ? new ForumTopicEdited(data) : null;
 	}
 
 	public get forumTopicClosed() {
-		return this[Structure.DataProperty].forum_topic_closed ?? null;
+		const data = this[Structure.DataProperty].forum_topic_closed;
+		return data ? new ForumTopicClosed(data) : null;
 	}
 
 	public get forumTopicReopened() {
-		return this[Structure.DataProperty].forum_topic_reopened ?? null;
+		const data = this[Structure.DataProperty].forum_topic_reopened;
+		return data ? new ForumTopicReopened(data) : null;
 	}
 
 	public get generalForumTopicHidden() {
-		return this[Structure.DataProperty].general_forum_topic_hidden ?? null;
+		const data = this[Structure.DataProperty].general_forum_topic_hidden;
+		return data ? new GeneralForumTopicHidden(data) : null;
 	}
 
 	public get generalForumTopicUnhidden() {
-		return this[Structure.DataProperty].general_forum_topic_unhidden ?? null;
+		const data = this[Structure.DataProperty].general_forum_topic_unhidden;
+		return data ? new GeneralForumTopicUnhidden(data) : null;
 	}
 
 	public get giveawayCreated() {
-		return this[Structure.DataProperty].giveaway_created ?? null;
+		const data = this[Structure.DataProperty].giveaway_created;
+		return data ? new GiveawayCreated(data) : null;
 	}
 
 	public get giveaway() {
@@ -513,63 +573,78 @@ export class Message extends Structure<APIMessage> {
 	}
 
 	public get giveawayCompleted() {
-		return this[Structure.DataProperty].giveaway_completed ?? null;
+		const data = this[Structure.DataProperty].giveaway_completed;
+		return data ? new GiveawayCompleted(data) : null;
 	}
 
 	public get managedBotCreated() {
-		return this[Structure.DataProperty].managed_bot_created ?? null;
+		const data = this[Structure.DataProperty].managed_bot_created;
+		return data ? new ManagedBotCreated(data) : null;
 	}
 
 	public get paidMessagePriceChanged() {
-		return this[Structure.DataProperty].paid_message_price_changed ?? null;
+		const data = this[Structure.DataProperty].paid_message_price_changed;
+		return data ? new PaidMessagePriceChanged(data) : null;
 	}
 
 	public get pollOptionAdded() {
-		return this[Structure.DataProperty].poll_option_added ?? null;
+		const data = this[Structure.DataProperty].poll_option_added;
+		return data ? new PollOptionAdded(data) : null;
 	}
 
 	public get pollOptionDeleted() {
-		return this[Structure.DataProperty].poll_option_deleted ?? null;
+		const data = this[Structure.DataProperty].poll_option_deleted;
+		return data ? new PollOptionDeleted(data) : null;
 	}
 
 	public get suggestedPostApproved() {
-		return this[Structure.DataProperty].suggested_post_approved ?? null;
+		const data = this[Structure.DataProperty].suggested_post_approved;
+		return data ? new SuggestedPostApproved(data) : null;
 	}
 
 	public get suggestedPostApprovalFailed() {
-		return this[Structure.DataProperty].suggested_post_approval_failed ?? null;
+		const data = this[Structure.DataProperty].suggested_post_approval_failed;
+		return data ? new SuggestedPostApprovalFailed(data) : null;
 	}
 
 	public get suggestedPostDeclined() {
-		return this[Structure.DataProperty].suggested_post_declined ?? null;
+		const data = this[Structure.DataProperty].suggested_post_declined;
+		return data ? new SuggestedPostDeclined(data) : null;
 	}
 
 	public get suggestedPostPaid() {
-		return this[Structure.DataProperty].suggested_post_paid ?? null;
+		const data = this[Structure.DataProperty].suggested_post_paid;
+		return data ? new SuggestedPostPaid(data) : null;
 	}
 
 	public get suggestedPostRefunded() {
-		return this[Structure.DataProperty].suggested_post_refunded ?? null;
+		const data = this[Structure.DataProperty].suggested_post_refunded;
+		return data ? new SuggestedPostRefunded(data) : null;
 	}
 
 	public get videoChatScheduled() {
-		return this[Structure.DataProperty].video_chat_scheduled ?? null;
+		const data = this[Structure.DataProperty].video_chat_scheduled;
+		return data ? new VideoChatScheduled(data) : null;
 	}
 
 	public get videoChatStarted() {
-		return this[Structure.DataProperty].video_chat_started ?? null;
+		const data = this[Structure.DataProperty].video_chat_started;
+		return data ? new VideoChatStarted(data) : null;
 	}
 
 	public get videoChatEnded() {
-		return this[Structure.DataProperty].video_chat_ended ?? null;
+		const data = this[Structure.DataProperty].video_chat_ended;
+		return data ? new VideoChatEnded(data) : null;
 	}
 
 	public get videoChatParticipantsInvited() {
-		return this[Structure.DataProperty].video_chat_participants_invited ?? null;
+		const data = this[Structure.DataProperty].video_chat_participants_invited;
+		return data ? new VideoChatParticipantsInvited(data) : null;
 	}
 
 	public get webAppData() {
-		return this[Structure.DataProperty].web_app_data ?? null;
+		const data = this[Structure.DataProperty].web_app_data;
+		return data ? new WebAppData(data) : null;
 	}
 
 	public get replyMarkup() {

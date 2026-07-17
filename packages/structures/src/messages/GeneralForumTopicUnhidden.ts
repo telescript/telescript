@@ -1,0 +1,4 @@
+import { APIGeneralForumTopicUnhidden } from '@telescript/api-types';
+import { Structure } from '../Structure.js';
+
+export class GeneralForumTopicUnhidden extends Structure<APIGeneralForumTopicUnhidden> {}
