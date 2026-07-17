@@ -1,4 +1,4 @@
-import { APIChat } from './chat.js';
+import { APIChat, APIReactionType } from './chat.js';
 import {
 	APIAnimation,
 	APIAudio,
@@ -823,10 +823,15 @@ export interface APIPollOption {
 	addition_date?: number;
 }
 
+export interface APILink {
+	url: string;
+}
+
 export interface APIPollMedia {
 	animation?: APIAnimation;
 	audio?: APIAudio;
 	document?: APIDocument;
+	link?: APILink;
 	live_photo?: APILivePhoto;
 	location?: APILocation;
 	photo?: APIPhotoSize[];
@@ -1312,3 +1317,189 @@ export interface APIInaccessibleMessage extends APIMessageId {
 }
 
 export type APIMaybeInaccessibleMessage = APIMessage | APIInaccessibleMessage;
+
+export interface APIChatAdministratorRights {
+	is_anonymous: boolean;
+	can_manage_chat: boolean;
+	can_delete_messages: boolean;
+	can_manage_video_chats: boolean;
+	can_restrict_members: boolean;
+	can_promote_members: boolean;
+	can_change_info: boolean;
+	can_invite_users: boolean;
+	can_post_stories: boolean;
+	can_edit_stories: boolean;
+	can_delete_stories: boolean;
+	can_post_messages?: boolean;
+	can_edit_messages?: boolean;
+	can_pin_messages?: boolean;
+	can_manage_topics?: boolean;
+	can_manage_direct_messages?: boolean;
+	can_manage_tags?: boolean;
+}
+
+export interface APIReplyKeyboardMarkup {
+	keyboard: APIKeyboardButton[][];
+	is_persistent?: boolean;
+	resize_keyboard?: boolean;
+	one_time_keyboard?: boolean;
+	input_field_placeholder?: string;
+	selective?: boolean;
+}
+
+export enum KeyboardButtonStyle {
+	Danger = 'danger',
+	Success = 'success',
+	Primary = 'primary',
+}
+
+export interface APIKeyboardButton {
+	text: string;
+	icon_custom_emoji_id?: string;
+	style?: KeyboardButtonStyle;
+	request_users?: APIKeyboardButtonRequestUsers;
+	request_chat?: APIKeyboardButtonRequestChat;
+	request_managed_bot?: APIKeyboardButtonRequestManagedBot;
+	request_contact?: boolean;
+	request_location?: boolean;
+	request_poll?: APIKeyboardButtonPollType;
+	web_app?: APIWebAppInfo;
+}
+
+export interface APIKeyboardButtonRequestUsers {
+	request_id: number;
+	user_is_bot?: boolean;
+	user_is_premium?: boolean;
+	max_quantity?: number;
+	request_name?: boolean;
+	request_username?: boolean;
+	request_photo?: boolean;
+}
+
+export interface APIKeyboardButtonRequestChat {
+	request_id: number;
+	chat_is_channel: boolean;
+	chat_is_forum?: boolean;
+	chat_has_username?: boolean;
+	chat_is_created?: boolean;
+	user_administrator_rights?: APIChatAdministratorRights;
+	bot_administrator_rights?: APIChatAdministratorRights;
+	bot_is_member?: boolean;
+	request_title?: boolean;
+	request_username?: boolean;
+	request_photo?: boolean;
+}
+
+export interface APIKeyboardButtonRequestManagedBot {
+	request_id: number;
+	suggested_name?: string;
+	suggested_username?: string;
+}
+
+export interface APIKeyboardButtonPollType {
+	type?: 'quiz' | 'regular';
+}
+
+export interface APIReplyKeyboardRemove {
+	remove_keyboard: true;
+	selective?: boolean;
+}
+
+export interface APIForceReply {
+	force_reply: true;
+	input_field_placeholder?: string;
+	selective?: boolean;
+}
+
+export interface APIStoryAreaPosition {
+	x_percentage: number;
+	y_percentage: number;
+	width_percentage: number;
+	height_percentage: number;
+	rotation_angle: number;
+	corner_radius_percentage: number;
+}
+
+export enum StoryAreaTypeType {
+	Location = 'location',
+	SuggestedReaction = 'suggested_reaction',
+	Link = 'link',
+	Weather = 'weather',
+	UniqueGift = 'unique_gift',
+}
+
+export interface APILocationAddress {
+	country_code: string;
+	state?: string;
+	city?: string;
+	street?: string;
+}
+
+export type APIStoryAreaType =
+	| APIStoryAreaType.Location
+	| APIStoryAreaType.SuggestedReaction
+	| APIStoryAreaType.Link
+	| APIStoryAreaType.Weather
+	| APIStoryAreaType.UniqueGift;
+
+export namespace APIStoryAreaType {
+	export interface Base<Type extends StoryAreaTypeType> {
+		type: Type;
+	}
+
+	export interface Location extends Base<StoryAreaTypeType.Location> {
+		latitude: number;
+		longitude: number;
+		address?: APILocationAddress;
+	}
+
+	export interface SuggestedReaction extends Base<StoryAreaTypeType.SuggestedReaction> {
+		reaction_type: APIReactionType;
+		is_dark?: boolean;
+		is_flipped?: boolean;
+	}
+
+	export interface Link extends Base<StoryAreaTypeType.Link> {
+		url: string;
+	}
+
+	export interface Weather extends Base<StoryAreaTypeType.Weather> {
+		temperature: number;
+		emoji: string;
+		background_color: number;
+	}
+
+	export interface UniqueGift extends Base<StoryAreaTypeType.UniqueGift> {
+		name: string;
+	}
+
+	export type FromType<Type extends StoryAreaTypeType> = Extract<APIStoryAreaType, { type: Type }>;
+}
+
+export interface APIStoryArea {
+	position: APIStoryAreaPosition;
+	type: APIStoryAreaType;
+}
+
+export interface APIGameHighScore {
+	position: number;
+	user: APIUser;
+	score: number;
+}
+
+export interface APIPreparedInlineMessage {
+	id: string;
+	expiration_date: number;
+}
+
+export interface APIPreparedKeyboardButton {
+	id: string;
+}
+
+export interface APISentWebAppMessage {
+	inline_message_id?: string;
+}
+
+export interface APISentGuestMessage {
+	inline_message_id: string;
+}

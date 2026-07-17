@@ -131,3 +131,11 @@ export interface APIMaskPosition {
 	y_shift: number;
 	scale: number;
 }
+
+export interface APIStickerSet {
+	name: string;
+	title: string;
+	sticker_type: StickerType;
+	stickers: APISticker[];
+	thumbnail?: APIPhotoSize;
+}

@@ -1,12 +1,13 @@
 import { APIChat, APIReactionType } from './chat.js';
 import { APILocation, APIMaybeInaccessibleMessage, APIMessage, APIPoll } from './message.js';
+import { APIOrderInfo, APIShippingAddress } from './payments.js';
 import { APIUser } from './user.js';
 
 export enum UpdateName {
 	Message = 'message',
 	EditedMessage = 'edited_message',
 	ChannelPost = 'channel_post',
-	edited_channel_post = 'edited_channel_post',
+	EditedChannelPost = 'edited_channel_post',
 	BusinessConnection = 'business_connection',
 	BusinessMessage = 'business_message',
 	EditedBusinessMessage = 'edited_business_message',
@@ -366,27 +367,11 @@ export interface APICallbackQuery {
 	data?: string;
 	game_short_name?: string;
 }
-
-export interface APIShippingAddress {
-	country_code: string;
-	state: string;
-	city: string;
-	street_line1: string;
-	street_line2: string;
-	post_code: string;
-}
 export interface APIShippingQuery {
 	id: string;
 	from: APIUser;
 	invoice_payload: string;
 	shipping_address: APIShippingAddress;
-}
-
-export interface APIOrderInfo {
-	name?: string;
-	phone_number?: string;
-	email?: string;
-	shipping_address?: APIShippingAddress;
 }
 
 export interface APIPreCheckoutQuery {
@@ -526,6 +511,7 @@ export interface APIChatJoinRequest {
 	date: number;
 	bio?: string;
 	invite_link?: APIChatInviteLink;
+	query_id?: string;
 }
 
 export enum ChatBoostSourceSource {
