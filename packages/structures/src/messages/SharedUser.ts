@@ -1,7 +1,6 @@
-import { APISharedUser } from "@telescript/api-types";
-import { Structure } from "../Structure.js";
-import { PhotoSize } from "../media/PhotoSize.js";
-
+import { APISharedUser } from '@telescript/api-types';
+import { Structure } from '../Structure.js';
+import { PhotoSize } from '../media/PhotoSize.js';
 
 export class SharedUser extends Structure<APISharedUser> {
 	public get id() {
