@@ -2,6 +2,7 @@ import { APIPoll } from '@telescript/api-types';
 import { Structure } from '../Structure.js';
 import { createMessageEntity } from './entity/index.js';
 import { PollMedia } from './PollMedia.js';
+import { PollOption } from './PollOption.js';
 
 export class Poll extends Structure<APIPoll> {
 	public get id() {
@@ -18,7 +19,7 @@ export class Poll extends Structure<APIPoll> {
 	}
 
 	public get options() {
-		return this[Structure.DataProperty].options;
+		return this[Structure.DataProperty].options.map((data) => new PollOption(data));
 	}
 
 	public get totalVoterCount() {

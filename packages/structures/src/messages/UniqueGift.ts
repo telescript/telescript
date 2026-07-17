@@ -1,6 +1,10 @@
 import { APIUniqueGift } from '@telescript/api-types';
 import { Structure } from '../Structure.js';
 import { createChat } from '../chats/index.js';
+import { UniqueGiftModel } from './UniqueGiftModel.js';
+import { UniqueGiftSymbol } from './UniqueGiftSymbol.js';
+import { UniqueGiftBackdrop } from './UniqueGiftBackdrop.js';
+import { UniqueGiftColors } from './UniqueGiftColors.js';
 
 export class UniqueGift extends Structure<APIUniqueGift> {
 	public get giftId() {
@@ -20,15 +24,15 @@ export class UniqueGift extends Structure<APIUniqueGift> {
 	}
 
 	public get model() {
-		return this[Structure.DataProperty].model;
+		return new UniqueGiftModel(this[Structure.DataProperty].model);
 	}
 
 	public get symbol() {
-		return this[Structure.DataProperty].symbol;
+		return new UniqueGiftSymbol(this[Structure.DataProperty].symbol);
 	}
 
 	public get backdrop() {
-		return this[Structure.DataProperty].backdrop;
+		return new UniqueGiftBackdrop(this[Structure.DataProperty].backdrop);
 	}
 
 	public get isPremium() {
@@ -44,7 +48,8 @@ export class UniqueGift extends Structure<APIUniqueGift> {
 	}
 
 	public get colors() {
-		return this[Structure.DataProperty].colors ?? null;
+		const data = this[Structure.DataProperty].colors;
+		return data ? new UniqueGiftColors(data) : null;
 	}
 
 	public get publisherChat() {

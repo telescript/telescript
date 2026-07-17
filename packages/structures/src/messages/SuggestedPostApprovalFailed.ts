@@ -1,7 +1,7 @@
 import { APISuggestedPostApprovalFailed } from '@telescript/api-types';
 import { Structure } from '../Structure.js';
 import { Message } from './Message.js';
-import { SuggestedPostPrice } from './SuggestedPostInfo.js';
+import { SuggestedPostPrice } from './SuggestedPostPrice.js';
 
 export class SuggestedPostApprovalFailed extends Structure<APISuggestedPostApprovalFailed> {
 	public get suggestedPostMessage(): Message | null {

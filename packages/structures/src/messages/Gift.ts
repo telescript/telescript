@@ -2,6 +2,7 @@ import { APIGift } from '@telescript/api-types';
 import { Structure } from '../Structure.js';
 import { Sticker } from '../media/sticker/Sticker.js';
 import { createChat } from '../chats/index.js';
+import { GiftBackground } from './GiftBackground.js';
 
 export class Gift extends Structure<APIGift> {
 	public get id() {
@@ -45,7 +46,8 @@ export class Gift extends Structure<APIGift> {
 	}
 
 	public get background() {
-		return this[Structure.DataProperty].background ?? null;
+		const data = this[Structure.DataProperty].background;
+		return data ? new GiftBackground(data) : null;
 	}
 
 	public get uniqueGiftVariantCount() {
