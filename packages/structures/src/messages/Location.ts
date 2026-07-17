@@ -10,11 +10,11 @@ export class Location extends Structure<APILocation> {
 		return this[Structure.DataProperty].longitude;
 	}
 
-	public get horizontal_accuracy() {
+	public get horizontalAccuracy() {
 		return this[Structure.DataProperty].horizontal_accuracy ?? null;
 	}
 
-	public get live_period() {
+	public get livePeriod() {
 		return this[Structure.DataProperty].live_period ?? null;
 	}
 
@@ -22,7 +22,7 @@ export class Location extends Structure<APILocation> {
 		return this[Structure.DataProperty].heading ?? null;
 	}
 
-	public get proximity_alert_radius() {
+	public get proximityAlertRadius() {
 		return this[Structure.DataProperty].proximity_alert_radius ?? null;
 	}
 }

@@ -74,5 +74,7 @@ export * from './VideoChatScheduled.js';
 export * from './VideoChatStarted.js';
 export * from './WebAppData.js';
 export * from './WriteAccessAllowed.js';
+
 export * from './origins/index.js';
 export * from './entity/index.js';
+export * from './rich-block/index.js';

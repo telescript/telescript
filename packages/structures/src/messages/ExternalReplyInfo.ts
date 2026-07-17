@@ -19,6 +19,8 @@ import { Giveaway } from './Giveaway.js';
 import { GiveawayWinners } from './GiveawayWinners.js';
 import { Location } from './Location.js';
 import { Invoice } from './Invoice.js';
+import { Poll } from './Poll.js';
+import { Venue } from './Venue.js';
 
 export class ExternalReplyInfo extends Structure<APIExternalReplyInfo> {
 	public get origin() {
@@ -123,7 +125,7 @@ export class ExternalReplyInfo extends Structure<APIExternalReplyInfo> {
 		return data ? new Giveaway(data) : null;
 	}
 
-	public get giveaway_winners() {
+	public get giveawayWinners() {
 		const data = this[Structure.DataProperty].giveaway_winners;
 		return data ? new GiveawayWinners(data) : null;
 	}
@@ -136,5 +138,15 @@ export class ExternalReplyInfo extends Structure<APIExternalReplyInfo> {
 	public get location() {
 		const data = this[Structure.DataProperty].location;
 		return data ? new Location(data) : null;
+	}
+
+	public get poll() {
+		const data = this[Structure.DataProperty].poll;
+		return data ? new Poll(data) : null;
+	}
+
+	public get venue() {
+		const data = this[Structure.DataProperty].venue;
+		return data ? new Venue(data) : null;
 	}
 }
