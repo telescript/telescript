@@ -27,16 +27,20 @@ export class Message extends Structure<APIMessage> {
 	}
 
 	public get senderBoostCount() {
-		return this[Structure.DataProperty].sender_boost_count ?? null;
+		const data = this[Structure.DataProperty];
+		return 'sender_boost_count' in data ? (data.sender_boost_count ?? null) : null;
 	}
 
 	public get senderBusinessBot() {
-		const data = this[Structure.DataProperty].sender_business_bot;
-		return data ? this.client.users.resolve(data) : null;
+		const data = this[Structure.DataProperty];
+		return 'sender_business_bot' in data && data.sender_business_bot
+			? this.client.users.resolve(data.sender_business_bot)
+			: null;
 	}
 
 	public get senderTag() {
-		return this[Structure.DataProperty].sender_tag ?? null;
+		const data = this[Structure.DataProperty];
+		return 'sender_tag' in data ? (data.sender_tag ?? null) : null;
 	}
 
 	public get sentUnixTimestamp() {
@@ -64,7 +68,8 @@ export class Message extends Structure<APIMessage> {
 	}
 
 	public get editUnixTimestamp() {
-		return this[Structure.DataProperty].edit_date ?? null;
+		const data = this[Structure.DataProperty];
+		return 'edit_date' in data ? (data.edit_date ?? null) : null;
 	}
 
 	public get editTimestamp() {
@@ -78,6 +83,7 @@ export class Message extends Structure<APIMessage> {
 	}
 
 	public get text() {
-		return this[Structure.DataProperty].text ?? null;
+		const data = this[Structure.DataProperty];
+		return 'text' in data ? data.text : null;
 	}
 }

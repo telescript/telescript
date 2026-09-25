@@ -1,5 +1,6 @@
 import {
 	APIInlineKeyboardMarkup,
+	APIInputPollOption,
 	APILinkPreviewOptions,
 	APIMessage,
 	APIMessageEntity,
@@ -188,11 +189,12 @@ export class MessageRepository extends Repository<APIMessage, Message> {
 	}
 
 	public async sendLivePhoto(options: SendLivePhotoOptions) {
-		const { chatId, messageThreadId, livePhoto, ...rest } = options;
+		const { chatId, messageThreadId, livePhoto, photo, ...rest } = options;
 		const params = {
 			chat_id: chatId,
 			message_thread_id: messageThreadId,
 			live_photo: livePhoto,
+			photo,
 			...rest,
 		} satisfies APIMethod.SendLivePhoto.Params;
 
@@ -447,6 +449,7 @@ export interface SendLivePhotoOptions {
 	chatId: number | string;
 	messageThreadId?: number;
 	livePhoto: InputFile | string;
+	photo: InputFile | string;
 }
 
 export interface SendMediaGroupOptions {
@@ -494,7 +497,7 @@ export interface SendPollOptions {
 	question: string;
 	questionParseMode?: string;
 	questionEntities?: APIMessageEntity[];
-	options: string[];
+	options: APIInputPollOption[];
 	isAnonymous?: boolean;
 	type?: PollType;
 	allowsMultipleAnswers?: boolean;

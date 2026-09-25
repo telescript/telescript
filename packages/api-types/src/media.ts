@@ -1,10 +1,6 @@
-import { APIFile } from './file.js';
+import { APIFile, FileBase } from './file.js';
 
-export interface MediaBase {
-	file_id: string;
-	file_unique_id: string;
-	file_size?: number;
-}
+export interface MediaBase extends FileBase {}
 
 export interface SpatialMediaBase {
 	width: number;
@@ -101,9 +97,9 @@ export namespace APIPaidMedia {
 }
 
 export enum StickerType {
-	regular = 'regular',
-	mask = 'mask',
-	custom_emoji = 'custom_emoji',
+	Regular = 'regular',
+	Mask = 'mask',
+	CustomEmoji = 'custom_emoji',
 }
 
 export interface APISticker extends MediaBase, SpatialMediaBase, ThumbnailedMediaBase {
@@ -115,14 +111,14 @@ export interface APISticker extends MediaBase, SpatialMediaBase, ThumbnailedMedi
 	premium_animation?: APIFile;
 	mask_position?: APIMaskPosition;
 	custom_emoji_id?: string;
-	needs_repainting?: boolean;
+	needs_repainting?: true;
 }
 
 export enum MaskPositionPoint {
-	forehead = 'forehead',
-	eyes = 'eyes',
-	mouth = 'mouth',
-	chin = 'chin',
+	Forehead = 'forehead',
+	Eyes = 'eyes',
+	Mouth = 'mouth',
+	Chin = 'chin',
 }
 
 export interface APIMaskPosition {

@@ -1,5 +1,7 @@
 import { APIChat, APIReactionType } from './chat.js';
-import { APILocation, APIMaybeInaccessibleMessage, APIMessage, APIPoll } from './message.js';
+import { APILocation, APIMaybeInaccessibleMessage, APIMessage } from './message.js';
+import { APIOrderInfo, APIShippingAddress } from './payments.js';
+import { APIPoll } from './poll.js';
 import { APIUser } from './user.js';
 
 export enum UpdateName {
@@ -28,6 +30,8 @@ export enum UpdateName {
 	ChatBoost = 'chat_boost',
 	RemovedChatBoost = 'removed_chat_boost',
 	ManagedBot = 'managed_bot',
+	Subscription = 'subscription',
+	StoppedMessageGeneration = 'stopped_message_generation',
 }
 
 interface UpdateBase {
@@ -134,6 +138,14 @@ export interface APIManagedBotUpdate extends UpdateBase {
 	managed_bot: APIManagedBotUpdated;
 }
 
+export interface APISubscriptionUpdate extends UpdateBase {
+	subscription: APIBotSubscriptionUpdated;
+}
+
+export interface APIStoppedMessageGenerationUpdate extends UpdateBase {
+	stopped_message_generation: APIMessageGenerationStopped;
+}
+
 export type APIUpdate =
 	| UpdateBase
 	| APIMessageUpdate
@@ -160,7 +172,9 @@ export type APIUpdate =
 	| APIChatJoinRequestUpdate
 	| APIChatBoostUpdate
 	| APIRemovedChatBoostUpdate
-	| APIManagedBotUpdate;
+	| APIManagedBotUpdate
+	| APISubscriptionUpdate
+	| APIStoppedMessageGenerationUpdate;
 
 export function isMessageUpdate(update: APIUpdate): update is APIMessageUpdate {
 	return 'message' in update;
@@ -262,6 +276,14 @@ export function isManagedBotUpdate(update: APIUpdate): update is APIManagedBotUp
 	return 'managed_bot' in update;
 }
 
+export function isSubscriptionUpdate(update: APIUpdate): update is APISubscriptionUpdate {
+	return 'subscription' in update;
+}
+
+export function isStoppedMessageGenerationUpdate(update: APIUpdate): update is APIStoppedMessageGenerationUpdate {
+	return 'stopped_message_generation' in update;
+}
+
 export interface APIBusinessBotRights {
 	can_reply?: boolean;
 	can_read_messages?: boolean;
@@ -329,7 +351,7 @@ export interface APIInlineQuery {
 	from: APIUser;
 	query: string;
 	offset: string;
-	chat_type: InlineQueryChatType;
+	chat_type?: InlineQueryChatType;
 	location?: APILocation;
 }
 
@@ -351,26 +373,11 @@ export interface APICallbackQuery {
 	game_short_name?: string;
 }
 
-export interface APIShippingAddress {
-	country_code: string;
-	state: string;
-	city: string;
-	street_line1: string;
-	street_line2: string;
-	post_code: string;
-}
 export interface APIShippingQuery {
 	id: string;
 	from: APIUser;
 	invoice_payload: string;
 	shipping_address: APIShippingAddress;
-}
-
-export interface APIOrderInfo {
-	name?: string;
-	phone_number?: string;
-	email?: string;
-	shipping_address?: APIShippingAddress;
 }
 
 export interface APIPreCheckoutQuery {
@@ -434,6 +441,7 @@ export interface APIChatMemberAdministrator extends ChatMemberBase<ChatMemberSta
 	can_manage_topics?: boolean;
 	can_manage_direct_messages?: boolean;
 	can_manage_tags?: boolean;
+	can_send_welcome_messages: boolean;
 	custom_title?: string;
 }
 
@@ -510,6 +518,7 @@ export interface APIChatJoinRequest {
 	date: number;
 	bio?: string;
 	invite_link?: APIChatInviteLink;
+	query_id?: string;
 }
 
 export enum ChatBoostSourceSource {
@@ -561,4 +570,22 @@ export interface APIChatBoostRemoved {
 export interface APIManagedBotUpdated {
 	user: APIUser;
 	bot: APIUser;
+}
+
+export enum BotSubscriptionState {
+	Canceled = 'canceled',
+	Active = 'active',
+	Failed = 'failed',
+}
+
+export interface APIBotSubscriptionUpdated {
+	user: APIUser;
+	invoice_payload: string;
+	state: BotSubscriptionState;
+}
+
+export interface APIMessageGenerationStopped {
+	chat: APIChat;
+	message_thread_id?: number;
+	draft_id: number;
 }

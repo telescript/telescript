@@ -1,5 +1,8 @@
+import { APICommunity } from './community.js';
+import { APIUniqueGiftColors } from './gift.js';
 import { APIAudio, APISticker } from './media.js';
-import { APILocation, APIMessage, APIUniqueGiftColors } from './message.js';
+import { APILocation, APIMessage } from './message.js';
+import { APIUser } from './user.js';
 
 export enum ChatType {
 	Private = 'private',
@@ -38,8 +41,8 @@ export namespace APIChat {
 	export interface Group extends Base<ChatType.Group>, TitleableBase {}
 
 	export interface Supergroup extends Base<ChatType.Supergroup>, TitleableBase, UsernameableBase {
-		is_forum?: boolean;
-		is_direct_messages?: boolean;
+		is_forum?: true;
+		is_direct_messages?: true;
 	}
 
 	export interface Channel extends Base<ChatType.Channel>, TitleableBase, UsernameableBase {}
@@ -85,7 +88,7 @@ export interface APIChatFullInfo {
 	invite_link?: string;
 	pinned_message?: APIMessage;
 	permissions?: APIChatPermissions;
-	accepted_gift_types?: APIAcceptedGiftTypes;
+	accepted_gift_types: APIAcceptedGiftTypes;
 	can_send_paid_media?: boolean;
 	slow_mode_delay?: number;
 	unrestrict_boost_count?: number;
@@ -103,6 +106,8 @@ export interface APIChatFullInfo {
 	first_profile_audio?: APIAudio;
 	unique_gift_colors?: APIUniqueGiftColors;
 	paid_message_star_count?: number;
+	guard_bot?: APIUser;
+	community?: APICommunity;
 }
 
 export interface APIChatPhoto {
@@ -181,11 +186,11 @@ export interface APIChatPermissions {
 }
 
 export interface APIAcceptedGiftTypes {
-	unlimited_gifts?: boolean;
-	limited_gifts?: boolean;
-	unique_gifts?: boolean;
-	premium_subscription?: boolean;
-	gifts_from_channels?: boolean;
+	unlimited_gifts: boolean;
+	limited_gifts: boolean;
+	unique_gifts: boolean;
+	premium_subscription: boolean;
+	gifts_from_channels: boolean;
 }
 
 export interface APIChatLocation {
@@ -218,4 +223,5 @@ export interface APIChatAdministratorRights {
 	can_manage_topics?: boolean;
 	can_manage_direct_messages?: boolean;
 	can_manage_tags?: boolean;
+	can_send_welcome_messages: boolean;
 }
