@@ -90,7 +90,7 @@ export class API {
 
 	public async sendLivePhoto(params: APIMethod.SendLivePhoto.Params) {
 		return (await this.requester.request(APIMethod.SendLivePhoto, params, {
-			asFormData: params.live_photo instanceof Blob,
+			asFormData: params.live_photo instanceof Blob || params.photo instanceof Blob,
 		})) as APIMethod.SendLivePhoto.Result;
 	}
 

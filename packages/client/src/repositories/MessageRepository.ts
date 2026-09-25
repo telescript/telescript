@@ -54,9 +54,9 @@ export class MessageRepository extends Repository<APIMessage, Message> {
 
 		const data = await this.client.core.api.forwardMessages(params);
 		// TODO: replace with MessageId class
-		return data.map((messageId) => {
-			messageId: messageId.message_id;
-		});
+		return data.map((messageId) => ({
+			messageId: messageId.message_id,
+		}));
 	}
 
 	public async copyOne(options: CopyMessageOptions) {
@@ -86,9 +86,9 @@ export class MessageRepository extends Repository<APIMessage, Message> {
 
 		const data = await this.client.core.api.copyMessages(params);
 		// TODO: replace with MessageId class
-		return data.map((messageId) => {
-			messageId: messageId.message_id;
-		});
+		return data.map((messageId) => ({
+			messageId: messageId.message_id,
+		}));
 	}
 
 	public async sendPhoto(options: SendPhotoOptions) {
@@ -255,10 +255,42 @@ export class MessageRepository extends Repository<APIMessage, Message> {
 	}
 
 	public async sendPoll(options: SendPollOptions) {
-		const { chatId, messageThreadId, ...rest } = options;
+		const {
+			chatId,
+			messageThreadId,
+			question,
+			questionParseMode,
+			questionEntities,
+			options: pollOptions,
+			isAnonymous,
+			type,
+			allowsMultipleAnswers,
+			correctOptionId,
+			explanation,
+			explanationParseMode,
+			explanationEntities,
+			openPeriod,
+			closeDate,
+			isClosed,
+			...rest
+		} = options;
 		const params = {
 			chat_id: chatId,
 			message_thread_id: messageThreadId,
+			question,
+			question_parse_mode: questionParseMode,
+			question_entities: questionEntities,
+			options: pollOptions,
+			is_anonymous: isAnonymous,
+			type,
+			allows_multiple_answers: allowsMultipleAnswers,
+			correct_option_ids: correctOptionId === undefined ? undefined : [correctOptionId],
+			explanation,
+			explanation_parse_mode: explanationParseMode,
+			explanation_entities: explanationEntities,
+			open_period: openPeriod,
+			close_date: closeDate,
+			is_closed: isClosed,
 			...rest,
 		} satisfies APIMethod.SendPoll.Params;
 
