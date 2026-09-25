@@ -42,60 +42,63 @@ export class API {
 
 	public async sendPhoto(params: APIMethod.SendPhoto.Params) {
 		return (await this.requester.request(APIMethod.SendPhoto, params, {
-			asFormData: params.photo instanceof Blob,
+			asFormData: isBlob(params.photo),
 		})) as APIMethod.SendPhoto.Result;
 	}
 
 	public async sendAnimation(params: APIMethod.SendAnimation.Params) {
 		return (await this.requester.request(APIMethod.SendAnimation, params, {
-			asFormData: params.animation instanceof Blob,
+			asFormData: isBlob(params.animation, params.thumbnail),
 		})) as APIMethod.SendAnimation.Result;
 	}
 
 	public async sendAudio(params: APIMethod.SendAudio.Params) {
 		return (await this.requester.request(APIMethod.SendAudio, params, {
-			asFormData: params.audio instanceof Blob,
+			asFormData: isBlob(params.audio, params.thumbnail),
 		})) as APIMethod.SendAudio.Result;
 	}
 
 	public async sendDocument(params: APIMethod.SendDocument.Params) {
 		return (await this.requester.request(APIMethod.SendDocument, params, {
-			asFormData: params.document instanceof Blob,
+			asFormData: isBlob(params.document, params.thumbnail),
 		})) as APIMethod.SendDocument.Result;
 	}
 
 	public async sendVideo(params: APIMethod.SendVideo.Params) {
 		return (await this.requester.request(APIMethod.SendVideo, params, {
-			asFormData: params.video instanceof Blob,
+			asFormData: isBlob(params.video, params.thumbnail, params.cover),
 		})) as APIMethod.SendVideo.Result;
 	}
 
 	public async sendVideoNote(params: APIMethod.SendVideoNote.Params) {
 		return (await this.requester.request(APIMethod.SendVideoNote, params, {
-			asFormData: params.video_note instanceof Blob,
+			asFormData: isBlob(params.video_note, params.thumbnail),
 		})) as APIMethod.SendVideoNote.Result;
 	}
 
 	public async sendVoice(params: APIMethod.SendVoice.Params) {
 		return (await this.requester.request(APIMethod.SendVoice, params, {
-			asFormData: params.voice instanceof Blob,
+			asFormData: isBlob(params.voice),
 		})) as APIMethod.SendVoice.Result;
 	}
 
 	public async sendSticker(params: APIMethod.SendSticker.Params) {
 		return (await this.requester.request(APIMethod.SendSticker, params, {
-			asFormData: params.sticker instanceof Blob,
+			asFormData: isBlob(params.sticker),
 		})) as APIMethod.SendSticker.Result;
 	}
 
 	public async sendLivePhoto(params: APIMethod.SendLivePhoto.Params) {
 		return (await this.requester.request(APIMethod.SendLivePhoto, params, {
-			asFormData: params.live_photo instanceof Blob || params.photo instanceof Blob,
+			asFormData: isBlob(params.live_photo, params.photo),
 		})) as APIMethod.SendLivePhoto.Result;
 	}
 
 	public async sendMediaGroup(params: APIMethod.SendMediaGroup.Params) {
-		return (await this.requester.request(APIMethod.SendMediaGroup, params)) as APIMethod.SendMediaGroup.Result;
+		const { params: resolved, asFormData } = resolveNestedFiles(params, ['media']);
+		return (await this.requester.request(APIMethod.SendMediaGroup, resolved, {
+			asFormData,
+		})) as APIMethod.SendMediaGroup.Result;
 	}
 
 	public async sendLocation(params: APIMethod.SendLocation.Params) {
@@ -127,7 +130,10 @@ export class API {
 	}
 
 	public async editMessageMedia(params: APIMethod.EditMessageMedia.Params) {
-		return (await this.requester.request(APIMethod.EditMessageMedia, params)) as APIMethod.EditMessageMedia.Result;
+		const { params: resolved, asFormData } = resolveNestedFiles(params, ['media']);
+		return (await this.requester.request(APIMethod.EditMessageMedia, resolved, {
+			asFormData,
+		})) as APIMethod.EditMessageMedia.Result;
 	}
 
 	public async editMessageReplyMarkup(params: APIMethod.EditMessageReplyMarkup.Params) {
@@ -148,4 +154,49 @@ export class API {
 	public async deleteMessages(params: APIMethod.DeleteMessages.Params) {
 		return (await this.requester.request(APIMethod.DeleteMessages, params)) as APIMethod.DeleteMessages.Result;
 	}
+}
+
+function isBlob(...values: unknown[]): boolean {
+	return values.some((value) => value instanceof Blob);
+}
+
+/**
+ * Rewrites Blobs nested under JSON-serialized fields to `attach://` references,
+ * collecting the files as top-level multipart parts.
+ */
+function resolveNestedFiles<T extends object>(
+	params: T,
+	nestedKeys: (keyof T)[],
+): { params: T & Record<string, Blob>; asFormData: boolean } {
+	const attachments: Record<string, Blob> = {};
+	let counter = 0;
+	const resolved = { ...params } as T & Record<string, Blob>;
+
+	const rewrite = (value: unknown): unknown => {
+		if (value instanceof Blob) {
+			const name = `file${counter++}`;
+			attachments[name] = value;
+			return `attach://${name}`;
+		}
+		if (Array.isArray(value)) {
+			return value.map(rewrite);
+		}
+		if (value !== null && typeof value === 'object') {
+			const result: Record<string, unknown> = {};
+			for (const [key, nested] of Object.entries(value)) {
+				result[key] = rewrite(nested);
+			}
+			return result;
+		}
+		return value;
+	};
+
+	for (const key of nestedKeys) {
+		if (params[key] !== undefined) {
+			(resolved as Record<string, unknown>)[key as string] = rewrite(params[key]);
+		}
+	}
+
+	Object.assign(resolved, attachments);
+	return { params: resolved, asFormData: Object.keys(attachments).length > 0 };
 }

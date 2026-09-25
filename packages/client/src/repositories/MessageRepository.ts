@@ -215,10 +215,26 @@ export class MessageRepository extends Repository<APIMessage, Message> {
 	}
 
 	public async sendLocation(options: SendLocationOptions) {
-		const { chatId, messageThreadId, ...rest } = options;
+		const {
+			chatId,
+			messageThreadId,
+			latitude,
+			longitude,
+			horizontalAccuracy,
+			livePeriod,
+			heading,
+			proximityAlertRadius,
+			...rest
+		} = options;
 		const params = {
 			chat_id: chatId,
 			message_thread_id: messageThreadId,
+			latitude,
+			longitude,
+			horizontal_accuracy: horizontalAccuracy,
+			live_period: livePeriod,
+			heading,
+			proximity_alert_radius: proximityAlertRadius,
 			...rest,
 		} satisfies APIMethod.SendLocation.Params;
 
@@ -227,10 +243,30 @@ export class MessageRepository extends Repository<APIMessage, Message> {
 	}
 
 	public async sendVenue(options: SendVenueOptions) {
-		const { chatId, messageThreadId, ...rest } = options;
+		const {
+			chatId,
+			messageThreadId,
+			latitude,
+			longitude,
+			title,
+			address,
+			foursquareId,
+			foursquareType,
+			googlePlaceId,
+			googlePlaceType,
+			...rest
+		} = options;
 		const params = {
 			chat_id: chatId,
 			message_thread_id: messageThreadId,
+			latitude,
+			longitude,
+			title,
+			address,
+			foursquare_id: foursquareId,
+			foursquare_type: foursquareType,
+			google_place_id: googlePlaceId,
+			google_place_type: googlePlaceType,
 			...rest,
 		} satisfies APIMethod.SendVenue.Params;
 
@@ -265,7 +301,7 @@ export class MessageRepository extends Repository<APIMessage, Message> {
 			isAnonymous,
 			type,
 			allowsMultipleAnswers,
-			correctOptionId,
+			correctOptionIds,
 			explanation,
 			explanationParseMode,
 			explanationEntities,
@@ -284,7 +320,7 @@ export class MessageRepository extends Repository<APIMessage, Message> {
 			is_anonymous: isAnonymous,
 			type,
 			allows_multiple_answers: allowsMultipleAnswers,
-			correct_option_ids: correctOptionId === undefined ? undefined : [correctOptionId],
+			correct_option_ids: correctOptionIds,
 			explanation,
 			explanation_parse_mode: explanationParseMode,
 			explanation_entities: explanationEntities,
@@ -311,12 +347,27 @@ export class MessageRepository extends Repository<APIMessage, Message> {
 	}
 
 	public async editMessageText(options: EditMessageTextOptions) {
-		const { chatId, messageId, inlineMessageId, ...rest } = options;
+		const {
+			chatId,
+			messageId,
+			inlineMessageId,
+			text,
+			parseMode,
+			entities,
+			linkPreviewOptions,
+			richMessage,
+			replyMarkup,
+		} = options;
 		const params = {
 			chat_id: chatId,
 			message_id: messageId,
 			inline_message_id: inlineMessageId,
-			...rest,
+			text,
+			parse_mode: parseMode,
+			entities,
+			link_preview_options: linkPreviewOptions,
+			rich_message: richMessage,
+			reply_markup: replyMarkup,
 		} satisfies APIMethod.EditMessageText.Params;
 
 		const result = await this.client.core.api.editMessageText(params);
@@ -324,12 +375,25 @@ export class MessageRepository extends Repository<APIMessage, Message> {
 	}
 
 	public async editMessageCaption(options: EditMessageCaptionOptions) {
-		const { chatId, messageId, inlineMessageId, ...rest } = options;
+		const {
+			chatId,
+			messageId,
+			inlineMessageId,
+			caption,
+			parseMode,
+			captionEntities,
+			showCaptionAboveMedia,
+			replyMarkup,
+		} = options;
 		const params = {
 			chat_id: chatId,
 			message_id: messageId,
 			inline_message_id: inlineMessageId,
-			...rest,
+			caption,
+			parse_mode: parseMode,
+			caption_entities: captionEntities,
+			show_caption_above_media: showCaptionAboveMedia,
+			reply_markup: replyMarkup,
 		} satisfies APIMethod.EditMessageCaption.Params;
 
 		const result = await this.client.core.api.editMessageCaption(params);
@@ -337,13 +401,13 @@ export class MessageRepository extends Repository<APIMessage, Message> {
 	}
 
 	public async editMessageMedia(options: EditMessageMediaOptions) {
-		const { chatId, messageId, inlineMessageId, media, ...rest } = options;
+		const { chatId, messageId, inlineMessageId, media, replyMarkup } = options;
 		const params = {
 			chat_id: chatId,
 			message_id: messageId,
 			inline_message_id: inlineMessageId,
 			media,
-			...rest,
+			reply_markup: replyMarkup,
 		} satisfies APIMethod.EditMessageMedia.Params;
 
 		const result = await this.client.core.api.editMessageMedia(params);
@@ -533,7 +597,7 @@ export interface SendPollOptions {
 	isAnonymous?: boolean;
 	type?: PollType;
 	allowsMultipleAnswers?: boolean;
-	correctOptionId?: number;
+	correctOptionIds?: number[];
 	explanation?: string;
 	explanationParseMode?: string;
 	explanationEntities?: APIMessageEntity[];

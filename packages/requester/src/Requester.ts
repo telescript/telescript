@@ -33,7 +33,14 @@ export class Requester implements RequesterSpec {
 			if (options?.asFormData) {
 				const formData = new FormData();
 				for (const [key, value] of Object.entries(params)) {
-					formData.append(key, value);
+					if (value === undefined || value === null) continue;
+					if (typeof value === 'string' || value instanceof Blob) {
+						formData.append(key, value);
+					} else if (typeof value === 'object') {
+						formData.append(key, JSON.stringify(value));
+					} else {
+						formData.append(key, String(value));
+					}
 				}
 				body = formData;
 			} else {
