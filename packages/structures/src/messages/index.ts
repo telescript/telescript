@@ -84,7 +84,6 @@ import { VoiceMessage } from './VoiceMessage.js';
 import { WebAppDataMessage } from './WebAppDataMessage.js';
 import { WriteAccessAllowedMessage } from './WriteAccessAllowedMessage.js';
 export * from './BaseMessage.js';
-export * from './detectMessageType.js';
 export * from './createMessage.js';
 export * from './InaccessibleMessage.js';
 export * from './createMaybeInaccessibleMessage.js';
