@@ -38,7 +38,7 @@ export class Requester implements RequesterSpec {
 						formData.append(key, value);
 					} else if (typeof value === 'object') {
 						formData.append(key, JSON.stringify(value));
-					} else {
+					} else if (typeof value === 'number' || typeof value === 'boolean' || typeof value === 'bigint') {
 						formData.append(key, String(value));
 					}
 				}
@@ -82,7 +82,7 @@ export class Requester implements RequesterSpec {
 			return await this.fetch(url, init, httpErrorRetries);
 		} else if (status >= 500 && status < 600) {
 			if (httpErrorRetries >= this.options.maxHttpErrorRetries) throw new HTTPError(res);
-			return await this.fetch(url, init, ++httpErrorRetries);
+			return await this.fetch(url, init, httpErrorRetries + 1);
 		}
 
 		return res;

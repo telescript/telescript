@@ -3,7 +3,9 @@ import { defaultOwner, type StructureOwner } from './registry.js';
 const dataProperty = Symbol.for('@telescript/structure::data');
 const ownerProperty = Symbol.for('@telescript/structure::owner');
 
-export type Constructor<T = {}> = new (...args: any[]) => T;
+// A mixin constructor must take `any[]`: TypeScript rejects mixins over constructors with other parameter types.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type Constructor<T = object> = new (...args: any[]) => T;
 
 export abstract class Structure<Data> {
 	static DataProperty: typeof dataProperty = dataProperty;
@@ -43,9 +45,9 @@ export abstract class Structure<Data> {
 			// this class already inherits (`Object.prototype` at the latest).
 			const chain: object[] = [];
 			for (
-				let proto: object | null = mixin.prototype;
+				let proto: object | null = mixin.prototype as object;
 				proto && !Object.prototype.isPrototypeOf.call(proto, this.prototype);
-				proto = Object.getPrototypeOf(proto)
+				proto = Object.getPrototypeOf(proto) as object | null
 			) {
 				chain.unshift(proto);
 			}

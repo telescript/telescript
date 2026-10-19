@@ -17,9 +17,7 @@
 		"dist"
 	],
 	"scripts": {
-		"build": "tsc",
-		"format": "prettier --write .",
-		"format:check": "prettier --check ."
+		"build": "tsc"
 	},
 	"keywords": [
 		"telegram",
@@ -37,13 +35,15 @@
 	"homepage": "https://github.com/telescript/telescript#readme",
 	"author": "Synbulat Biishev <me@syjalo.dev>",
 	"license": "Apache-2.0",
+	"engines": {
+		"node": ">=20"
+	},
 	"dependencies": {
 		"@telescript/api-types": "workspace:*",
 		"@telescript/spec": "workspace:*"
 	},
 	"devDependencies": {
 		"@types/node": "^25.8.0",
-		"prettier": "^3.8.3",
 		"typescript": "^6.0.3"
 	},
 	"publishConfig": {

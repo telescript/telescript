@@ -66,10 +66,13 @@ Every message is an instance of a class for its kind (`TextMessage`, `PhotoMessa
 pnpm install
 pnpm build        # build every package
 pnpm test         # run the tests (after a build)
+pnpm lint         # lint with ESLint (pnpm lint:fix to fix what it can)
 pnpm format       # format with Prettier
-pnpm check        # build and check the formatting, as CI does
+pnpm check        # build, lint, check the formatting and test, as CI does
 pnpm check:docs   # compare api-types with the Bot API docs
 ```
+
+Requires Node.js 20 or later and pnpm. In VS Code, install the recommended extensions: files are then formatted and lint fixes applied on save.
 
 ## License
 

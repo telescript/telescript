@@ -221,7 +221,7 @@ export class MessageRepository extends Repository<APIMessage, Message> {
 		} satisfies APIMethod.SendMediaGroup.Params;
 
 		const messages = await this.client.core.api.sendMediaGroup(params);
-		return (messages as APIMessage[]).map((message) => this.resolve(message));
+		return messages.map((message) => this.resolve(message));
 	}
 
 	public async sendLocation(options: SendLocationOptions) {

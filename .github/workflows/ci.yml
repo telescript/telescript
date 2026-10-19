@@ -7,18 +7,45 @@ on:
     branches: [main]
 
 jobs:
-  build:
+  check:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v6
         with:
           node-version: 24
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 11.1.2
+          cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
+      - run: pnpm lint
       - run: pnpm format:check
       - run: pnpm test
+
+  # The packages declare `engines: node >=20`: load the built packages on the oldest supported versions.
+  runtime:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20, 22]
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - name: Load the built packages
+        working-directory: packages/bot
+        run: |
+          node --input-type=module -e "
+            const bot = await import('./dist/index.js');
+            const client = bot.createClient({ token: '1:x' });
+            const message = client.messages.resolve({ message_id: 1, date: 1, chat: { id: 5, type: 'private' }, text: 'hi' });
+            if (message.type !== 'text' || message.chat.client !== client) process.exit(1);
+          "

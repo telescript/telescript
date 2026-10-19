@@ -13,5 +13,5 @@ export function extendStructure(Parent: Constructor<Structure<unknown>>, mixins:
 		}
 	};
 	Object.defineProperty(Class, 'name', { value: Parent.name });
-	return Class as Constructor;
+	return Class;
 }

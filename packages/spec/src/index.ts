@@ -5,7 +5,7 @@ export interface RequestOptions {
 }
 
 export interface Requester {
-	request(method: string, params?: {}, options?: RequestOptions): Promise<unknown>;
+	request(method: string, params?: object, options?: RequestOptions): Promise<unknown>;
 }
 
 export interface UpdateTransport {

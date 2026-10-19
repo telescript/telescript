@@ -5,7 +5,7 @@ import type { clientClasses } from '../../dist/structures/registry.js';
 import { MessageType } from '../../dist/index.js';
 
 type Equals<A, B> = (<T>() => T extends A ? 1 : 2) extends <T>() => T extends B ? 1 : 2 ? true : false;
-declare function assert<T extends true>(): void;
+declare function assert<_T extends true>(): void;
 
 // Every client class is registered both at runtime and in the types.
 assert<Equals<keyof S.TypeOverrides, keyof typeof clientClasses>>();

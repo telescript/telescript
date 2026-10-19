@@ -86,7 +86,7 @@ export function createStructure<Name extends keyof DefaultTypes>(
 	let byData = cache.get(owner);
 	if (!byData) cache.set(owner, (byData = new WeakMap()));
 	let byName = byData.get(data);
-	if (!byName) byData.set(data, (byName = new Map()));
+	if (!byName) byData.set(data, (byName = new Map<string, unknown>()));
 
 	let structure = byName.get(name);
 	if (!structure) byName.set(name, (structure = new Class(data, owner)));
