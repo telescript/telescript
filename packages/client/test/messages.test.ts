@@ -123,6 +123,36 @@ describe('client', () => {
 		expect(reply.client).toBe(client);
 	});
 
+	it('forwards, copies and deletes a message', async () => {
+		const sent: unknown[] = [];
+		const client = createClient(sent);
+		const message = client.messages.resolve(photo.build(0) as unknown as APIMessage);
+		const ids = { from_chat_id: message.chat.id, message_id: message.id };
+
+		const forwarded = await message.forward({ chatId: 9, messageThreadId: 2 });
+		await message.copy({ chatId: 9 });
+		await message.delete();
+
+		expect(sent).toEqual([
+			['forwardMessage', { chat_id: 9, message_thread_id: 2, ...ids }],
+			['copyMessage', { chat_id: 9, ...ids }],
+			['deleteMessage', { chat_id: message.chat.id, message_id: message.id }],
+		]);
+		expect(forwarded.client).toBe(client);
+	});
+
+	it('edits the text of a text message', async () => {
+		const sent: unknown[] = [];
+		const client = createClient(sent);
+		const message = client.messages.resolve({ message_id: 3, date: 1, chat: { id: 4, type: 'private' }, text: 'a' });
+		if (!message.isText()) throw new Error('expected a text message');
+
+		const edited = await message.editText({ text: 'b' });
+
+		expect(sent).toEqual([['editMessageText', { chat_id: 4, message_id: 3, text: 'b' }]]);
+		expect(edited.client).toBe(client);
+	});
+
 	it.each(['private', 'group', 'supergroup', 'channel'])('sends from a %s chat', async (type) => {
 		const sent: unknown[] = [];
 		const client = createClient(sent);

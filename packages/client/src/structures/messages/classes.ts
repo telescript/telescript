@@ -3,15 +3,18 @@ import type { APIMessage, MessageType } from '@telescript/api-types';
 import * as S from '@telescript/structures';
 import { ClientMixin } from '../ClientMixin.js';
 import { extendStructure } from '../extendStructure.js';
+import { EditTextAction } from './actions/EditTextAction.js';
+import { ForwardAction } from './actions/ForwardAction.js';
 import { ReplyAction } from './actions/ReplyAction.js';
 
 /**
  * What a message created by a client adds to its structures class.
  */
-export interface MessageActions extends ClientMixin, Pick<ReplyAction, 'reply'> {}
+export interface MessageActions
+	extends ClientMixin, Pick<ReplyAction, 'reply'>, Pick<ForwardAction, 'forward' | 'copy' | 'delete'> {}
 
 // The mixins that implement MessageActions: an action is added to both.
-const messageMixins = [ClientMixin, ReplyAction];
+const messageMixins = [ClientMixin, ReplyAction, ForwardAction];
 
 type ClientClass<Parent extends S.Constructor, Added> = new (
 	...args: ConstructorParameters<Parent>
@@ -304,7 +307,12 @@ export const SupergroupChatCreatedMessage: WithActions<typeof S.SupergroupChatCr
 );
 export type SupergroupChatCreatedMessage = InstanceType<typeof SupergroupChatCreatedMessage>;
 
-export const TextMessage: WithActions<typeof S.TextMessage> = withActions(S.TextMessage);
+// Text messages can also be edited.
+export const TextMessage: ClientClass<typeof S.TextMessage, MessageActions & Pick<EditTextAction, 'editText'>> =
+	extendStructure(S.TextMessage, [...messageMixins, EditTextAction]) as ClientClass<
+		typeof S.TextMessage,
+		MessageActions & Pick<EditTextAction, 'editText'>
+	>;
 export type TextMessage = InstanceType<typeof TextMessage>;
 
 export const UniqueGiftMessage: WithActions<typeof S.UniqueGiftMessage> = withActions(S.UniqueGiftMessage);

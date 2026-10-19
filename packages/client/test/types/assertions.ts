@@ -41,6 +41,18 @@ if (message.type === null) {
 	assert<Equals<typeof message, C.BaseMessage<never>>>();
 }
 
+// Every message can be forwarded, copied and deleted; only text messages can be edited.
+message.forward({ chatId: 1 });
+message.copy({ chatId: 1 });
+message.delete();
+if (message.isText()) {
+	message.editText({ text: 'text' });
+}
+if (message.isPhoto()) {
+	// @ts-expect-error only text messages have editText
+	message.editText({ text: 'text' });
+}
+
 if (message.isCaptioned()) {
 	message.caption;
 	message.reply({ text: 'text' });

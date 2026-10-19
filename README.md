@@ -54,16 +54,16 @@ Every message is an instance of a class for its kind (`TextMessage`, `PhotoMessa
 
 ## Packages
 
-| Package                                         | Description                                                                         |
-| ----------------------------------------------- | ----------------------------------------------------------------------------------- |
-| [`@telescript/bot`](packages/bot)               | Everything to run a bot: the client with an HTTP requester and long polling         |
-| [`@telescript/client`](packages/client)         | Update events, repositories and structures with API actions (`reply`, `sendText`)   |
-| [`@telescript/structures`](packages/structures) | Classes for Bot API objects with getters and type guards, usable without the client |
-| [`@telescript/core`](packages/core)             | Typed methods of the Bot API on top of a requester                                  |
-| [`@telescript/requester`](packages/requester)   | HTTP requester with file uploads and rate limit retries                             |
-| [`@telescript/polling`](packages/polling)       | Long polling update transport                                                       |
-| [`@telescript/api-types`](packages/api-types)   | TypeScript types for the Bot API                                                    |
-| [`@telescript/spec`](packages/spec)             | Interfaces shared by the packages: requester and update transport                   |
+| Package                                         | Description                                                                              |
+| ----------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| [`@telescript/bot`](packages/bot)               | Everything to run a bot: the client with an HTTP requester and long polling              |
+| [`@telescript/client`](packages/client)         | Update events, repositories and structures with actions (`reply`, `forward`, `sendText`) |
+| [`@telescript/structures`](packages/structures) | Classes for Bot API objects with getters and type guards, usable without the client      |
+| [`@telescript/core`](packages/core)             | Typed methods of the Bot API on top of a requester                                       |
+| [`@telescript/requester`](packages/requester)   | HTTP requester with file uploads and rate limit retries                                  |
+| [`@telescript/polling`](packages/polling)       | Long polling update transport                                                            |
+| [`@telescript/api-types`](packages/api-types)   | TypeScript types for the Bot API                                                         |
+| [`@telescript/spec`](packages/spec)             | Interfaces shared by the packages: requester and update transport                        |
 
 ## Development
 
