@@ -1,7 +1,7 @@
 import type { APIUpdate } from '@telescript/api-types';
 import type { UpdateTransport } from '@telescript/spec';
 import { describe, expect, it } from 'vitest';
-import { Client, ClientEvent } from '../dist/index.js';
+import { Client, ClientEvent, getRegisteredStructures, Structure } from '../dist/index.js';
 
 const message = (id: number) => ({
 	update_id: id,
@@ -55,6 +55,20 @@ describe('Client', () => {
 		expect(await error).toMatchObject({ message: 'async listener failed' });
 		client.stop();
 		await started;
+	});
+
+	it('emits subscription updates as registered structures of the client', async () => {
+		const subscription = { user: { id: 1, is_bot: false, first_name: 'a' }, invoice_payload: 'p', state: 'active' };
+		const client = createClient([{ update_id: 1, subscription }] as APIUpdate[]);
+		const received = new Promise<unknown>((resolve) => client.on(ClientEvent.Subscription, resolve));
+
+		const started = client.start();
+		const event = (await received) as object;
+		client.stop();
+		await started;
+
+		expect(event.constructor).toBe(getRegisteredStructures().BotSubscriptionUpdated);
+		expect((event as { [Structure.OwnerProperty]: unknown })[Structure.OwnerProperty]).toBe(client);
 	});
 
 	it('resolves start() once stopped', async () => {

@@ -1,8 +1,8 @@
 import { APIBotSubscriptionUpdatedUpdate } from '@telescript/api-types';
+import { createStructure } from '@telescript/structures';
 import { Client, ClientEvent } from '../../Client.js';
-import { BotSubscriptionUpdated } from '@telescript/structures';
 
 export function subscription(client: Client, update: APIBotSubscriptionUpdatedUpdate) {
-	const subscription = new BotSubscriptionUpdated(update.subscription, client);
+	const subscription = createStructure(client, 'BotSubscriptionUpdated', update.subscription);
 	return [ClientEvent.Subscription, [subscription]] as const;
 }

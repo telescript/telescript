@@ -1,4 +1,5 @@
 import { registerStructures } from '../registry.js';
+import { BotSubscriptionUpdated } from './BotSubscriptionUpdated.js';
 import { BusinessBotRights } from './BusinessBotRights.js';
 import { BusinessMessagesDeleted } from './BusinessMessagesDeleted.js';
 import { ChatBoost } from './ChatBoost.js';
@@ -32,6 +33,7 @@ export * from './PollAnswer.js';
 
 declare module '../registry.js' {
 	interface DefaultTypes {
+		BotSubscriptionUpdated: BotSubscriptionUpdated;
 		BusinessBotRights: BusinessBotRights;
 		BusinessMessagesDeleted: BusinessMessagesDeleted;
 		ChatBoost: ChatBoost;
@@ -43,6 +45,7 @@ declare module '../registry.js' {
 }
 
 registerStructures({
+	BotSubscriptionUpdated,
 	BusinessBotRights,
 	BusinessMessagesDeleted,
 	ChatBoost,
