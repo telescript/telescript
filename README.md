@@ -74,7 +74,7 @@ pnpm test         # run the tests (after a build)
 pnpm lint         # lint with ESLint (pnpm lint:fix to fix what it can)
 pnpm format       # format with Prettier
 pnpm check        # build, lint, check the formatting and test, as CI does
-pnpm check:docs   # compare api-types with the Bot API docs
+pnpm check:docs   # compare api-types and the structures with the Bot API docs
 ```
 
 Requires Node.js 22 or later and pnpm. In VS Code, install the recommended extensions: files are then formatted and lint fixes applied on save.

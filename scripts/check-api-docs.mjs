@@ -1,9 +1,10 @@
-// Compares api-types with the Bot API docs for every type reachable from the message roots below.
-// Usage: node scripts/check-api-docs.mjs [path/to/api.html]  (downloads the docs when no file is given)
-// Exits with 1 when api-types differ from the docs beyond the known, intended differences listed below.
+// Compares api-types and the structures with the Bot API docs for every type reachable from the message roots below:
+// api-types must match the fields and their types, and some getter of the structures classes must read every field.
+// Usage: node scripts/check-api-docs.mjs [path/to/api.html]  (downloads the docs when no file is given; needs a build)
+// Exits with 1 on differences beyond the known, intended ones listed below.
 import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import ts from 'typescript';
 
 const DOCS_URL = 'https://core.telegram.org/bots/api';
@@ -251,6 +252,72 @@ function check(docs, api) {
 	return { reachable, issues };
 }
 
+// --- Structures ------------------------------------------------------------------------------------------------------
+
+/** Docs type names whose structures classes are spelled differently (besides reordered words). */
+const STRUCTURE_NAMES = {
+	LoginUrl: 'LoginURL',
+	RichTextUrl: 'UrlRichText',
+	RichTextEmailAddress: 'EmailAddressRichText',
+};
+
+/** The source of every getter and method of `Class`, including inherited and mixed-in ones. */
+function membersSource(Class) {
+	let source = '';
+	for (let proto = Class.prototype; proto && proto !== Object.prototype; proto = Object.getPrototypeOf(proto)) {
+		for (const descriptor of Object.values(Object.getOwnPropertyDescriptors(proto))) {
+			if (descriptor.get) source += descriptor.get.toString();
+			if (typeof descriptor.value === 'function') source += descriptor.value.toString();
+		}
+	}
+	return source;
+}
+
+async function checkStructures(docs, reachable) {
+	const structures = await import(pathToFileURL(join(ROOT, 'packages/structures/dist/index.js')).href);
+	const registered = Object.entries(structures.getRegisteredStructures());
+	const words = (name) =>
+		name
+			.match(/[A-Z][a-z0-9]*/g)
+			.map((word) => word.toLowerCase())
+			.sort()
+			.join();
+
+	// The classes of a docs type: every message class for `Message`, the subclasses of `Base<Name>` for a union, or
+	// the class with the same name, possibly with its words reordered (`BackgroundFillSolid` -> `SolidBackgroundFill`).
+	function classesFor(name) {
+		const { BaseMessage } = structures;
+		if (name === 'Message') {
+			return registered.filter(
+				([n, C]) => n !== 'InaccessibleMessage' && (C === BaseMessage || C.prototype instanceof BaseMessage),
+			);
+		}
+		const exact = registered.find(([n]) => n === (STRUCTURE_NAMES[name] ?? name));
+		if (exact) return [exact];
+		const base = registered.find(([n]) => n === `Base${name}`);
+		if (base) return registered.filter(([, C]) => C.prototype instanceof base[1]);
+		return registered.filter(([n]) => words(n) === words(name));
+	}
+
+	const issues = [];
+	for (const name of [...reachable].sort()) {
+		const doc = docs[name];
+		if (doc.kind === 'union') continue;
+		const classes = classesFor(name);
+		if (!classes.length) {
+			if (!KNOWN[name]) issues.push(`${name}: no structures class`);
+			continue;
+		}
+		const source = classes.map(([, Class]) => membersSource(Class)).join('\n');
+		for (const field of doc.fields) {
+			const key = `${name}.${field.name}`;
+			if (KNOWN[key] || field.desc.includes('Returned only in getMe')) continue;
+			if (!new RegExp(`[.'"]${field.name}\\b`).test(source)) issues.push(`${key}: no getter reads it`);
+		}
+	}
+	return issues;
+}
+
 const file = process.argv[2];
 const html = file ? readFileSync(file, 'utf8') : await (await fetch(DOCS_URL)).text();
 const docs = parseDocs(html);
@@ -266,4 +333,14 @@ if (issues.length) {
 	process.exitCode = 1;
 } else {
 	console.log('api-types match the docs.');
+}
+
+const structureIssues = await checkStructures(docs, reachable);
+if (structureIssues.length) {
+	console.log(
+		`\n${structureIssues.length} gap(s) in the structures:\n${structureIssues.map((issue) => `  ${issue}`).join('\n')}`,
+	);
+	process.exitCode = 1;
+} else {
+	console.log('The structures read every field.');
 }
