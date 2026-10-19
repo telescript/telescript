@@ -15,7 +15,7 @@ export function processUpdate(client: Client, update: APIUpdate) {
 		if (name === 'update_id') continue;
 		if (hasHandler(name)) {
 			const handler = (Handlers satisfies UpdateHandlers)[name];
-			// @ts-expect-error SAFTY: just checked that `handler` exists and has the right type
+			// @ts-expect-error SAFETY: just checked that `handler` exists and has the right type
 			return handler(client, update);
 		}
 	}

@@ -1,12 +1,16 @@
 {
 	"name": "@telescript/structures",
 	"version": "0.0.5",
-	"description": "",
+	"description": "Classes for Telegram Bot API objects with getters and type guards, usable without the client",
 	"type": "module",
-	"main": "dist/index.js",
+	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",
-	"directories": {
-		"lib": "src"
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"default": "./dist/index.js"
+		},
+		"./package.json": "./package.json"
 	},
 	"files": [
 		"dist"
@@ -27,7 +31,7 @@
 		"directory": "packages/structures"
 	},
 	"bugs": {
-		"url": "https://github.com/discordjs/discord.js/issues"
+		"url": "https://github.com/telescript/telescript/issues"
 	},
 	"homepage": "https://github.com/telescript/telescript#readme",
 	"author": "Synbulat Biishev <me@syjalo.dev>",

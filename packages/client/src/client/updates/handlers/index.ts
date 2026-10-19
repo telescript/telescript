@@ -11,7 +11,7 @@ export * from './edited-business-message.js';
 export * from './edited-channel-post.js';
 export * from './edited-message.js';
 export * from './guest-message.js';
-export * from './inline_query.js';
+export * from './inline-query.js';
 export * from './managed-bot.js';
 export * from './message-reaction-count.js';
 export * from './message-reaction.js';

@@ -2,12 +2,16 @@
 	"$schema": "https://json.schemastore.org/package.json",
 	"name": "@telescript/requester",
 	"version": "0.0.10",
-	"description": "",
+	"description": "HTTP requester for the Telegram Bot API, with file uploads and rate limit retries",
 	"type": "module",
 	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",
-	"directories": {
-		"lib": "src"
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"default": "./dist/index.js"
+		},
+		"./package.json": "./package.json"
 	},
 	"files": [
 		"dist"
@@ -28,7 +32,7 @@
 		"directory": "packages/requester"
 	},
 	"bugs": {
-		"url": "https://github.com/discordjs/discord.js/issues"
+		"url": "https://github.com/telescript/telescript/issues"
 	},
 	"homepage": "https://github.com/telescript/telescript#readme",
 	"author": "Synbulat Biishev <me@syjalo.dev>",

@@ -2,12 +2,16 @@
 	"$schema": "https://json.schemastore.org/package.json",
 	"name": "@telescript/bot",
 	"version": "0.0.25",
-	"description": "",
+	"description": "Everything to run a Telegram bot: the client with an HTTP requester and long polling",
 	"type": "module",
 	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",
-	"directories": {
-		"lib": "src"
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"default": "./dist/index.js"
+		},
+		"./package.json": "./package.json"
 	},
 	"files": [
 		"dist"
@@ -28,7 +32,7 @@
 		"directory": "packages/bot"
 	},
 	"bugs": {
-		"url": "https://github.com/discordjs/discord.js/issues"
+		"url": "https://github.com/telescript/telescript/issues"
 	},
 	"homepage": "https://github.com/telescript/telescript#readme",
 	"author": "Synbulat Biishev <me@syjalo.dev>",
