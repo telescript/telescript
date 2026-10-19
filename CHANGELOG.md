@@ -31,7 +31,7 @@ Changes since `@telescript/bot` 0.0.25 (`client` 0.0.25, `structures` 0.0.5, `ap
 
 - Structures for every Bot API type reachable from messages, including rich messages, communities, suggested posts,
   gifts and checklists; `toJSON()` returns the API data.
-- Message actions: `forward()`, `copy()`, `delete()`; `editText()` on text messages and `editCaption()` on messages
+- Message actions: `forward()`, `copy()`, `delete()`, `pin()`, `unpin()`; `editText()` on text messages and `editCaption()` on messages
   with a caption (animation, audio, document, live photo, paid media, photo, video, voice).
 - Events for message reactions, reaction counts, deleted business messages and subscriptions; the
   `stopped_message_generation` update type.

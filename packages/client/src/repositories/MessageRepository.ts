@@ -448,6 +448,29 @@ export class MessageRepository extends Repository<APIMessage, Message> {
 		return await this.client.core.api.stopPoll(params);
 	}
 
+	public async pin(options: PinMessageOptions) {
+		const { businessConnectionId, chatId, messageId, disableNotification } = options;
+		const params = {
+			business_connection_id: businessConnectionId,
+			chat_id: chatId,
+			message_id: messageId,
+			disable_notification: disableNotification,
+		} satisfies APIMethod.PinChatMessage.Params;
+
+		return await this.client.core.api.pinChatMessage(params);
+	}
+
+	public async unpin(options: UnpinMessageOptions) {
+		const { businessConnectionId, chatId, messageId } = options;
+		const params = {
+			business_connection_id: businessConnectionId,
+			chat_id: chatId,
+			message_id: messageId,
+		} satisfies APIMethod.UnpinChatMessage.Params;
+
+		return await this.client.core.api.unpinChatMessage(params);
+	}
+
 	public async deleteMessage(options: DeleteMessageOptions) {
 		const { chatId, messageId } = options;
 		const params = {
@@ -664,6 +687,22 @@ export interface StopPollOptions {
 	chatId: number | string;
 	messageId: number;
 	replyMarkup?: APIInlineKeyboardMarkup;
+}
+
+export interface PinMessageOptions {
+	businessConnectionId?: string;
+	chatId: number | string;
+	messageId: number;
+	disableNotification?: boolean;
+}
+
+export interface UnpinMessageOptions {
+	businessConnectionId?: string;
+	chatId: number | string;
+	/**
+	 * The message to unpin; the most recent pinned message without it.
+	 */
+	messageId?: number;
 }
 
 export interface DeleteMessageOptions {

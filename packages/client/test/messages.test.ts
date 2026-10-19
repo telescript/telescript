@@ -153,6 +153,22 @@ describe('client', () => {
 		expect(edited.client).toBe(client);
 	});
 
+	it('pins and unpins a message in its chat and business connection', async () => {
+		const sent: unknown[] = [];
+		const client = createClient(sent);
+		const data = { ...photo.build(0), business_connection_id: 'bc' };
+		const message = client.messages.resolve(data as unknown as APIMessage);
+		const ids = { business_connection_id: 'bc', chat_id: message.chat.id, message_id: message.id };
+
+		await message.pin({ disableNotification: true });
+		await message.unpin();
+
+		expect(sent).toEqual([
+			['pinChatMessage', { ...ids, disable_notification: true }],
+			['unpinChatMessage', ids],
+		]);
+	});
+
 	it('edits the caption of a captioned message', async () => {
 		const sent: unknown[] = [];
 		const client = createClient(sent);

@@ -147,6 +147,14 @@ export class API {
 		return (await this.requester.request(APIMethod.StopPoll, params)) as APIMethod.StopPoll.Result;
 	}
 
+	public async pinChatMessage(params: APIMethod.PinChatMessage.Params) {
+		return (await this.requester.request(APIMethod.PinChatMessage, params)) as APIMethod.PinChatMessage.Result;
+	}
+
+	public async unpinChatMessage(params: APIMethod.UnpinChatMessage.Params) {
+		return (await this.requester.request(APIMethod.UnpinChatMessage, params)) as APIMethod.UnpinChatMessage.Result;
+	}
+
 	public async deleteMessage(params: APIMethod.DeleteMessage.Params) {
 		return (await this.requester.request(APIMethod.DeleteMessage, params)) as APIMethod.DeleteMessage.Result;
 	}

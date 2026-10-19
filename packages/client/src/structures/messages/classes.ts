@@ -6,16 +6,21 @@ import { extendStructure } from '../extendStructure.js';
 import { EditCaptionAction } from './actions/EditCaptionAction.js';
 import { EditTextAction } from './actions/EditTextAction.js';
 import { ForwardAction } from './actions/ForwardAction.js';
+import { PinAction } from './actions/PinAction.js';
 import { ReplyAction } from './actions/ReplyAction.js';
 
 /**
  * What a message created by a client adds to its structures class.
  */
 export interface MessageActions
-	extends ClientMixin, Pick<ReplyAction, 'reply'>, Pick<ForwardAction, 'forward' | 'copy' | 'delete'> {}
+	extends
+		ClientMixin,
+		Pick<ReplyAction, 'reply'>,
+		Pick<ForwardAction, 'forward' | 'copy' | 'delete'>,
+		Pick<PinAction, 'pin' | 'unpin'> {}
 
 // The mixins that implement MessageActions: an action is added to both.
-const messageMixins = [ClientMixin, ReplyAction, ForwardAction];
+const messageMixins = [ClientMixin, ReplyAction, ForwardAction, PinAction];
 
 type ClientClass<Parent extends S.Constructor, Added> = new (
 	...args: ConstructorParameters<Parent>
