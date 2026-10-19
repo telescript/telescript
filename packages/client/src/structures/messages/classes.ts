@@ -3,6 +3,7 @@ import type { APIMessage, MessageType } from '@telescript/api-types';
 import * as S from '@telescript/structures';
 import { ClientMixin } from '../ClientMixin.js';
 import { extendStructure } from '../extendStructure.js';
+import { EditCaptionAction } from './actions/EditCaptionAction.js';
 import { EditTextAction } from './actions/EditTextAction.js';
 import { ForwardAction } from './actions/ForwardAction.js';
 import { ReplyAction } from './actions/ReplyAction.js';
@@ -22,10 +23,17 @@ type ClientClass<Parent extends S.Constructor, Added> = new (
 
 // The constants below declare their types instead of inferring them from this call: inferring would go through
 // `TypeOverrides`, which is built from these types.
-type WithActions<Parent extends S.Constructor> = ClientClass<Parent, MessageActions>;
+type WithActions<Parent extends S.Constructor, Extra = unknown> = ClientClass<Parent, MessageActions & Extra>;
 
-function withActions<Parent extends S.Constructor<S.Structure<unknown>>>(Parent: Parent) {
-	return extendStructure(Parent, messageMixins) as WithActions<Parent>;
+// What only some kinds of messages add.
+type EditsText = Pick<EditTextAction, 'editText'>;
+type EditsCaption = Pick<EditCaptionAction, 'editCaption'>;
+
+function withActions<Parent extends S.Constructor<S.Structure<unknown>>, Extra = unknown>(
+	Parent: Parent,
+	...mixins: S.Constructor[]
+) {
+	return extendStructure(Parent, [...messageMixins, ...mixins]) as WithActions<Parent, Extra>;
 }
 
 export const BaseMessage: WithActions<typeof S.BaseMessage<never>> = withActions(S.BaseMessage<never>);
@@ -41,10 +49,16 @@ export const InaccessibleMessage: ClientClass<typeof S.InaccessibleMessage, Clie
 ) as ClientClass<typeof S.InaccessibleMessage, ClientMixin>;
 export type InaccessibleMessage = InstanceType<typeof InaccessibleMessage>;
 
-export const AnimationMessage: WithActions<typeof S.AnimationMessage> = withActions(S.AnimationMessage);
+export const AnimationMessage: WithActions<typeof S.AnimationMessage, EditsCaption> = withActions(
+	S.AnimationMessage,
+	EditCaptionAction,
+);
 export type AnimationMessage = InstanceType<typeof AnimationMessage>;
 
-export const AudioMessage: WithActions<typeof S.AudioMessage> = withActions(S.AudioMessage);
+export const AudioMessage: WithActions<typeof S.AudioMessage, EditsCaption> = withActions(
+	S.AudioMessage,
+	EditCaptionAction,
+);
 export type AudioMessage = InstanceType<typeof AudioMessage>;
 
 export const ChannelChatCreatedMessage: WithActions<typeof S.ChannelChatCreatedMessage> = withActions(
@@ -120,7 +134,10 @@ export const DirectMessagePriceChangedMessage: WithActions<typeof S.DirectMessag
 );
 export type DirectMessagePriceChangedMessage = InstanceType<typeof DirectMessagePriceChangedMessage>;
 
-export const DocumentMessage: WithActions<typeof S.DocumentMessage> = withActions(S.DocumentMessage);
+export const DocumentMessage: WithActions<typeof S.DocumentMessage, EditsCaption> = withActions(
+	S.DocumentMessage,
+	EditCaptionAction,
+);
 export type DocumentMessage = InstanceType<typeof DocumentMessage>;
 
 export const ForumTopicClosedMessage: WithActions<typeof S.ForumTopicClosedMessage> = withActions(
@@ -193,7 +210,10 @@ export type InvoiceMessage = InstanceType<typeof InvoiceMessage>;
 export const LeftChatMemberMessage: WithActions<typeof S.LeftChatMemberMessage> = withActions(S.LeftChatMemberMessage);
 export type LeftChatMemberMessage = InstanceType<typeof LeftChatMemberMessage>;
 
-export const LivePhotoMessage: WithActions<typeof S.LivePhotoMessage> = withActions(S.LivePhotoMessage);
+export const LivePhotoMessage: WithActions<typeof S.LivePhotoMessage, EditsCaption> = withActions(
+	S.LivePhotoMessage,
+	EditCaptionAction,
+);
 export type LivePhotoMessage = InstanceType<typeof LivePhotoMessage>;
 
 export const LocationMessage: WithActions<typeof S.LocationMessage> = withActions(S.LocationMessage);
@@ -225,7 +245,10 @@ export type NewChatPhotoMessage = InstanceType<typeof NewChatPhotoMessage>;
 export const NewChatTitleMessage: WithActions<typeof S.NewChatTitleMessage> = withActions(S.NewChatTitleMessage);
 export type NewChatTitleMessage = InstanceType<typeof NewChatTitleMessage>;
 
-export const PaidMediaMessage: WithActions<typeof S.PaidMediaMessage> = withActions(S.PaidMediaMessage);
+export const PaidMediaMessage: WithActions<typeof S.PaidMediaMessage, EditsCaption> = withActions(
+	S.PaidMediaMessage,
+	EditCaptionAction,
+);
 export type PaidMediaMessage = InstanceType<typeof PaidMediaMessage>;
 
 export const PaidMessagePriceChangedMessage: WithActions<typeof S.PaidMessagePriceChangedMessage> = withActions(
@@ -236,7 +259,10 @@ export type PaidMessagePriceChangedMessage = InstanceType<typeof PaidMessagePric
 export const PassportMessage: WithActions<typeof S.PassportMessage> = withActions(S.PassportMessage);
 export type PassportMessage = InstanceType<typeof PassportMessage>;
 
-export const PhotoMessage: WithActions<typeof S.PhotoMessage> = withActions(S.PhotoMessage);
+export const PhotoMessage: WithActions<typeof S.PhotoMessage, EditsCaption> = withActions(
+	S.PhotoMessage,
+	EditCaptionAction,
+);
 export type PhotoMessage = InstanceType<typeof PhotoMessage>;
 
 export const PinnedMessage: WithActions<typeof S.PinnedMessage> = withActions(S.PinnedMessage);
@@ -307,12 +333,7 @@ export const SupergroupChatCreatedMessage: WithActions<typeof S.SupergroupChatCr
 );
 export type SupergroupChatCreatedMessage = InstanceType<typeof SupergroupChatCreatedMessage>;
 
-// Text messages can also be edited.
-export const TextMessage: ClientClass<typeof S.TextMessage, MessageActions & Pick<EditTextAction, 'editText'>> =
-	extendStructure(S.TextMessage, [...messageMixins, EditTextAction]) as ClientClass<
-		typeof S.TextMessage,
-		MessageActions & Pick<EditTextAction, 'editText'>
-	>;
+export const TextMessage: WithActions<typeof S.TextMessage, EditsText> = withActions(S.TextMessage, EditTextAction);
 export type TextMessage = InstanceType<typeof TextMessage>;
 
 export const UniqueGiftMessage: WithActions<typeof S.UniqueGiftMessage> = withActions(S.UniqueGiftMessage);
@@ -341,13 +362,19 @@ export const VideoChatStartedMessage: WithActions<typeof S.VideoChatStartedMessa
 );
 export type VideoChatStartedMessage = InstanceType<typeof VideoChatStartedMessage>;
 
-export const VideoMessage: WithActions<typeof S.VideoMessage> = withActions(S.VideoMessage);
+export const VideoMessage: WithActions<typeof S.VideoMessage, EditsCaption> = withActions(
+	S.VideoMessage,
+	EditCaptionAction,
+);
 export type VideoMessage = InstanceType<typeof VideoMessage>;
 
 export const VideoNoteMessage: WithActions<typeof S.VideoNoteMessage> = withActions(S.VideoNoteMessage);
 export type VideoNoteMessage = InstanceType<typeof VideoNoteMessage>;
 
-export const VoiceMessage: WithActions<typeof S.VoiceMessage> = withActions(S.VoiceMessage);
+export const VoiceMessage: WithActions<typeof S.VoiceMessage, EditsCaption> = withActions(
+	S.VoiceMessage,
+	EditCaptionAction,
+);
 export type VoiceMessage = InstanceType<typeof VoiceMessage>;
 
 export const WebAppDataMessage: WithActions<typeof S.WebAppDataMessage> = withActions(S.WebAppDataMessage);

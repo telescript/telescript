@@ -51,6 +51,11 @@ if (message.isText()) {
 if (message.isPhoto()) {
 	// @ts-expect-error only text messages have editText
 	message.editText({ text: 'text' });
+	message.editCaption({ caption: 'text' });
+}
+if (message.isSticker()) {
+	// @ts-expect-error stickers have no caption
+	message.editCaption({ caption: 'text' });
 }
 
 if (message.isCaptioned()) {

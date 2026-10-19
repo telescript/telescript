@@ -153,6 +153,19 @@ describe('client', () => {
 		expect(edited.client).toBe(client);
 	});
 
+	it('edits the caption of a captioned message', async () => {
+		const sent: unknown[] = [];
+		const client = createClient(sent);
+		const message = client.messages.resolve(photo.build(0) as unknown as APIMessage);
+		if (!message.isPhoto()) throw new Error('expected a photo message');
+
+		await message.editCaption({ caption: 'new' });
+
+		expect(sent).toEqual([
+			['editMessageCaption', { chat_id: message.chat.id, message_id: message.id, caption: 'new' }],
+		]);
+	});
+
 	it.each(['private', 'group', 'supergroup', 'channel'])('sends from a %s chat', async (type) => {
 		const sent: unknown[] = [];
 		const client = createClient(sent);
