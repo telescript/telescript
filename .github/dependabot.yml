@@ -10,6 +10,15 @@ updates:
         dependency-type: development
       dependencies:
         dependency-type: production
+    ignore:
+      # Matches the oldest supported Node.js (`engines`), so newer Node APIs fail to compile; raise it together
+      # with `engines`.
+      - dependency-name: '@types/node'
+        update-types: [version-update:semver-major]
+      # TypeScript 7 (the native compiler) needs typescript-eslint support and a port of the scripts and tests that
+      # use the compiler API (`ts.createProgram`).
+      - dependency-name: typescript
+        update-types: [version-update:semver-major]
 
   - package-ecosystem: github-actions
     directory: /
