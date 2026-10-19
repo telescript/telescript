@@ -42,8 +42,13 @@ client.on(ClientEvent.Message, async (message) => {
 	}
 });
 
+// A listener that throws doesn't stop the bot; without this listener, Node.js treats the error as uncaught.
+client.on(ClientEvent.Error, (error) => console.error(error));
+
 client.start();
 ```
+
+Network failures and Telegram server errors are retried with backoff; `client.stop()` ends `client.start()`.
 
 Every message is an instance of a class for its kind (`TextMessage`, `PhotoMessage`, ...). Narrow it with a guard (`message.isPhoto()`, `message.isCaptioned()`) or with `message.type`; both give you the fields of that kind. Optional fields are `null` when Telegram leaves them out.
 

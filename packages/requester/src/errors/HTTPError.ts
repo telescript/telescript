@@ -1,4 +1,6 @@
 export class HTTPError extends Error {
+	public override name = 'HTTPError';
+
 	public status: number;
 
 	declare cause: Response;

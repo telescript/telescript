@@ -26,6 +26,11 @@ export enum ClientEvent {
 	MessageReaction = 'messageReaction',
 	MessageReactionCount = 'messageReactionCount',
 	Subscription = 'subscription',
+	/**
+	 * A listener threw or an `async` listener rejected. Without a listener for this event, Node.js treats the error as
+	 * uncaught.
+	 */
+	Error = 'error',
 }
 
 export interface ClientOptions {
@@ -45,6 +50,7 @@ export type EventMap = {
 	[ClientEvent.MessageReaction]: [MessageReactionUpdated];
 	[ClientEvent.MessageReactionCount]: [MessageReactionCountUpdated];
 	[ClientEvent.Subscription]: [BotSubscriptionUpdated];
+	[ClientEvent.Error]: [unknown];
 };
 
 export class Client extends EventEmitter<EventMap> implements StructureOwner {
@@ -61,19 +67,35 @@ export class Client extends EventEmitter<EventMap> implements StructureOwner {
 	public users = new UserRepository(this);
 
 	public constructor(options: ClientOptions) {
-		super();
+		// Rejections of `async` listeners become `error` events.
+		super({ captureRejections: true });
 		this.requester = options.requester;
 		this.core = new Core({ requester: this.requester });
 		this.updateTransport = options.updateTransport;
 	}
 
+	/**
+	 * Receives updates and emits their events until `stop()`. A listener that throws doesn't stop it: the error is
+	 * emitted as {@link ClientEvent.Error}.
+	 */
 	public async start() {
 		for await (const update of this.updateTransport) {
-			const upd = processUpdate(this, update);
-			if (upd) {
-				this.emit(upd[0], ...upd[1]);
+			try {
+				const upd = processUpdate(this, update);
+				if (upd) {
+					this.emit(upd[0], ...upd[1]);
+				}
+			} catch (error) {
+				this.emit(ClientEvent.Error, error);
 			}
 		}
+	}
+
+	/**
+	 * Stops receiving updates: `start()` resolves.
+	 */
+	public stop() {
+		this.updateTransport.stop?.();
 	}
 
 	public async getMe() {
