@@ -8,6 +8,6 @@ export class PaidMediaInfo extends Structure<APIPaidMediaInfo> {
 	}
 
 	public get paidMedia() {
-		return this[Structure.DataProperty].paid_media.map((data) => createPaidMedia(data));
+		return this[Structure.DataProperty].paid_media.map((data) => createPaidMedia(data, this[Structure.OwnerProperty]));
 	}
 }

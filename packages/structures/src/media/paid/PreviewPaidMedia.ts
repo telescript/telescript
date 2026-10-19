@@ -1,9 +1,10 @@
 import { PaidMediaType } from '@telescript/api-types';
 import { BasePaidMedia } from './BasePaidMedia.js';
 import { Structure } from '../../Structure.js';
+import type { Resolve } from '../../registry.js';
 
 export class PreviewPaidMedia extends BasePaidMedia<PaidMediaType.Preview> {
-	public isPreview(): this is PreviewPaidMedia {
+	public isPreview(): this is Resolve<'PreviewPaidMedia'> {
 		return true;
 	}
 

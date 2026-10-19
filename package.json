@@ -7,7 +7,9 @@
 		"build": "pnpm --recursive run build",
 		"format": "pnpm --parallel run format",
 		"format:check": "pnpm --parallel run format:check",
-		"check": "pnpm run build && pnpm run format:check"
+		"check": "pnpm run build && pnpm run format:check",
+		"test": "vitest run",
+		"check:docs": "node scripts/check-api-docs.mjs"
 	},
 	"author": "Synbulat Biishev <me@syjalo.dev>",
 	"license": "Apache-2.0",
@@ -15,6 +17,7 @@
 	"devDependencies": {
 		"@types/node": "^25.8.0",
 		"prettier": "^3.8.3",
-		"typescript": "^6.0.3"
+		"typescript": "^6.0.3",
+		"vitest": "^5.0.5"
 	}
 }

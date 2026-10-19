@@ -1,0 +1,19 @@
+import { RichTextType } from '@telescript/api-types';
+import { Structure } from '../../../Structure.js';
+import { BaseRichText } from './BaseRichText.js';
+import { createRichText } from './createRichText.js';
+import type { Resolve } from '../../../registry.js';
+
+export class BankCardNumberRichText extends BaseRichText<RichTextType.BankCardNumber> {
+	public isBankCardNumber(): this is Resolve<'BankCardNumberRichText'> {
+		return true;
+	}
+
+	public get text() {
+		return createRichText(this[Structure.DataProperty].text, this[Structure.OwnerProperty]);
+	}
+
+	public get bankCardNumber() {
+		return this[Structure.DataProperty].bank_card_number;
+	}
+}

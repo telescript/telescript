@@ -1,31 +1,28 @@
-import {
-	APIAcceptedGiftTypes,
-	APIChatAdministratorRights,
-	APIChatFullInfo,
-	APIChatPermissions,
-	APIReactionType,
-} from './chat.js';
+import { APIAcceptedGiftTypes, APIChatFullInfo, APIChatPermissions, APIReactionType } from './chat.js';
 import { APIFile, InputFile } from './file.js';
 import {
+	APIChatAdministratorRights,
 	APIForceReply,
 	APIInlineKeyboardMarkup,
 	APIKeyboardButton,
 	APIReplyKeyboardMarkup,
 	APIReplyKeyboardRemove,
-} from './keyboard.js';
+} from './markup.js';
 import { APIMaskPosition, APISticker } from './media.js';
 import {
 	APIEphemeralMessageParameters,
+	APIInputPollOption,
 	APILinkPreviewOptions,
 	APIMessage,
 	APIMessageEntity,
 	APIMessageId,
+	APIPoll,
 	APIReplyParameters,
+	APIStarAmount,
 	APIStory,
+	APISuggestedPostParameters,
+	PollType,
 } from './message.js';
-import { APIStarAmount } from './payments.js';
-import { APIInputPollOption, APIPoll, PollType } from './poll.js';
-import { APISuggestedPostParameters } from './suggested-post.js';
 import { APIBusinessConnection, APIChatInviteLink, APIChatMember, APIUpdate } from './update.js';
 import { APIUser } from './user.js';
 

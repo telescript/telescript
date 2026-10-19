@@ -46,4 +46,8 @@ export class ClientUser extends BaseUser<APIMethod.GetMe.Result> {
 	public get canManageBots() {
 		return this[Structure.DataProperty].can_manage_bots;
 	}
+
+	public get supportsJoinRequestQueries() {
+		return this[Structure.DataProperty].supports_join_request_queries;
+	}
 }

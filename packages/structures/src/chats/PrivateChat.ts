@@ -2,6 +2,7 @@ import { ChatType } from '@telescript/api-types';
 import { UsernameableChatMixin } from './mixins/index.js';
 import { Structure } from '../Structure.js';
 import { BaseChat } from './BaseChat.js';
+import type { Resolve } from '../registry.js';
 
 export interface PrivateChat extends UsernameableChatMixin<ChatType.Private> {}
 
@@ -10,7 +11,7 @@ export class PrivateChat extends BaseChat<ChatType.Private> {
 		this.mixin(UsernameableChatMixin);
 	}
 
-	public isPrivate(): this is PrivateChat {
+	public isPrivate(): this is Resolve<'PrivateChat'> {
 		return true;
 	}
 

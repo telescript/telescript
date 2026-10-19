@@ -2,18 +2,28 @@ import {
 	APIInlineKeyboardMarkup,
 	APIInputPollOption,
 	APILinkPreviewOptions,
+	APIMaybeInaccessibleMessage,
 	APIMessage,
 	APIMessageEntity,
 	APIMethod,
 	InputFile,
 	PollType,
 } from '@telescript/api-types';
-import { Message } from '../structures/Message.js';
+import {
+	createMaybeInaccessibleMessage,
+	createMessage,
+	type MaybeInaccessibleMessage,
+	type Message,
+} from '@telescript/structures';
 import { Repository } from './Repository.js';
 
 export class MessageRepository extends Repository<APIMessage, Message> {
-	public resolve(data: APIMessage) {
-		return new Message(this.client, data);
+	public resolve(data: APIMessage): Message {
+		return createMessage(data, this.client);
+	}
+
+	public resolveMaybeInaccessible(data: APIMaybeInaccessibleMessage): MaybeInaccessibleMessage {
+		return createMaybeInaccessibleMessage(data, this.client);
 	}
 
 	public async sendText(options: SendTextOptions) {

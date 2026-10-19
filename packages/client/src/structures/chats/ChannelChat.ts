@@ -1,11 +1,12 @@
 import { ChatType } from '@telescript/api-types';
-import { BaseChat } from './BaseChat.js';
 import { ChannelChat as ParentChannelChat } from '@telescript/structures';
+import { ClientMixin } from '../ClientMixin.js';
+import { ChatActions } from './actions/ChatActions.js';
 
-export interface ChannelChat extends ParentChannelChat {}
+export interface ChannelChat extends ClientMixin, ChatActions<ChatType.Channel> {}
 
-export class ChannelChat extends BaseChat<ChatType.Channel> {
+export class ChannelChat extends ParentChannelChat {
 	static {
-		this.mixin(ParentChannelChat);
+		this.mixin(ClientMixin, ChatActions);
 	}
 }

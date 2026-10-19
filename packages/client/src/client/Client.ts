@@ -3,7 +3,16 @@ import EventEmitter from 'node:events';
 import { ChatRepository, MessageRepository, UserRepository } from '../repositories/index.js';
 import { processUpdate } from './updates/index.js';
 import type { Requester, UpdateTransport } from '@telescript/spec';
-import { ClientUser, Message } from '../structures/index.js';
+import {
+	ClientUser,
+	type BotSubscriptionUpdated,
+	type BusinessMessagesDeleted,
+	type Message,
+	type MessageReactionCountUpdated,
+	type MessageReactionUpdated,
+	type StructureOwner,
+} from '@telescript/structures';
+import '../structures/registry.js';
 
 export enum ClientEvent {
 	Message = 'message',
@@ -13,6 +22,10 @@ export enum ClientEvent {
 	BusinessMessage = 'businessMessage',
 	EditedBusinessMessage = 'editedBusinessMessage',
 	GuestMessage = 'guestMessage',
+	DeletedBusinessMessages = 'deletedBusinessMessages',
+	MessageReaction = 'messageReaction',
+	MessageReactionCount = 'messageReactionCount',
+	Subscription = 'subscription',
 }
 
 export interface ClientOptions {
@@ -28,9 +41,13 @@ export type EventMap = {
 	[ClientEvent.BusinessMessage]: [Message];
 	[ClientEvent.EditedBusinessMessage]: [Message];
 	[ClientEvent.GuestMessage]: [Message];
+	[ClientEvent.DeletedBusinessMessages]: [BusinessMessagesDeleted];
+	[ClientEvent.MessageReaction]: [MessageReactionUpdated];
+	[ClientEvent.MessageReactionCount]: [MessageReactionCountUpdated];
+	[ClientEvent.Subscription]: [BotSubscriptionUpdated];
 };
 
-export class Client extends EventEmitter<EventMap> {
+export class Client extends EventEmitter<EventMap> implements StructureOwner {
 	public requester: Requester;
 
 	public core: Core;
@@ -61,7 +78,7 @@ export class Client extends EventEmitter<EventMap> {
 
 	public async getMe() {
 		const data = await this.core.api.getMe();
-		return new ClientUser(this, data);
+		return new ClientUser(data, this);
 	}
 
 	public async logOut() {

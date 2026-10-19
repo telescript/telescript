@@ -1,7 +1,6 @@
-import { APICommunity } from './community.js';
-import { APIUniqueGiftColors } from './gift.js';
+import { APILocation } from './location.js';
 import { APIAudio, APISticker } from './media.js';
-import { APILocation, APIMessage } from './message.js';
+import { APICommunity, APIGift, APIMessage, APIMessageEntity, APIUniqueGift, APIUniqueGiftColors } from './message.js';
 import { APIUser } from './user.js';
 
 export enum ChatType {
@@ -41,8 +40,8 @@ export namespace APIChat {
 	export interface Group extends Base<ChatType.Group>, TitleableBase {}
 
 	export interface Supergroup extends Base<ChatType.Supergroup>, TitleableBase, UsernameableBase {
-		is_forum?: true;
-		is_direct_messages?: true;
+		is_forum?: boolean;
+		is_direct_messages?: boolean;
 	}
 
 	export interface Channel extends Base<ChatType.Channel>, TitleableBase, UsernameableBase {}
@@ -88,7 +87,7 @@ export interface APIChatFullInfo {
 	invite_link?: string;
 	pinned_message?: APIMessage;
 	permissions?: APIChatPermissions;
-	accepted_gift_types: APIAcceptedGiftTypes;
+	accepted_gift_types?: APIAcceptedGiftTypes;
 	can_send_paid_media?: boolean;
 	slow_mode_delay?: number;
 	unrestrict_boost_count?: number;
@@ -186,11 +185,11 @@ export interface APIChatPermissions {
 }
 
 export interface APIAcceptedGiftTypes {
-	unlimited_gifts: boolean;
-	limited_gifts: boolean;
-	unique_gifts: boolean;
-	premium_subscription: boolean;
-	gifts_from_channels: boolean;
+	unlimited_gifts?: boolean;
+	limited_gifts?: boolean;
+	unique_gifts?: boolean;
+	premium_subscription?: boolean;
+	gifts_from_channels?: boolean;
 }
 
 export interface APIChatLocation {
@@ -205,23 +204,47 @@ export interface APIUserRating {
 	next_level_rating?: number;
 }
 
-export interface APIChatAdministratorRights {
-	is_anonymous: boolean;
-	can_manage_chat: boolean;
-	can_delete_messages: boolean;
-	can_manage_video_chats: boolean;
-	can_restrict_members: boolean;
-	can_promote_members: boolean;
-	can_change_info: boolean;
-	can_invite_users: boolean;
-	can_post_stories: boolean;
-	can_edit_stories: boolean;
-	can_delete_stories: boolean;
-	can_post_messages?: boolean;
-	can_edit_messages?: boolean;
-	can_pin_messages?: boolean;
-	can_manage_topics?: boolean;
-	can_manage_direct_messages?: boolean;
-	can_manage_tags?: boolean;
-	can_send_welcome_messages: boolean;
+export enum OwnedGiftType {
+	Regular = 'regular',
+	Unique = 'unique',
+}
+
+export type APIOwnedGift = APIOwnedGift.Regular | APIOwnedGift.Unique;
+
+export namespace APIOwnedGift {
+	export interface Base<Type extends OwnedGiftType> {
+		type: Type;
+		owned_gift_id?: string;
+		sender_user?: APIUser;
+		send_date: number;
+		is_saved?: boolean;
+	}
+
+	export interface Regular extends Base<OwnedGiftType.Regular> {
+		gift: APIGift;
+		text?: string;
+		entities?: APIMessageEntity[];
+		is_private?: boolean;
+		can_be_upgraded?: boolean;
+		was_refunded?: boolean;
+		convert_star_count?: number;
+		prepaid_upgrade_star_count?: number;
+		is_upgrade_separate?: boolean;
+		unique_gift_number?: number;
+	}
+
+	export interface Unique extends Base<OwnedGiftType.Unique> {
+		gift: APIUniqueGift;
+		can_be_transferred?: boolean;
+		transfer_star_count?: number;
+		next_transfer_date?: number;
+	}
+
+	export type FromType<Type extends OwnedGiftType> = Extract<APIOwnedGift, { type: Type }>;
+}
+
+export interface APIOwnedGifts {
+	total_count: number;
+	gifts: APIOwnedGift[];
+	next_offset?: string;
 }

@@ -1,9 +1,6 @@
 import { APIPaidMedia, PaidMediaType } from '@telescript/api-types';
 import { Structure } from '../../Structure.js';
-import { LivePhotoPaidMedia } from './LivePhotoPaidMedia.js';
-import { PhotoPaidMedia } from './PhotoPaidMedia.js';
-import { PreviewPaidMedia } from './PreviewPaidMedia.js';
-import { VideoPaidMedia } from './VideoPaidMedia.js';
+import type { Resolve } from '../../registry.js';
 
 export class BasePaidMedia<
 	Type extends PaidMediaType,
@@ -13,19 +10,19 @@ export class BasePaidMedia<
 		return this[Structure.DataProperty].type;
 	}
 
-	public isLivePhoto(): this is LivePhotoPaidMedia {
+	public isLivePhoto(): this is Resolve<'LivePhotoPaidMedia'> {
 		return false;
 	}
 
-	public isPhoto(): this is PhotoPaidMedia {
+	public isPhoto(): this is Resolve<'PhotoPaidMedia'> {
 		return false;
 	}
 
-	public isPreview(): this is PreviewPaidMedia {
+	public isPreview(): this is Resolve<'PreviewPaidMedia'> {
 		return false;
 	}
 
-	public isVideo(): this is VideoPaidMedia {
+	public isVideo(): this is Resolve<'VideoPaidMedia'> {
 		return false;
 	}
 }

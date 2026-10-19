@@ -1,4 +1,8 @@
 import { APIMessageReactionCountUpdate } from '@telescript/api-types';
-import { Client } from '../../Client';
+import { createStructure } from '@telescript/structures';
+import { Client, ClientEvent } from '../../Client.js';
 
-export function message_reaction_count(_client: Client, _update: APIMessageReactionCountUpdate) {}
+export function message_reaction_count(client: Client, update: APIMessageReactionCountUpdate) {
+	const reactionCount = createStructure(client, 'MessageReactionCountUpdated', update.message_reaction_count);
+	return [ClientEvent.MessageReactionCount, [reactionCount]] as const;
+}

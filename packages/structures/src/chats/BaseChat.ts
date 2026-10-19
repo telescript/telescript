@@ -1,11 +1,8 @@
 import { APIChat, ChatType } from '@telescript/api-types';
 import { Structure } from '../Structure.js';
-import { ChannelChat } from './ChannelChat.js';
-import { GroupChat } from './GroupChat.js';
-import { PrivateChat } from './PrivateChat.js';
-import { SupergroupChat } from './SupergroupChat.js';
 import { TitleableChatMixin } from './mixins/TitleableChatMixin.js';
 import { UsernameableChatMixin } from './mixins/UsernameableChatMixin.js';
+import type { Resolve } from '../registry.js';
 
 export class BaseChat<
 	Type extends ChatType,
@@ -19,19 +16,19 @@ export class BaseChat<
 		return this[Structure.DataProperty].type;
 	}
 
-	public isChannel(): this is ChannelChat {
+	public isChannel(): this is Resolve<'ChannelChat'> {
 		return false;
 	}
 
-	public isGroup(): this is GroupChat {
+	public isGroup(): this is Resolve<'GroupChat'> {
 		return false;
 	}
 
-	public isPrivate(): this is PrivateChat {
+	public isPrivate(): this is Resolve<'PrivateChat'> {
 		return false;
 	}
 
-	public isSupergroup(): this is SupergroupChat {
+	public isSupergroup(): this is Resolve<'SupergroupChat'> {
 		return false;
 	}
 

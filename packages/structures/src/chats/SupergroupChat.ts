@@ -2,6 +2,7 @@ import { ChatType } from '@telescript/api-types';
 import { TitleableChatMixin, UsernameableChatMixin } from './mixins/index.js';
 import { Structure } from '../Structure.js';
 import { BaseChat } from './BaseChat.js';
+import type { Resolve } from '../registry.js';
 
 export interface SupergroupChat
 	extends TitleableChatMixin<ChatType.Supergroup>, UsernameableChatMixin<ChatType.Supergroup> {}
@@ -11,7 +12,7 @@ export class SupergroupChat extends BaseChat<ChatType.Supergroup> {
 		this.mixin(TitleableChatMixin, UsernameableChatMixin);
 	}
 
-	public isSupergroup(): this is SupergroupChat {
+	public isSupergroup(): this is Resolve<'SupergroupChat'> {
 		return true;
 	}
 
