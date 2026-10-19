@@ -1,0 +1,23 @@
+name: Bot API docs
+
+# Fails (and GitHub notifies the maintainers) when the live Bot API docs have fields or types that api-types or the
+# structures don't cover yet, e.g. after a new Bot API version.
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+jobs:
+  check-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - run: pnpm check:docs
