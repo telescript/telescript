@@ -72,7 +72,7 @@ pnpm check        # build, lint, check the formatting and test, as CI does
 pnpm check:docs   # compare api-types with the Bot API docs
 ```
 
-Requires Node.js 20 or later and pnpm. In VS Code, install the recommended extensions: files are then formatted and lint fixes applied on save.
+Requires Node.js 22 or later and pnpm. In VS Code, install the recommended extensions: files are then formatted and lint fixes applied on save.
 
 ## License
 
