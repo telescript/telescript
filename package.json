@@ -21,10 +21,10 @@
 	"packageManager": "pnpm@11.1.2",
 	"devDependencies": {
 		"@eslint/js": "^10.0.1",
-		"@types/node": "^25.8.0",
+		"@types/node": "^22.19.0",
 		"eslint": "^10.13.0",
 		"eslint-config-prettier": "^10.1.8",
-		"prettier": "^3.8.3",
+		"prettier": "^3.9.10",
 		"typescript": "^6.0.3",
 		"typescript-eslint": "^8.71.2",
 		"vitest": "^5.0.5"

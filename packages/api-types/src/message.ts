@@ -595,11 +595,7 @@ export namespace MessageType {
 	 * Messages that can be grouped into an album (media group).
 	 */
 	export type Groupable =
-		| MessageType.Audio
-		| MessageType.Document
-		| MessageType.LivePhoto
-		| MessageType.Photo
-		| MessageType.Video;
+		MessageType.Audio | MessageType.Document | MessageType.LivePhoto | MessageType.Photo | MessageType.Video;
 }
 
 export type APIMessage =
@@ -1147,10 +1143,7 @@ export enum MessageOriginType {
 }
 
 export type APIMessageOrigin =
-	| APIMessageOrigin.User
-	| APIMessageOrigin.HiddenUser
-	| APIMessageOrigin.Chat
-	| APIMessageOrigin.Channel;
+	APIMessageOrigin.User | APIMessageOrigin.HiddenUser | APIMessageOrigin.Chat | APIMessageOrigin.Channel;
 
 export namespace APIMessageOrigin {
 	export interface Base<Type extends MessageOriginType> {
@@ -1694,10 +1687,7 @@ export interface APIBackgroundTypeChatTheme {
 }
 
 export type APIBackgroundType =
-	| APIBackgroundTypeFill
-	| APIBackgroundTypeWallpaper
-	| APIBackgroundTypePattern
-	| APIBackgroundTypeChatTheme;
+	APIBackgroundTypeFill | APIBackgroundTypeWallpaper | APIBackgroundTypePattern | APIBackgroundTypeChatTheme;
 
 export interface APIChatBackground {
 	type: APIBackgroundType;

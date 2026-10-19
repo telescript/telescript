@@ -66,9 +66,7 @@ export enum RevenueWithdrawalStateType {
 }
 
 export type APIRevenueWithdrawalState =
-	| APIRevenueWithdrawalState.Pending
-	| APIRevenueWithdrawalState.Succeeded
-	| APIRevenueWithdrawalState.Failed;
+	APIRevenueWithdrawalState.Pending | APIRevenueWithdrawalState.Succeeded | APIRevenueWithdrawalState.Failed;
 
 export namespace APIRevenueWithdrawalState {
 	export interface Base<Type extends RevenueWithdrawalStateType> {
